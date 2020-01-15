@@ -10,7 +10,7 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username',]
     
-class DailyUpdateForm(forms.ModelForm):
+'''class DailyUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Daily
@@ -28,7 +28,7 @@ class DailyUpdateForm(forms.ModelForm):
                 'group',
                 'wishes',]
 
-        '''request_date = models.DateTimeField(blank=True, null=True)
+    request_date = models.DateTimeField(blank=True, null=True)
     name = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=100, blank=True)
     email = models.CharField(max_length=100, blank=True)

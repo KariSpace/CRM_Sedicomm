@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, DailyUpdateForm
+from .forms import UserUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Daily
@@ -35,13 +35,10 @@ def staff(request):
 
         n_form = UserUpdateForm(instance=request.user)
         
-        item_form = DailyUpdateForm(instance=Daily)
-        
         context = {
         "n_form":n_form,
         "list_items":list_items,
         "table_date":table_date,
-        "item_form":item_form,
         }
         return render(request,"staff.html",context)
 
@@ -49,6 +46,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
     fields = [
+                'request_date',
                 'name',
                 'phone',
                 'email',
@@ -91,8 +89,6 @@ def ChangePassword(request):
         }
         return render(request,"pass_change.html",context)
 
-def login(request):
-    return render(request, 'login.html')
 
 
 

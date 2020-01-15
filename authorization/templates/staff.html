@@ -72,9 +72,10 @@
             </div>
             <div class="table_content" id='table_content'>
             {% for item in list_items %}
+                {% if item.is_called %}
                 <div class="item">
-                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'contacts', 'location,width=400,height=500,top=200,left=300'); popupWin.focus(); return false;">
-                        <div class="item_header" data-toggle="collapse" data-target="#item_description">
+                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=400,height=500,top=200,left=300'); popupWin.focus(); return false;">
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                             <div class="name">{{item.name}}</div>
                             <div class="phone">{{item.phone}}</div>
                             <div class="country">{{item.country}}</div>
@@ -99,6 +100,7 @@
                         {% endif %}
                     </div> -->
                 </div>
+                {% endif %}
             {% endfor %}   
             </div>
             
@@ -106,6 +108,7 @@
             <h3>Still no tables or something wrong</h3>
         {% endif %}
     </div>
+    <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

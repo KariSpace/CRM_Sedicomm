@@ -25,3 +25,13 @@ class Daily(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def is_called(self):
+        if self.request_status != 'оплачено частично' and self.request_status != 'ожидаем оплату' and self.request_status != 'отказ' and self.request_status != 'оплачено':
+            return True
+    
+    def call_status(self):
+        if self.request_status != 'перезвонить':
+            return False
+        else :
+            return True
