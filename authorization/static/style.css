@@ -87,10 +87,12 @@ a:hover{
     flex-direction: column;
     margin: 10px;
 }
-
+.table_content{
+    overflow: auto;
+}
 .table_header{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     background-color: rgb(182, 204, 243);
     border: darkblue 1px solid;
 
@@ -104,4 +106,11 @@ a:hover{
 .item_header, .item_description{
     border: 1px solid blue;
     border-top:0;
+    padding: 5px;
+    overflow: auto;
+}
+.item_header{
+    display: flex;
+    justify-content: space-around;
+    font-weight: 500;
 }

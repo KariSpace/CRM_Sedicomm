@@ -73,12 +73,31 @@
             <div class="table_content" id='table_content'>
             {% for item in list_items %}
                 <div class="item">
-                    <div class="item_header" data-toggle="collapse" data-target="#item_description">
-                        {{item}}  
-                    </div>
-                    <div class="item_description collapse" id="item_description">
-                        Description
-                    </div>
+                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'contacts', 'location,width=400,height=500,top=200,left=300'); popupWin.focus(); return false;">
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description">
+                            <div class="name">{{item.name}}</div>
+                            <div class="phone">{{item.phone}}</div>
+                            <div class="country">{{item.country}}</div>
+                            {% if item.callback_time %}
+                            <div class="callback_time">{{item.callback_time}}</div>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <!-- <div class="item_description collapse" id="item_description">
+                        {% if item_form %}
+                        <form method="POST" class="u_u_form">
+                            {% csrf_token %}
+                            <fieldset class="form-group"> 
+                                {{ item_form }}
+                            </fieldset>
+                            <fieldset class="form-group d-flex justify-content-center">
+                                <div class="buttons">
+                                    <button class="btn btn-outline-danger" type="submit">Submit</a></button>
+                                </div>
+                            </fieldset>
+                        </form>
+                        {% endif %}
+                    </div> -->
                 </div>
             {% endfor %}   
             </div>

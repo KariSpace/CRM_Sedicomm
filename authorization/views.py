@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm
+from .forms import UserUpdateForm, DailyUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Daily
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 
@@ -32,12 +34,46 @@ def staff(request):
         table_date = table_date.request_date.strftime("%d/%m")
 
         n_form = UserUpdateForm(instance=request.user)
+        
+        item_form = DailyUpdateForm(instance=Daily)
+        
         context = {
         "n_form":n_form,
         "list_items":list_items,
-        "table_date":table_date
+        "table_date":table_date,
+        "item_form":item_form,
         }
         return render(request,"staff.html",context)
+
+class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
+    model = Daily
+    template_name = 'info_update.html'
+    fields = [
+                'name',
+                'phone',
+                'email',
+                'course',
+                'country',
+                'currency',
+                'course_price',
+                'callback_time',
+                'group',
+                'wishes',
+                'comments',
+                'request_status',]
+    success_url='/ok/'
+    def form_valid(self, form):
+        # form.instance = self.get_object
+        return super().form_valid(form)
+
+
+
+@login_required
+def OkView(request):
+    return render(request,"ok.html")
+
+def login(request):
+    return render(request, 'login.html')
 
 
 @login_required
