@@ -74,13 +74,13 @@
             {% for item in list_items %}
                 {% if item.is_called %}
                 <div class="item">
-                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=400,height=500,top=200,left=300'); popupWin.focus(); return false;">
+                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                         <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                             <div class="name">{{item.name}}</div>
                             <div class="phone">{{item.phone}}</div>
                             <div class="country">{{item.country}}</div>
                             {% if item.callback_time %}
-                            <div class="callback_time">{{item.callback_time}}</div>
+                            <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
                             {% endif %}
                         </div>
                     </a>

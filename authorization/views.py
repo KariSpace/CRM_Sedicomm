@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm
+from .forms import UserUpdateForm, ItemInfoUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Daily
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from datetime import datetime
 
 
 
@@ -29,7 +29,7 @@ def staff(request):
             messages.warning(request, f'Something wrong, maybe this name is allready taken')
             return redirect('staff')
     else:
-        list_items = Daily.objects.all()
+        list_items = Daily.objects.order_by('callback_time')
         table_date = Daily.objects.get(id = 1)
         table_date = table_date.request_date.strftime("%d/%m")
 
@@ -45,23 +45,11 @@ def staff(request):
 class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
-    fields = [
-                'request_date',
-                'name',
-                'phone',
-                'email',
-                'course',
-                'country',
-                'currency',
-                'course_price',
-                'callback_time',
-                'group',
-                'wishes',
-                'comments',
-                'request_status',]
+    form_class = ItemInfoUpdateForm
     success_url='/ok/'
     def form_valid(self, form):
-        # form.instance = self.get_object
+        cleaned = form.save(commit=False)
+        cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
         return super().form_valid(form)
 
 
