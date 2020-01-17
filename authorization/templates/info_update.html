@@ -35,6 +35,11 @@
             format: 'd/m/Y H:i',
           });
         });
-      </script>
+        
+    </script>
+    <script>
+        document.getElementById('id_callback_time').addEventListener('mouseenter', function(event) {
+        event.target.setAttribute('autocomplete', 'off')});
+    </script>
 </body>
 </html>

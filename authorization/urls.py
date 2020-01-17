@@ -6,6 +6,7 @@ from .views import ItemInfoUpdate
 urlpatterns = [
     path('', views.start, name='start'),
     path('staff/', views.staff, name='staff'),
+    path('groups/', views.groups, name='groups'),
     path('ok/', views.OkView, name='ok_view'),
     path('item/<int:pk>/item_info', ItemInfoUpdate.as_view(), name='item_info_update'),
     path('password_change/', views.ChangePassword, name='password_change'),

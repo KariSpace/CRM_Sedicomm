@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'dynamic_models',
+    # 'dynamic_models',
     'crispy_forms',
     'authorization.apps.AuthorizationConfig',
     'django.contrib.admin',

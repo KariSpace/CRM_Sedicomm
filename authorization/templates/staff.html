@@ -12,10 +12,19 @@
 </head>
 <body>
     <div class="header">
-        <div class="text col-4">
-            <!-- <h2>{{user.username}}</h2>    -->
+        <div class="text col-8">
+            <button class="btn btn-outline-info active" type="button">
+                <a href="{% url 'staff' %}">
+                    Daylis
+                </a>
+            </button>
+            <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'groups' %}">
+                    Groups
+                </a>
+            </button>
         </div>
-        <div class="settings col-8">
+        <div class="settings col-4">
         <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
         </button>
@@ -54,6 +63,8 @@
         </div>
     </div>
     </div>
+
+
     {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -63,50 +74,90 @@
             {% endfor %}
         </div>
     {% endif %}
+
+
     <div class="content ">
-        {% if list_items %}
-            <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
-                <h5>{{ list_items.0.course }}</h5>
-                <h5>{{ table_date }}</h5>
-                <h5>New Users</h5>
-            </div>
-            <div class="table_content" id='table_content'>
-            {% for item in list_items %}
-                {% if item.is_called %}
-                <div class="item">
-                    <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                        <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                            <div class="name">{{item.name}}</div>
-                            <div class="phone">{{item.phone}}</div>
-                            <div class="country">{{item.country}}</div>
-                            {% if item.callback_time %}
-                            <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                            {% endif %}
-                        </div>
-                    </a>
-                    <!-- <div class="item_description collapse" id="item_description">
-                        {% if item_form %}
-                        <form method="POST" class="u_u_form">
-                            {% csrf_token %}
-                            <fieldset class="form-group"> 
-                                {{ item_form }}
-                            </fieldset>
-                            <fieldset class="form-group d-flex justify-content-center">
-                                <div class="buttons">
-                                    <button class="btn btn-outline-danger" type="submit">Submit</a></button>
-                                </div>
-                            </fieldset>
-                        </form>
-                        {% endif %}
-                    </div> -->
-                </div>
-                {% endif %}
-            {% endfor %}   
+        <div class="new_tables">
+            <div class="tables_header" data-toggle="collapse" data-target="#new_tables" aria-expanded="false">
+                <h5>Новые Заявки</h5>
             </div>
             
-        {% else %}
-            <h3>Still no tables or something wrong</h3>
-        {% endif %}
+            <div class="table show" id="new_tables" >
+            {% if list_items %}
+            {% if table_status %}
+                <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
+                    <h5>{{ list_items.0.course }}</h5>
+                    <h5>{{ table_date }}</h5>
+                    <h5>New Users</h5>
+                </div>
+                <div class="table_content show" id='table_content'>
+                {% for item in list_items %}
+                    {% if item.is_not_called %}
+                    <div class="item">
+                        <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                            <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                <div class="name">{{item.name}}</div>
+                                <div class="phone">{{item.phone}}</div>
+                                <div class="country">{{item.country}}</div>
+                                {% if item.callback_time %}
+                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                {% endfor %}   
+                </div>
+            {% else %}
+                <h3>Still no tables or something wrong</h3>
+            {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="payment_tables">
+            <div class="tables_header" data-toggle="collapse" data-target="#payment_tables" aria-expanded="false">
+                <h5>Оплаты</h5>
+            </div>
+            
+            <div class="table show" id="payment_tables" >
+            {% if list_items %}
+            {% if table_status %}
+                <div class="table_header "  data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
+                    <h5>{{ table_date }}</h5>
+                    <h5>Payments</h5>
+                </div>
+                <div class="table_content show" id='table_payments_content'>
+                {% for item in list_items %}
+                    {% if item.is_called %}
+                    <div class="item">
+                        <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                            <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                <!-- <table style="width:100%">
+                                    <tr>
+                                      <th><div class="name">{{item.name}}</div></th>
+                                      <th><div class="phone">{{item.phone}}</div></th> 
+                                      <th>Age</th>
+                                    </tr>
+                                </table> -->
+                                <div class="name">{{item.name}}</div>
+                                <div class="phone">{{item.phone}}</div>
+                                <div class="country">{{item.request_status}}</div>
+                                {% if item.callback_time %}
+                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    {% endif %}
+                {% endfor %}   
+                </div>
+            {% else %}
+                <h3>Still no tables or something wrong</h3>
+            {% endif %}
+            </div>
+            {% endif %}
+        </div>
     </div>
     <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

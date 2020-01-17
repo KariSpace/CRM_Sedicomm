@@ -29,6 +29,59 @@ def staff(request):
             messages.warning(request, f'Something wrong, maybe this name is allready taken')
             return redirect('staff')
     else:
+        # username form
+        n_form = UserUpdateForm(instance=request.user)
+
+        # items info
+        list_items = Daily.objects.order_by('callback_time')
+        table_status = False
+        for item in list_items:
+            if item.is_not_called():
+                table_status = True
+        table_date = Daily.objects.get(id = 1)
+        table_date = table_date.request_date.strftime("%d/%m")
+
+        # items payments
+        list_payments = Daily.objects.order_by('total_payment')
+
+        
+        # creating all data list
+        context = {
+        "n_form":n_form,
+        "list_items":list_items,
+        "table_date":table_date,
+        "table_status":table_status,
+        "list_payments":list_payments,
+        }
+        # dispaly page
+        return render(request,"staff.html",context)
+
+class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
+    model = Daily
+    template_name = 'info_update.html'
+    form_class = ItemInfoUpdateForm
+    success_url='/ok/'
+    def form_valid(self, form):
+        # form.instance.callback_time =  form.instance.callback_time.strftime('%d/%m/%Y %H:%M')
+        cleaned = form.save(commit=False)
+        cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
+        return super().form_valid(form)
+
+
+
+@login_required
+def groups(request):
+
+    if request.method == 'POST':
+        n_form = UserUpdateForm(request.POST, instance=request.user)
+        if n_form.is_valid():
+            n_form.save()
+            messages.success(request, f'Data has been updated!')
+            return redirect('staff')
+        else:
+            messages.warning(request, f'Something wrong, maybe this name is allready taken')
+            return redirect('staff')
+    else:
         list_items = Daily.objects.order_by('callback_time')
         table_date = Daily.objects.get(id = 1)
         table_date = table_date.request_date.strftime("%d/%m")
@@ -40,19 +93,7 @@ def staff(request):
         "list_items":list_items,
         "table_date":table_date,
         }
-        return render(request,"staff.html",context)
-
-class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
-    model = Daily
-    template_name = 'info_update.html'
-    form_class = ItemInfoUpdateForm
-    success_url='/ok/'
-    def form_valid(self, form):
-        cleaned = form.save(commit=False)
-        cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
-        return super().form_valid(form)
-
-
+        return render(request,"groups.html",context)
 
 @login_required
 def OkView(request):
