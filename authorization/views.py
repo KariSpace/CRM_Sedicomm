@@ -43,6 +43,10 @@ def staff(request):
 
         # items payments
         list_payments = Daily.objects.order_by('total_payment')
+        payment_status = False
+        for item in list_items:
+            if item.is_called():
+                payment_status = True
 
         
         # creating all data list
@@ -52,6 +56,7 @@ def staff(request):
         "table_date":table_date,
         "table_status":table_status,
         "list_payments":list_payments,
+        "payment_status":payment_status,
         }
         # dispaly page
         return render(request,"staff.html",context)
@@ -61,10 +66,11 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'info_update.html'
     form_class = ItemInfoUpdateForm
     success_url='/ok/'
+
+    comments = model.comments
     def form_valid(self, form):
-        # form.instance.callback_time =  form.instance.callback_time.strftime('%d/%m/%Y %H:%M')
         cleaned = form.save(commit=False)
-        cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
+        cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
         return super().form_valid(form)
 
 

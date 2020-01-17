@@ -81,10 +81,11 @@
             <div class="tables_header" data-toggle="collapse" data-target="#new_tables" aria-expanded="false">
                 <h5>Новые Заявки</h5>
             </div>
-            
-            <div class="table show" id="new_tables" >
             {% if list_items %}
             {% if table_status %}
+            <div class="table show" id="new_tables" >
+            
+            
                 <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
                     <h5>{{ list_items.0.course }}</h5>
                     <h5>{{ table_date }}</h5>
@@ -108,21 +109,23 @@
                     {% endif %}
                 {% endfor %}   
                 </div>
-            {% else %}
-                <h3>Still no tables or something wrong</h3>
-            {% endif %}
-            </div>
-            {% endif %}
+                {% else %}
+                    <h3 style="text-align: center;">All done</h3>
+                {% endif %}
+        {% else %}
+            <h3 style="text-align: center;">Still no tables or something wrong</h3>
+        {% endif %}
+            </div>  
         </div>
 
         <div class="payment_tables">
             <div class="tables_header" data-toggle="collapse" data-target="#payment_tables" aria-expanded="false">
                 <h5>Оплаты</h5>
             </div>
-            
-            <div class="table show" id="payment_tables" >
             {% if list_items %}
-            {% if table_status %}
+            {% if payment_status %}
+            <div class="table show" id="payment_tables" >
+            
                 <div class="table_header "  data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
                     <h5>{{ table_date }}</h5>
                     <h5>Payments</h5>
@@ -152,16 +155,19 @@
                     {% endif %}
                 {% endfor %}   
                 </div>
+                {% else %}
+                    <h3 style="text-align: center;">Nothing</h3>
+                {% endif %}
             {% else %}
-                <h3>Still no tables or something wrong</h3>
+                <h3 style="text-align: center;">Still no tables or something wrong</h3>
             {% endif %}
             </div>
-            {% endif %}
+            
         </div>
     </div>
     <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
