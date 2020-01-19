@@ -1,0 +1,79 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>STAFF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="text col-8">
+            <button class="btn btn-outline-info" type="button">
+                <a href="{% url 'staff' %}">
+                    Daylis
+                </a>
+            </button>
+            <button class="btn btn-outline-info active" type="button">
+                <a href="{% url 'groups' %}">
+                    Groups
+                </a>
+            </button>
+        </div>
+        <div class="settings col-4">
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
+            {{user.username}}
+        </button>
+            <div class="info_update_field collapse" id="InfoUpdateField">
+                <span class="u_u_span">
+                You can change username and password here
+            </span>
+                <form method="POST" class="u_u_form">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ n_form|crispy }}
+                    </fieldset>
+                    <fieldset class="form-group d-flex justify-content-center">
+                        <div class="buttons">
+                            <button class="btn btn-outline-danger" type="submit">Cnange Name</a></button>
+                        </div>
+                    </fieldset>
+                </form>
+                <button class="btn btn-outline-info">
+                <a href="{% url 'password_change' %}">Change Password</a>
+            </button>
+            </div>
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
+            Logout
+        </button>
+            <div class="confirmation_field collapse" id="ConfirmationField">
+                <span class="conf_span">
+                Are you sure you want to log out?
+            </span>
+                <div class="buttons">
+                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
+                    No
+                </button>
+                    <button class="btn btn-outline-danger"><a href="{% url 'logout' %}?next=/">Yes</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p>TODAY</p>
+    {% for people in today_people %}
+    <p>
+        {{people.name}}
+    </p>
+    {% endfor %}
+
+
+</body>
+
+</html>
