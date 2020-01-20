@@ -40,7 +40,28 @@ class ItemInfoUpdateForm(forms.ModelForm):
     # def __init__(self):
     #     self.comments = self.cleaned_data['comments']+'\n'+str(timezone.now())
         
+class ItemPaymentsUpdateForm(forms.ModelForm):
 
+    STATUS_CHOICES = [
+        ('оплачено частично', 'оплачено частично'),
+        ('оплачено', 'оплачено'),
+    ]
+
+    callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
+    request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
+
+    class Meta:
+        model = Daily
+        fields = [
+                
+                'total_payment',
+                'course_price',
+                'obligation',
+                'currency',
+                'payment_source',
+                'course',
+                'payment_history',
+                'callback_time',]    
 
 
 

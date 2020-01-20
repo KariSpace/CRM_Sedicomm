@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ItemInfoUpdateForm
+from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Daily
@@ -69,6 +69,18 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
     form_class = ItemInfoUpdateForm
+    success_url='/ok/'
+
+    comments = model.comments
+    def form_valid(self, form):
+        cleaned = form.save(commit=False)
+        cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
+        return super().form_valid(form)
+
+class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
+    model = Daily
+    template_name = 'info_update.html'
+    form_class = ItemPaymentsUpdateForm
     success_url='/ok/'
 
     comments = model.comments

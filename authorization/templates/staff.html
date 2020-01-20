@@ -97,12 +97,22 @@
                     <div class="item">
                         <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                <div class="name">{{item.name}}</div>
+                                <!-- <div class="name">{{item.name}}</div>
                                 <div class="phone">{{item.phone}}</div>
                                 <div class="country">{{item.country}}</div>
                                 {% if item.callback_time %}
                                 <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                {% endif %}
+                                {% endif %} -->
+                                <table style="width:100%">
+                                    <tr>
+                                      <th><div class="name">{{item.name}}</div></th>
+                                      <th><div class="phone">{{item.phone}}</div></th> 
+                                      <th><div class="country">{{item.country}}</div></th>
+                                      <th>{% if item.callback_time %}
+                                        <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                      {% endif %}</th>
+                                    </tr>
+                                </table>
                             </div>
                         </a>
                     </div>
@@ -134,21 +144,22 @@
                 {% for item in list_items %}
                     {% if item.is_called %}
                     <div class="item">
-                        <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                        <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                <!-- <table style="width:100%">
+                                <table style="width:100%">
                                     <tr>
                                       <th><div class="name">{{item.name}}</div></th>
                                       <th><div class="phone">{{item.phone}}</div></th> 
-                                      <th>Age</th>
+                                      <th><div class="country">{{item.course}}</div></th>
+                                      <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
+                                      <th><div class="country">{{item.request_status}}</div></th>
+                                      <th><div class="country">{{item.total_payment}} {{item.currency}}</div></th>
+                                      <th><div class="country">{{item.obligation}} {{item.currency}}</div></th>
+                                      <!-- <th>{% if item.callback_time %}
+                                        <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                      {% endif %}</th> -->
                                     </tr>
-                                </table> -->
-                                <div class="name">{{item.name}}</div>
-                                <div class="phone">{{item.phone}}</div>
-                                <div class="country">{{item.request_status}}</div>
-                                {% if item.callback_time %}
-                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                {% endif %}
+                                </table>
                             </div>
                         </a>
                     </div>

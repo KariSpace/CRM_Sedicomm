@@ -131,5 +131,14 @@ a:hover{
     justify-content: space-around;
     font-weight: 500;
 }
-
-
+.table th{
+    border-top: 0;
+    padding: 0;
+    text-align: center;
+}
+th{
+    border: 1px solid black;
+    border-bottom: 0;
+    border-top: 0;
+    
+}

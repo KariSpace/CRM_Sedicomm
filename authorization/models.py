@@ -28,7 +28,7 @@ class Daily(models.Model):
     payment_history = models.TextField(blank=True)
     total_payment = models.IntegerField(blank=True, null=True)
     payment_source = models.CharField(max_length=100, blank=True)
-    obligation = models.CharField(max_length=100, blank=True)
+    obligation = models.IntegerField(blank=True, null=True)
     
     
 
