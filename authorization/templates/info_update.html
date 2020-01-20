@@ -37,8 +37,15 @@
         });
         
     </script>
+    <script src="{% static 'moment.min.js' %}"></script>
     <script>
-        document.getElementById('id_callback_time').addEventListener('mouseenter', function(event) {
+        var field = document.getElementById('id_callback_time')
+        console.log(field.value)
+        if(field.value != ""){
+            formated = moment(field.value).format('DD/MM/YYYY hh:mm');
+            console.log(formated);
+            field.value = formated;}
+        field.addEventListener('mouseenter', function(event) {
         event.target.setAttribute('autocomplete', 'off')});
     </script>
 </body>
