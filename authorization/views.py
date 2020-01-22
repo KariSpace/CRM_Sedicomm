@@ -10,11 +10,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from datetime import datetime
 
 
-import csv, io
-from csv_to_table.models import People
-from datetime import date
-
-
 
 @login_required
 def start(request):
@@ -36,8 +31,18 @@ def staff(request):
         # username form
         n_form = UserUpdateForm(instance=request.user)
 
-        # items info
+        # list of group tables
         list_items = Daily.objects.order_by('callback_time')
+
+        # values = Daily.objects.values_list('course', flat=True)
+        # values = set(values)
+
+        # for(value in values):
+        #     l1 = Daily.objects.
+            
+        # print(values)
+
+        # items info
         table_status = False
         for item in list_items:
             if item.is_not_called():
@@ -139,49 +144,6 @@ def ChangePassword(request):
         "u_form":u_form,
         }
         return render(request,"pass_change.html",context)
-
-
-
-#CSV_TO_FILE COMMIT 
-@login_required
-def csv_table(request):
-    template = "csv_table.html"
-    if request.method == "GET":
-         return render(request,template)
-    
-    csv_file = request.FILES['csv_f']
-
-    if not csv_file.name.endswith('.csv'):
-        messages.error(request, "This is not a CSV, try to upload .csv")
-        return render(request,template)
-    else:
-        messages.success(request, "Data was uploaded")
-
-    data_set = csv_file.read().decode('UTF-8')
-    io_string = io.StringIO(data_set)
-    next(io_string)
-    for col in csv.reader(io_string, delimiter=';', quotechar='|'):
-        _, created = People.objects.update_or_create(
-            name            = col[0],
-            phone           = col[1],
-            email           = col[2],
-            course          = col[3],
-            country         = col[4],
-            university      = col[5],
-            work            = col[6],
-            where_from      = col[7],
-        )
-    return render(request, template)
-
-#CSV_TO_FILE COMMIT 
-@login_required
-def today_table(request):
-    template = "today_table.html"
-    today_people = People.objects.filter(date=date.today())
-    #today_people = People.objects.filter(date=date.today())
-    return render(request, template, context={'today_people': today_people})
-
-
 
 '''if request.method == 'POST':
         # u_form = UserUpdateForm(request.POST)

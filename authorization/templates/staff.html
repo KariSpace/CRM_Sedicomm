@@ -103,11 +103,12 @@
                                 {% if item.callback_time %}
                                 <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
                                 {% endif %} -->
-                                <table style="width:100%">
+                                <table class="item_info_table" style="width:100%">
                                     <tr>
                                       <th><div class="name">{{item.name}}</div></th>
                                       <th><div class="phone">{{item.phone}}</div></th> 
                                       <th><div class="country">{{item.country}}</div></th>
+                                      <th><div class="country">{{item.course}}</div></th>
                                       <th>{% if item.callback_time %}
                                         <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
                                       {% endif %}</th>
@@ -146,7 +147,7 @@
                     <div class="item">
                         <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                <table style="width:100%">
+                                <table class="item_payment_table" style="width:100%">
                                     <tr>
                                       <th><div class="name">{{item.name}}</div></th>
                                       <th><div class="phone">{{item.phone}}</div></th> 
