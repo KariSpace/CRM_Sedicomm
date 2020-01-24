@@ -32,13 +32,14 @@ def staff(request):
         n_form = UserUpdateForm(instance=request.user)
 
         # list of group tables
-        list_items = Daily.objects.order_by('callback_time')
+        list_items = Daily.objects.order_by('callback_time', 'course')
 
-        # values = Daily.objects.values_list('course', flat=True)
-        # values = set(values)
-
-        # for(value in values):
-        #     l1 = Daily.objects.
+        # values = set(Daily.objects.values_list('course', flat=True))
+        
+        # li = []
+        # for value in values:
+        #     li.append(Daily.objects.filter(course = value))
+        # print(li)
             
         # print(values)
 
@@ -51,7 +52,7 @@ def staff(request):
         table_date = table_date.request_date.strftime("%d/%m")
 
         # items payments
-        list_payments = Daily.objects.order_by('total_payment')
+        list_payments = Daily.objects.order_by('course')
         payment_status = False
         for item in list_items:
             if item.is_called():

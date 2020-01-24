@@ -82,98 +82,99 @@
                 <h5>Новые Заявки</h5>
             </div>
             {% if list_items %}
-            {% if table_status %}
-            <div class="table show" id="new_tables" >
-            
-            
-                <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
-                    <h5>{{ list_items.0.course }}</h5>
-                    <h5>{{ table_date }}</h5>
-                    <h5>New Users</h5>
-                </div>
-                <div class="table_content show" id='table_content'>
-                {% for item in list_items %}
-                    {% if item.is_not_called %}
-                    <div class="item">
-                        <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                            <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                <!-- <div class="name">{{item.name}}</div>
-                                <div class="phone">{{item.phone}}</div>
-                                <div class="country">{{item.country}}</div>
-                                {% if item.callback_time %}
-                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                {% endif %} -->
-                                <table class="item_info_table" style="width:100%">
-                                    <tr>
-                                      <th><div class="name">{{item.name}}</div></th>
-                                      <th><div class="phone">{{item.phone}}</div></th> 
-                                      <th><div class="country">{{item.country}}</div></th>
-                                      <th><div class="country">{{item.course}}</div></th>
-                                      <th>{% if item.callback_time %}
+                {% if table_status %}
+                    <div class="table show" id="new_tables" >
+                        <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
+                            <!-- <h5>{{ list_items.0.course }}</h5> -->
+                            <h5>{{ table_date }}</h5>
+                            <h5>New Users</h5>
+                        </div>
+                        <div class="table_content show" id='table_content'>
+                        {% for item in list_items %}
+                            {% if item.is_not_called %}
+                            <div class="item">
+                                <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                                    <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                        <!-- <div class="name">{{item.name}}</div>
+                                        <div class="phone">{{item.phone}}</div>
+                                        <div class="country">{{item.country}}</div>
+                                        {% if item.callback_time %}
                                         <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                      {% endif %}</th>
-                                    </tr>
-                                </table>
+                                        {% endif %} -->
+                                        <table class="item_info_table" style="width:100%">
+                                            <tr>
+                                            <th><div class="name">{{item.name}}</div></th>
+                                            <th><div class="phone">{{item.phone}}</div></th> 
+                                            <th><div class="country">{{item.country}}</div></th>
+                                            <th><div class="country">{{item.course}}</div></th>
+                                            <th>{% if item.callback_time %}
+                                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                            {% endif %}</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    {% endif %}
-                {% endfor %}   
-                </div>
+                            {% endif %}
+                        {% endfor %}   
+                        </div>
+                    </div>  
                 {% else %}
                     <h3 style="text-align: center;">All done</h3>
                 {% endif %}
-        {% else %}
-            <h3 style="text-align: center;">Still no tables or something wrong</h3>
-        {% endif %}
-            </div>  
+                
+            {% else %}
+                <h3 style="text-align: center;">Still no tables or something wrong</h3>
+            {% endif %}
         </div>
 
+
+        
         <div class="payment_tables">
             <div class="tables_header" data-toggle="collapse" data-target="#payment_tables" aria-expanded="false">
                 <h5>Оплаты</h5>
             </div>
             {% if list_items %}
-            {% if payment_status %}
-            <div class="table show" id="payment_tables" >
-            
-                <div class="table_header "  data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
-                    <h5>{{ table_date }}</h5>
-                    <h5>Payments</h5>
-                </div>
-                <div class="table_content show" id='table_payments_content'>
-                {% for item in list_items %}
-                    {% if item.is_called %}
-                    <div class="item">
-                        <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                            <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                <table class="item_payment_table" style="width:100%">
-                                    <tr>
-                                      <th><div class="name">{{item.name}}</div></th>
-                                      <th><div class="phone">{{item.phone}}</div></th> 
-                                      <th><div class="country">{{item.course}}</div></th>
-                                      <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
-                                      <th><div class="country">{{item.request_status}}</div></th>
-                                      <th><div class="country">{{item.total_payment}} {{item.currency}}</div></th>
-                                      <th><div class="country">{{item.obligation}} {{item.currency}}</div></th>
-                                      <!-- <th>{% if item.callback_time %}
-                                        <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                      {% endif %}</th> -->
-                                    </tr>
-                                </table>
+                {% if payment_status %}
+                    <div class="table show" id="payment_tables" >
+                        <div class="table_header "  data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
+                            <h5>{{ table_date }}</h5>
+                            <h5>Payments</h5>
+                        </div>
+                        <div class="table_content show" id='table_payments_content'>
+                        {% for item in list_items %}
+                            {% if item.is_called %}
+                            <div class="item">
+                                <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                                    <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                        <table class="item_payment_table" style="width:100%">
+                                            <tr>
+                                            <th><div class="name">{{item.name}}</div></th>
+                                            <th><div class="phone">{{item.phone}}</div></th> 
+                                            <th><div class="country">{{item.course}}</div></th>
+                                            <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
+                                            <th><div class="country">{{item.request_status}}</div></th>
+                                            <th><div class="country">{{item.total_payment}} {{item.currency}}</div></th>
+                                            <th><div class="country">{{item.obligation}} {{item.currency}}</div></th>
+                                            <!-- <th>{% if item.callback_time %}
+                                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                            {% endif %}</th> -->
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            {% endif %}
+                        {% endfor %}   
+                        </div>
                     </div>
-                    {% endif %}
-                {% endfor %}   
-                </div>
                 {% else %}
                     <h3 style="text-align: center;">Nothing</h3>
                 {% endif %}
             {% else %}
                 <h3 style="text-align: center;">Still no tables or something wrong</h3>
             {% endif %}
-            </div>
+            
             
         </div>
     </div>
