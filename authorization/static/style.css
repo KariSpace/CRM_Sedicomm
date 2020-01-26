@@ -150,3 +150,18 @@ th{
     width: 17%;
     overflow: auto;
 }
+
+.groups_list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom:20px ;
+}
+.groups_list a{
+    background-color: rgb(47, 255, 186);
+    border-radius: 8px;
+    padding: 7px;
+}
+.groups_list h5{
+  margin: 0;  
+}

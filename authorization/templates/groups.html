@@ -72,13 +72,54 @@
             {% endfor %}
         </div>
     {% endif %}
+
+
     <div class="content ">
-        Groups Tables will be here
-    </div>
+        <div class="new_tables">
+            <div class="groups_list">
+                {% if li %}
+                    {% for list_items in li %}
+                        <a href="#{{ list_items.0.group }}"><h5>{{ list_items.0.group }}</h5></a>
+                    {% endfor %}
+                {% endif %}  
+            </div>
+            {% if li %}
+                {% for list_items in li %}
+                    <div class="table show" id="{{ list_items.0.group }}" >
+                        <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
+                            <h5>{{ list_items.0.group }}</h5>
+                        </div>
+                        <div class="table_content show" id='table_content'>
+                        {% for item in list_items %}
+                            <div class="item">
+                                <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                                    <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                        <table class="item_info_table" style="width:100%">
+                                            <tr>
+                                            <th><div class="name">{{item.name}}</div></th>
+                                            <th><div class="phone">{{item.phone}}</div></th> 
+                                            <th><div class="country">{{item.country}}</div></th>
+                                            <th><div class="country">{{item.course}}</div></th>
+                                            <th>{% if item.callback_time %}
+                                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                            {% endif %}</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}   
+                        </div>
+                    </div>  
+                    {% endfor %}  
+            {% else %}
+                <h3 style="text-align: center;">Still no tables or something wrong</h3>
+            {% endif %}
+        </div>
     </div>
     <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

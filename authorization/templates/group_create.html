@@ -24,35 +24,33 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 {{ form|crispy }}
-                <div class="form-group">
-                    <button  class="btn btn-outline-info" type="button">
-                        <a style="text-decoration: none;color: black;"
-                         href="{% url 'create_group' %}" target="_self" 
-                         onClick="popupWin = window.open(this.href, 'Window2', 'location,width=350,height=420,top=400,left=500'); popupWin.focus(); return false;">
-                            Create Group
-                        </a>
-                    </button>
-                </div>
             </fieldset>
             <fieldset class="form-group d-flex justify-content-center" >
                 <button class="btn btn-outline-info m-auto" type="submit">Submit</button>
             </fieldset>
         </form>
     </div>
-    <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
-    <script src="{% static 'moment.min.js' %}"></script>
     <script>
         $(function () {
-          $("#id_callback_time").datetimepicker({
+          $("#id_time_start").datetimepicker({
             format: 'd/m/Y H:i',
           });
         });
     </script>
     <script>
-        var field = document.getElementById('id_callback_time')
-        if(field.value != ""){
-            formated = moment(field.value).format('DD/MM/YYYY hh:mm');
-            field.value = formated;}
+        $(function () {
+          $("#id_time_end").datetimepicker({
+            format: 'd/m/Y H:i',
+          });
+        });
+    </script>
+    <script>
+        var field = document.getElementById('id_time_start')
+        field.addEventListener('mouseenter', function(event) {
+        event.target.setAttribute('autocomplete', 'off')});
+    </script>
+    <script>
+        var field = document.getElementById('id_time_end')
         field.addEventListener('mouseenter', function(event) {
         event.target.setAttribute('autocomplete', 'off')});
     </script>

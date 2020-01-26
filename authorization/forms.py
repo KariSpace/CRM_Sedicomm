@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Daily
+from .models import Daily, Group, People
 from django.utils import timezone
 
 class UserUpdateForm(forms.ModelForm):
@@ -17,8 +17,29 @@ class ItemInfoUpdateForm(forms.ModelForm):
         ('отказ', 'отказ'),
     ]
 
+    # values = set(Group.objects.values_list('name', flat=True))
+    # values_list = []
+
+    # for value in values:
+
+    #     li = []
+    #     li.append(value)
+    #     li.append(value)
+
+    #     values_list.append(li)
+
+    # print(values)
+    # print(values_list)
+
+    # GROUP_CHOICES = values_list
+
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
+    # group = forms.CharField(widget=forms.Select(choices=GROUP_CHOICES), required=False)
+    group = forms.ModelChoiceField(
+                    required=False,
+                    queryset = Group.objects.all(),
+                    widget=forms.Select())
 
     class Meta:
         model = Daily
@@ -63,29 +84,17 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
                 'payment_history',
                 'callback_time',]    
 
+class GroupCreateForm(forms.ModelForm):
+
+    time_start = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
+    time_end = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
+
+    class Meta:
+        model = Group
+        fields = ['name', 'time_start', 'time_end']
 
 
 
 
 
 
-    '''request_date = models.DateTimeField(blank=True, null=True)
-    name = models.CharField(max_length=100, blank=True)
-    phone = models.CharField(max_length=100, blank=True)
-    email = models.CharField(max_length=100, blank=True)
-    course = models.CharField(max_length=100, blank=True)
-    country  = models.CharField(max_length=100, blank=True)
-    university = models.CharField(max_length=100, blank=True)
-    work = models.CharField(max_length=100, blank=True)
-    where_from = models.CharField(max_length=100, blank=True)
-    comments = models.TextField(blank=True)
-    currency = models.CharField(max_length=100, blank=True)
-    course_price = models.IntegerField(blank=True, null=True)
-    request_status = models.CharField(max_length=100, blank=True)
-    callback_time = models.DateTimeField(blank=True, null=True)
-    payment_history = models.TextField(blank=True)
-    total_payment = models.IntegerField(blank=True, null=True)
-    payment_source = models.CharField(max_length=100, blank=True)
-    obligation = models.CharField(max_length=100, blank=True)
-    group = models.CharField(max_length=100, blank=True)
-    wishes = models.TextField(blank=True)'''

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm
+from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm, GroupCreateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import Daily
-from django.views.generic import UpdateView
+from .models import Daily, Group, People
+from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from datetime import datetime
 
@@ -71,16 +71,40 @@ def staff(request):
         # dispaly page
         return render(request,"staff.html",context)
 
+
+
 class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
     form_class = ItemInfoUpdateForm
     success_url='/ok/'
 
-    comments = model.comments
     def form_valid(self, form):
         cleaned = form.save(commit=False)
         cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
+        if(cleaned.group != ""):
+            print('mooved to groups')
+            People.objects.update_or_create(
+            name            = cleaned.name,
+            phone           = cleaned.phone,
+            email           = cleaned.email,
+            course          = cleaned.course,
+            country         = cleaned.country,
+            university      = cleaned.university,
+            work            = cleaned.work,
+            where_from      = cleaned.where_from,
+            currency        = cleaned.currency,
+            course_price    = cleaned.course_price,
+            comments        = cleaned.comments,
+            wishes          = cleaned.wishes,
+            group           = cleaned.group,
+            request_status        = cleaned.request_status,
+            payment_history        = cleaned.payment_history,
+            total_payment        = cleaned.total_payment,
+            payment_source        = cleaned.payment_source,
+            obligation        = cleaned.obligation,
+            date_added        = str(datetime.now()),
+        )
         return super().form_valid(form)
 
 class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
@@ -95,7 +119,16 @@ class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
         cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
         return super().form_valid(form)
 
+class CreateNewGroup(LoginRequiredMixin, CreateView):
+    model = Group
+    template_name = 'group_create.html'
+    success_url='/ok/'
+    form_class = GroupCreateForm
 
+    def form_valid(self, form):
+        cleaned = form.save(commit=False)
+        cleaned.created_date=str(datetime.now())
+        return super().form_valid(form)
 
 @login_required
 def groups(request):
@@ -110,17 +143,26 @@ def groups(request):
             messages.warning(request, f'Something wrong, maybe this name is allready taken')
             return redirect('staff')
     else:
-        list_items = Daily.objects.order_by('callback_time')
-        table_date = Daily.objects.get(id = 1)
-        table_date = table_date.request_date.strftime("%d/%m")
-
+        # username form
         n_form = UserUpdateForm(instance=request.user)
-        
+
+        # list of group tables
+        # list_items = Group.objects.order_by('group')
+
+        values = set(People.objects.values_list('group', flat=True))
+        print(values)
+        li = []
+        for value in values:
+            print(value)
+            li.append(People.objects.filter(group = value))
+    
+
+        # creating all data list
         context = {
         "n_form":n_form,
-        "list_items":list_items,
-        "table_date":table_date,
+        "li":li,
         }
+        # dispaly page
         return render(request,"groups.html",context)
 
 @login_required
@@ -146,26 +188,3 @@ def ChangePassword(request):
         }
         return render(request,"pass_change.html",context)
 
-'''if request.method == 'POST':
-        # u_form = UserUpdateForm(request.POST)
-        if u_form.is_valid:
-            # u_name = u_form.cleaned_data['username']
-            # u_pass = u_form.cleaned_data['password']
-            # # u = User.objects.get(username = request.user)
-            # u = request.user
-            # # submit = User(
-            # #     username=u_name,
-            # # )
-            # # submit.save()
-            # u.set_username(u_name)
-            # u.set_password(u_pass)
-            u_form.save
-            messages.success(request, f'Data has been updated!')
-            return redirect('staff')
-    u_form = UserUpdateForm()
-            # instance=request.user
-    forms = {
-        'u_form': u_form,
-    }
-
-    return render(request, 'staff.html', forms)'''
