@@ -84,14 +84,16 @@
                 {% endif %}  
             </div>
             {% if li %}
+                <div class="table_groups">
                 {% for list_items in li %}
-                    <div class="table show" id="{{ list_items.0.group }}" >
-                        <div class="table_header "  data-toggle="collapse" data-target="#table_content" aria-expanded="false">
+                
+                    <div class="table_group table show" id="{{ list_items.0.group }}" >
+                        <div class="table_header " >
                             <h5>{{ list_items.0.group }}</h5>
                         </div>
-                        <div class="table_content show" id='table_content'>
+                        <div class="table_content table_content_groups show" id='table_content'>
                         {% for item in list_items %}
-                            <div class="item">
+                            <div class="item groups_item">
                                 <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                                     <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                                         <table class="item_info_table" style="width:100%">
@@ -100,9 +102,9 @@
                                             <th><div class="phone">{{item.phone}}</div></th> 
                                             <th><div class="country">{{item.country}}</div></th>
                                             <th><div class="country">{{item.course}}</div></th>
-                                            <th>{% if item.callback_time %}
+                                            <!-- <th>{% if item.callback_time %}
                                                 <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                            {% endif %}</th>
+                                            {% endif %}</th> -->
                                             </tr>
                                         </table>
                                     </div>
@@ -111,7 +113,8 @@
                         {% endfor %}   
                         </div>
                     </div>  
-                    {% endfor %}  
+                    {% endfor %}
+                </div>  
             {% else %}
                 <h3 style="text-align: center;">Still no tables or something wrong</h3>
             {% endif %}

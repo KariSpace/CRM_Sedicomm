@@ -108,6 +108,9 @@ a:hover{
 .table_content{
     /* overflow: auto; */
     box-shadow: inset 0 0 4px 0px rgb(73, 71, 71);
+    overflow: auto;
+    
+    /* min-width: 400px; */
 }
 .table_header{
     display: flex;
@@ -135,6 +138,8 @@ a:hover{
     border-top: 0;
     padding: 0;
     text-align: center;
+    
+
 }
 th{
     border: 1px solid black;
@@ -164,4 +169,19 @@ th{
 }
 .groups_list h5{
   margin: 0;  
+}
+
+.table_groups{
+    display: flex;
+    flex-direction: row ;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+.table_group{
+    width: 45%;
+
+}
+.groups_item{
+    max-height: 35px;
 }

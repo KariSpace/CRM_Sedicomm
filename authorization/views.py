@@ -82,7 +82,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         cleaned = form.save(commit=False)
         cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
-        if(cleaned.group != ""):
+        if(cleaned.group != None):
             print('mooved to groups')
             People.objects.update_or_create(
             name            = cleaned.name,
@@ -105,6 +105,8 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
             obligation        = cleaned.obligation,
             date_added        = str(datetime.now()),
         )
+        else:
+            cleaned.group=""
         return super().form_valid(form)
 
 class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
