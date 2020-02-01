@@ -1,4 +1,5 @@
 from django.db import models
+from jsonfield import JSONField
 
 
 class Daily(models.Model):
@@ -89,7 +90,7 @@ class People(models.Model):
     comments        = models.TextField(blank=True)
     wishes          = models.TextField(blank=True)
     callback_time   = models.DateTimeField(blank=True, null=True)
-    group           = models.CharField(max_length=100, blank=True)
+    group           = JSONField(blank=True)
     request_status  = models.CharField(max_length=100, blank=True)
 
     # from payment form

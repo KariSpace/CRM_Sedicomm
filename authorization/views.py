@@ -57,7 +57,6 @@ def staff(request):
         for item in list_items:
             if item.is_called():
                 payment_status = True
-
         
         # creating all data list
         context = {
@@ -153,8 +152,11 @@ def groups(request):
 
         values = set(People.objects.values_list('group', flat=True))
         print(values)
+        print(People.objects.get(id = 1).group)
         li = []
         for value in values:
+            print(value)
+            value = value.strip('"')
             print(value)
             li.append(People.objects.filter(group = value))
     

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Daily, Group, People
 from django.utils import timezone
 
+
 class UserUpdateForm(forms.ModelForm):
 
     class Meta:
