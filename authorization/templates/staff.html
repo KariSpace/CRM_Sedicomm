@@ -128,7 +128,11 @@
             {% endif %}
         </div>
 
-
+        <button class="btn btn-outline-info" style="width: fit-content; margin: 0 auto;" type="button">
+            <a href="{% url 'create_daily' %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=500,height=600,top=200,left=300'); popupWin.focus(); return false;">
+                Create User
+            </a>
+        </button>
         
         <div class="payment_tables">
             <div class="tables_header" data-toggle="collapse" data-target="#payment_tables" aria-expanded="false">
