@@ -66,18 +66,13 @@ class ItemInfoUpdateForm(forms.ModelForm):
         
 class ItemPaymentsUpdateForm(forms.ModelForm):
 
-    # STATUS_CHOICES = [
-    #     ('оплачено частично', 'оплачено частично'),
-    #     ('оплачено', 'оплачено'),
-    # ]
-
-    group = forms.ModelChoiceField(
-                    required=False,
-                    queryset = Group.objects.all(),
-                    widget=forms.Select())
+    STATUS_CHOICES = [
+        ('оплачено частично', 'оплачено частично'),
+        ('оплачено', 'оплачено'),
+    ]
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
-    # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
+    request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
 
     class Meta:
         model = Daily
@@ -87,33 +82,10 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
                 'course_price',
                 'obligation',
                 'currency',
+                'payment_source',
                 'course',
-                'group',
                 'payment_history',
                 'callback_time',]    
-
-class ItemGroupsUpdateForm(forms.ModelForm):
-
-    # group = forms.ModelChoiceField(
-    #                 required=False,
-    #                 queryset = Group.objects.all(),
-    #                 widget=forms.Select())
-
-    callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
-    # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
-
-    class Meta:
-        model = Daily
-        fields = [
-                
-                'total_payment',
-                'course_price',
-                'obligation',
-                'currency',
-                'course',
-                # 'group',
-                'payment_history',
-                'callback_time',]                   
 
 class GroupCreateForm(forms.ModelForm):
 
@@ -125,13 +97,6 @@ class GroupCreateForm(forms.ModelForm):
         fields = ['name', 'time_start', 'time_end']
 
 
-class DailyCreateForm(forms.ModelForm):
-
-    
-
-    class Meta:
-        model = Daily
-        fields = ['name', 'phone', 'email', 'course', 'country', 'university', 'work', 'where_from', 'currency', 'course_price']
 
 
 

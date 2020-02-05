@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import *
+from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm, GroupCreateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Daily, Group, People
@@ -14,14 +14,6 @@ from datetime import datetime
 @login_required
 def start(request):
     return redirect('staff')
-
-
-
-
-
-
-
-
 
 @login_required
 def staff(request):
@@ -40,7 +32,7 @@ def staff(request):
         n_form = UserUpdateForm(instance=request.user)
 
         # list of group tables
-        list_items = Daily.objects.order_by('callback_time', 'course', 'name')
+        list_items = Daily.objects.order_by('callback_time', 'course')
 
         # values = set(Daily.objects.values_list('course', flat=True))
         
@@ -80,28 +72,6 @@ def staff(request):
 
 
 
-
-
-
-class CreateNewDaily(LoginRequiredMixin, CreateView):
-    model = Daily
-    template_name = 'group_create.html'
-    success_url='/ok/'
-    form_class = DailyCreateForm
-
-    def form_valid(self, form):
-        cleaned = form.save(commit=False)
-        cleaned.request_date=str(datetime.now())
-        return super().form_valid(form)
-
-
-
-
-
-
-
-
-
 class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
@@ -110,9 +80,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         cleaned = form.save(commit=False)
-        comments = Daily.objects.get(id = cleaned.id).comments
-        if(cleaned.comments != comments):
-            cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))+'\n'
+        cleaned.comments=form.cleaned_data['comments']+'\nsubmitted in '+str(datetime.now().strftime('%d/%m/%Y %H:%M'))
         if(cleaned.group != None):
             print('mooved to groups')
             People.objects.update_or_create(
@@ -140,46 +108,16 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
             cleaned.group=""
         return super().form_valid(form)
 
-
-
-
-
-
-
-
 class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
     form_class = ItemPaymentsUpdateForm
     success_url='/ok/'
 
+    comments = model.comments
     def form_valid(self, form):
         cleaned = form.save(commit=False)
-        if(cleaned.group != None):
-            print('mooved to groups')
-            People.objects.update_or_create(
-            name            = cleaned.name,
-            phone           = cleaned.phone,
-            email           = cleaned.email,
-            course          = cleaned.course,
-            country         = cleaned.country,
-            university      = cleaned.university,
-            work            = cleaned.work,
-            where_from      = cleaned.where_from,
-            currency        = cleaned.currency,
-            course_price    = cleaned.course_price,
-            comments        = cleaned.comments,
-            wishes          = cleaned.wishes,
-            group           = cleaned.group,
-            request_status        = cleaned.request_status,
-            payment_history        = cleaned.payment_history,
-            total_payment        = cleaned.total_payment,
-            payment_source        = cleaned.payment_source,
-            obligation        = cleaned.obligation,
-            date_added        = str(datetime.now()),
-        )
-        else:
-            cleaned.group=""
+        
         return super().form_valid(form)
 
 class CreateNewGroup(LoginRequiredMixin, CreateView):
@@ -192,13 +130,6 @@ class CreateNewGroup(LoginRequiredMixin, CreateView):
         cleaned = form.save(commit=False)
         cleaned.created_date=str(datetime.now())
         return super().form_valid(form)
-
-
-
-
-
-
-
 
 @login_required
 def groups(request):
@@ -220,9 +151,13 @@ def groups(request):
         # list_items = Group.objects.order_by('group')
 
         values = set(People.objects.values_list('group', flat=True))
+        print(values)
+        print(People.objects.get(id = 1).group)
         li = []
         for value in values:
+            print(value)
             value = value.strip('"')
+            print(value)
             li.append(People.objects.filter(group = value))
     
 
@@ -233,28 +168,6 @@ def groups(request):
         }
         # dispaly page
         return render(request,"groups.html",context)
-
-
-
-
-class ItemGroupsUpdate(LoginRequiredMixin, UpdateView):
-    model = People
-    template_name = 'info_update.html'
-    form_class = ItemGroupsUpdateForm
-    success_url='/ok/'
-
-    def form_valid(self, form):
-        cleaned = form.save(commit=False)
-        
-        return super().form_valid(form)
-
-
-
-
-
-
-
-
 
 @login_required
 def OkView(request):
