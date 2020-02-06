@@ -118,7 +118,8 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
         if(cleaned.comments != comments):
             cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))+'\n'
         print(cleaned.group)
-        '''if(cleaned.group != None):
+        '''
+        if(cleaned.group != None):
             print('mooved to groups')
             People.objects.update_or_create(
             name            = cleaned.name,
@@ -142,7 +143,8 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
             date_added        = str(datetime.now()),
         )
         else:
-            cleaned.group=""'''
+            cleaned.group=""
+            '''
         return super().form_valid(form)
 
 
@@ -227,31 +229,34 @@ def groups(request):
         # list of group tables
         # list_items = Group.objects.order_by('group')
 
-       ''' values = set(People.objects.values_list('group', flat=True))
-        # values = Group.objects.all()
+        # values = set(People.objects.values_list('group', flat=True))
+        # # values = Group.objects.all()
        
-        li = []
-        print(values)
+        # li = []
+        # print(values)
        
-        for value in values:
-            print(value)
-            li.append(People.objects.filter(group = value))
-            print(li)
+        # for value in values:
+        #     print(value)
+        #     li.append(People.objects.filter(group = value))
+        #     print(li)
     
-        for item in li:
-            print(item)
-            for field in item:
-                print(field.groups())
-                for i in field.groups():
-                    print(i)'''
+        # for item in li:
+        #     print(item)
+        #     for field in item:
+        #         print(field.groups())
+        #         for i in field.groups():
+        #             print(i)
 
-        values = set(Group.objects.all())
-        print(values)
-        li = []
-        for value in values:
-            print(value)
-            li.append(People.objects.filter(group = value))
-            print(li)
+        li = set(Group.objects.all())
+
+        
+        # li = []
+        # for value in values:
+        #     print(value)
+        #     li.append(People.objects.filter(group = value))
+        #     print(li)
+
+        
 
 
         # creating all data list
