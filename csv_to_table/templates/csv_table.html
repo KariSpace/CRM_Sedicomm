@@ -33,45 +33,13 @@
                     Groups
                 </a>
             </button>
-        </div>
-        <div class="settings col-4">
-            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
-            {{user.username}}
-        </button>
-            <div class="info_update_field collapse" id="InfoUpdateField">
-                <span class="u_u_span">
-                You can change username and password here
-            </span>
-                <form method="POST" class="u_u_form">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        {{ n_form|crispy }}
-                    </fieldset>
-                    <fieldset class="form-group d-flex justify-content-center">
-                        <div class="buttons">
-                            <button class="btn btn-outline-danger" type="submit">Cnange Name</a></button>
-                        </div>
-                    </fieldset>
-                </form>
-                <button class="btn btn-outline-info">
-                <a href="{% url 'password_change' %}">Change Password</a>
+            <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'today_table' %}">
+                    Today
+                </a>
             </button>
-            </div>
-            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
-            Logout
-        </button>
-            <div class="confirmation_field collapse" id="ConfirmationField">
-                <span class="conf_span">
-                Are you sure you want to log out?
-            </span>
-                <div class="buttons">
-                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
-                    No
-                </button>
-                    <button class="btn btn-outline-danger"><a href="{% url 'logout' %}?next=/">Yes</a></button>
-                </div>
-            </div>
         </div>
+    </div>
     </div>
     <div class="upload_block">
         {% if messages %} {% for message in messages %}
