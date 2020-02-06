@@ -14,6 +14,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from datetime import datetime
+
+from authorization.forms import UserUpdateForm
 # Create your views here.
 
 #CSV_TO_FILE COMMIT 
@@ -51,43 +53,57 @@ def csv_table(request):
 
 @login_required
 def today_table(request):
-    template = "today_table.html"
+    if request.method == 'POST':
+        n_form = UserUpdateForm(request.POST, instance=request.user)
+        if n_form.is_valid():
+            n_form.save()
+            messages.success(request, f'Data has been updated!')
+            return redirect('staff')
+        else:
+            messages.warning(request, f'Something wrong, maybe this name is allready taken')
+            return redirect('staff')
+    else:
+        n_form = UserUpdateForm(instance=request.user)
 
-    search_text = str(date.today().strftime('%m/%d/%Y')) 
-    print("\n" ,type(search_text), search_text)
-    today_wishes  = Daily.objects.filter( Q(wishes__contains = search_text))
-    today_comments = Daily.objects.filter( Q(comments__contains = search_text))
-    today_pay  = Daily.objects.filter( Q(payment_history__contains = search_text))
-    
-    #print(today_wishes)
-    #print(today_comments)
-    #print(today_pay)
+        template = "today_table.html"
 
-    #MONEY
-    money_all = Daily.objects.all().aggregate(money_all=Sum(F('course_price')))
-    money_all_num = money_all['money_all']
-    #print(money_all_num)
+        search_text = str(date.today().strftime('%m/%d/%Y')) 
+        print("\n" ,type(search_text), search_text)
+        today_wishes  = Daily.objects.filter( Q(wishes__contains = search_text))
+        today_comments = Daily.objects.filter( Q(comments__contains = search_text))
+        today_pay  = Daily.objects.filter( Q(payment_history__contains = search_text))
+        
+        #print(today_wishes)
+        #print(today_comments)
+        #print(today_pay)
 
-    money_paid = Daily.objects.all().aggregate(money_paid=Sum(F('total_payment')))
-    money_paid_num = money_paid['money_paid']
-    #print(money_paid_num)
+        #MONEY
+        money_all = Daily.objects.all().aggregate(money_all=Sum(F('course_price')))
+        money_all_num = money_all['money_all']
+        #print(money_all_num)
 
-    money_will_pay = Daily.objects.all().aggregate(money_will_pay=Sum(F('obligation')))
-    money_will_pay_num = money_will_pay['money_will_pay']
-    money_will_num = money_all_num - money_paid_num
-    #print(money_will_pay_num)
-    #print(money_will_num)
+        money_paid = Daily.objects.all().aggregate(money_paid=Sum(F('total_payment')))
+        money_paid_num = money_paid['money_paid']
+        #print(money_paid_num)
 
-    people_done = Daily.objects.filter(request_status='оплачено').count()
-    people_partially = Daily.objects.filter(request_status='оплачено частично').count()
-    people_waiting = Daily.objects.filter(request_status='ожидаем оплату').count()
-    people_all_num = people_done + people_partially + people_waiting
+        money_will_pay = Daily.objects.all().aggregate(money_will_pay=Sum(F('obligation')))
+        money_will_pay_num = money_will_pay['money_will_pay']
+        money_will_num = money_all_num - money_paid_num
+        #print(money_will_pay_num)
+        #print(money_will_num)
 
-    #print(people_done)
-    #print(people_partially)
-    #print(people_waiting)
+        people_done = Daily.objects.filter(request_status='оплачено').count()
+        people_partially = Daily.objects.filter(request_status='оплачено частично').count()
+        people_waiting = Daily.objects.filter(request_status='ожидаем оплату').count()
+        people_all_num = people_done + people_partially + people_waiting
+
+        #print(people_done)
+        #print(people_partially)
+        #print(people_waiting)
 
     context = {
+        "n_form":n_form,
+
         "today_wishes":today_wishes,
         "today_comments": today_comments,
         "today_pay" : today_pay,

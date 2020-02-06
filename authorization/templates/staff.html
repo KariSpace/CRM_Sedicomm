@@ -14,6 +14,11 @@
 <body>
     <div class="header">
         <div class="text col-8">
+            <button class="btn btn-outline-primary " type="button">
+                <a href="{% url 'today_table' %}">
+                    Today
+                </a>
+            </button>
             <button class="btn btn-outline-info active" type="button">
                 <a href="{% url 'staff' %}">
                     Daylis
@@ -24,14 +29,15 @@
                     Groups
                 </a>
             </button>
-            <button class="btn btn-outline-info " type="button">
+            <!-- <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'csv_table' %}">
                     Upload
                 </a>
-            </button>
+            </button> -->
+            
             <button class="btn btn-outline-info " type="button">
-                <a href="{% url 'today_table' %}">
-                    Today
+                <a href="{% url 'groups_payments' %}">
+                    Payments
                 </a>
             </button>
         </div>
@@ -47,7 +53,7 @@
             </form>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
-        </button>
+            </button>
             <div class="info_update_field collapse" id="InfoUpdateField">
                 <span class="u_u_span">
                 You can change username and password here
@@ -110,7 +116,7 @@
                 </div>
                 <div class="table_content show" id='table_content'>
                     {% for item in list_items %} {% if item.is_not_called %}
-                    <div class="item">
+                    <div class="item" id="{{item.email}}">
                         <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                                 <!-- <div class="name">{{item.name}}</div>
@@ -169,7 +175,7 @@
                 </div>
                 <div class="table_content show" id='table_payments_content'>
                     {% for item in list_items %} {% if item.is_called %}
-                    <div class="item">
+                    <div class="item" id="{{item.email}}">
                         <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                                 <table class="item_payment_table" style="width:100%">
@@ -219,6 +225,25 @@
                 location.reload(true)
             }
         };
+    </script>
+    <script>
+        var items = document.getElementsByClassName('item')
+        // console.log(items.length)
+        for (i=0;i<=items.length;i++){
+            // console.log(i)
+            // console.log(items[i])
+            if(i!=0){
+                // console.log("i!=0")
+                if(items[i].id==items[i-1].id ){
+                    // console.log("items[i].id==items[i-1].id")
+                    items[i].style.background = "rgba(63, 255, 166, 0.596)"
+                }    
+            }
+            if(items[i].id==items[i+1].id){
+                // console.log("items[i].id==items[i+1].id")
+                items[i].style.background = "rgba(63, 255, 166, 0.596)"
+            }
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

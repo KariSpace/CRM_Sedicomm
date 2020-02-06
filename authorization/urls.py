@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.start, name='start'),
     path('staff/', views.staff, name='staff'),
     path('groups/', views.groups, name='groups'),
+    path('groups_payments/', views.groups_payments, name='groups_payments'),
     path('ok/', views.OkView, name='ok_view'),
     path('create_group/', CreateNewGroup.as_view(), name='create_group'),
     path('create_daily/', CreateNewDaily.as_view(), name='create_daily'),

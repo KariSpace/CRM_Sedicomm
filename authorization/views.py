@@ -10,19 +10,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from datetime import datetime
 
 
-
-@login_required
-def start(request):
-    return redirect('staff')
-
-
-
-
-
-
-
-
-
 @login_required
 def staff(request):
 
@@ -40,24 +27,16 @@ def staff(request):
         n_form = UserUpdateForm(instance=request.user)
 
         # list of group tables
-        list_items = Daily.objects.order_by('callback_time', 'name', 'course')
+        list_items = Daily.objects.order_by('callback_time', 'email', 'course')
 
         # values = set(Daily.objects.values_list('course', flat=True))
         
-        # li = []
-        # for value in values:
-        #     li.append(Daily.objects.filter(course = value))
-        # print(li)
-            
-        # print(values)
 
         # items info
         table_status = False
         for item in list_items:
             if item.is_not_called():
                 table_status = True
-        #table_date = Daily.objects.get(id = 1)
-        #table_date = table_date.request_date.strftime("%d/%m")
 
         # items payments
         list_payments = Daily.objects.order_by('course')
@@ -80,23 +59,62 @@ def staff(request):
 
 
 
+@login_required
+def groups(request):
+
+    if request.method == 'POST':
+        n_form = UserUpdateForm(request.POST, instance=request.user)
+        if n_form.is_valid():
+            n_form.save()
+            messages.success(request, f'Data has been updated!')
+            return redirect('staff')
+        else:
+            messages.warning(request, f'Something wrong, maybe this name is allready taken')
+            return redirect('staff')
+    else:
+        # username form
+        n_form = UserUpdateForm(instance=request.user)
+
+        li = set(Group.objects.all())
 
 
 
-class CreateNewDaily(LoginRequiredMixin, CreateView):
-    model = Daily
-    template_name = 'group_create.html'
-    success_url='/ok/'
-    form_class = DailyCreateForm
-    
+        # creating all data list
+        context = {
+        "n_form":n_form,
+        "li":li,
+        }
+        # dispaly page
+        return render(request,"groups.html",context)
 
-    # ide = People.objects.get(email = 'guigiug@mail')
-    # print(ide.id)
 
-    def form_valid(self, form):
-        cleaned = form.save(commit=False)
-        cleaned.request_date=str(datetime.now())
-        return super().form_valid(form)
+@login_required
+def groups_payments(request):
+
+    if request.method == 'POST':
+        n_form = UserUpdateForm(request.POST, instance=request.user)
+        if n_form.is_valid():
+            n_form.save()
+            messages.success(request, f'Data has been updated!')
+            return redirect('staff')
+        else:
+            messages.warning(request, f'Something wrong, maybe this name is allready taken')
+            return redirect('staff')
+    else:
+        # username form
+        n_form = UserUpdateForm(instance=request.user)
+
+        li = set(Group.objects.all())
+
+
+
+        # creating all data list
+        context = {
+        "n_form":n_form,
+        "li":li,
+        }
+        # dispaly page
+        return render(request,"groups_payments.html",context)
 
 
 
@@ -149,11 +167,6 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
 
 
 
-
-
-
-
-
 class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
     model = Daily
     template_name = 'info_update.html'
@@ -192,6 +205,40 @@ class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
                     obj.group.add(gr)
         return super().form_valid(form)
 
+
+class ItemGroupsUpdate(LoginRequiredMixin, UpdateView):
+    model = People
+    template_name = 'info_update.html'
+    form_class = ItemGroupsUpdateForm
+    success_url='/ok/'
+
+
+    def form_valid(self, form):
+        cleaned = form.save(commit=False)
+        
+        return super().form_valid(form)
+
+
+
+class CreateNewDaily(LoginRequiredMixin, CreateView):
+    model = Daily
+    template_name = 'group_create.html'
+    success_url='/ok/'
+    form_class = DailyCreateForm
+    
+
+    # ide = People.objects.get(email = 'guigiug@mail')
+    # print(ide.id)
+
+    def form_valid(self, form):
+        cleaned = form.save(commit=False)
+        cleaned.request_date=str(datetime.now())
+        return super().form_valid(form)
+
+
+
+
+
 class CreateNewGroup(LoginRequiredMixin, CreateView):
     model = Group
     template_name = 'group_create.html'
@@ -210,84 +257,12 @@ class CreateNewGroup(LoginRequiredMixin, CreateView):
 
 
 
+
+
+
 @login_required
-def groups(request):
-
-    if request.method == 'POST':
-        n_form = UserUpdateForm(request.POST, instance=request.user)
-        if n_form.is_valid():
-            n_form.save()
-            messages.success(request, f'Data has been updated!')
-            return redirect('staff')
-        else:
-            messages.warning(request, f'Something wrong, maybe this name is allready taken')
-            return redirect('staff')
-    else:
-        # username form
-        n_form = UserUpdateForm(instance=request.user)
-
-        # list of group tables
-        # list_items = Group.objects.order_by('group')
-
-        # values = set(People.objects.values_list('group', flat=True))
-        # # values = Group.objects.all()
-       
-        # li = []
-        # print(values)
-       
-        # for value in values:
-        #     print(value)
-        #     li.append(People.objects.filter(group = value))
-        #     print(li)
-    
-        # for item in li:
-        #     print(item)
-        #     for field in item:
-        #         print(field.groups())
-        #         for i in field.groups():
-        #             print(i)
-
-        li = set(Group.objects.all())
-
-        
-        # li = []
-        # for value in values:
-        #     print(value)
-        #     li.append(People.objects.filter(group = value))
-        #     print(li)
-
-        
-
-
-        # creating all data list
-        context = {
-        "n_form":n_form,
-        "li":li,
-        }
-        # dispaly page
-        return render(request,"groups.html",context)
-
-
-
-
-class ItemGroupsUpdate(LoginRequiredMixin, UpdateView):
-    model = People
-    template_name = 'info_update.html'
-    form_class = ItemGroupsUpdateForm
-    success_url='/ok/'
-
-
-    def form_valid(self, form):
-        cleaned = form.save(commit=False)
-        
-        return super().form_valid(form)
-
-
-
-
-
-
-
+def start(request):
+    return redirect('staff')
 
 
 @login_required
