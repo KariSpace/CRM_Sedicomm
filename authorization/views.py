@@ -56,8 +56,8 @@ def staff(request):
         for item in list_items:
             if item.is_not_called():
                 table_status = True
-        table_date = Daily.objects.get(id = 1)
-        table_date = table_date.request_date.strftime("%d/%m")
+        #table_date = Daily.objects.get(id = 1)
+        #table_date = table_date.request_date.strftime("%d/%m")
 
         # items payments
         list_payments = Daily.objects.order_by('course')
@@ -70,7 +70,7 @@ def staff(request):
         context = {
         "n_form":n_form,
         "list_items":list_items,
-        "table_date":table_date,
+        #"table_date":table_date,
         "table_status":table_status,
         "list_payments":list_payments,
         "payment_status":payment_status,

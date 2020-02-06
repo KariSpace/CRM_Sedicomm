@@ -27,7 +27,7 @@ class Daily(models.Model):
 
     # from payment form
     payment_history = models.TextField(blank=True)
-    total_payment   = models.IntegerField(blank=True, null=True)
+    total_payment   = models.IntegerField(blank=True, default=0)
     payment_source  = models.CharField(max_length=100, blank=True)
     obligation      = models.IntegerField(blank=True, null=True)
     
@@ -35,6 +35,11 @@ class Daily(models.Model):
         indexes = [
             models.Index(fields=['request_date',]),
         ]
+
+    def save(self, **kwargs):
+        self.obligation = self.course_price - self.total_payment
+        return super().save(**kwargs)
+ 
 
     def __str__(self):
         return self.name

@@ -41,6 +41,3 @@ class People(models.Model):
 
 
 
-
-
-#https://pypi.org/project/django-phone-field/
