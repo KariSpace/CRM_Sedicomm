@@ -36,6 +36,15 @@
             </button>
         </div>
         <div class="settings col-4">
+            <form action="{% url 'search' %}" method="get">
+                <input class="search" name="q" type="text" placeholder="Search..." style="
+                margin: 12px;
+                /* height: 37px; */
+                border-radius: 5px;
+                border: 1px solid #5344c2;
+                padding: 4px;
+            ">
+            </form>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
         </button>

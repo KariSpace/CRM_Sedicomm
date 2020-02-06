@@ -1,37 +1,43 @@
-a{
+a {
     color: black;
     font-weight: 500;
-    
 }
-a:hover{
+
+a:hover {
     text-decoration: none;
     color: black;
 }
-.header{
+
+.header {
     display: flex;
     justify-content: space-between;
     border-bottom: solid 1px blue;
 }
+
 .text {
     margin: 0;
     display: flex;
     align-items: center;
 }
-.settings{
+
+.settings {
     /* width: 80vh; */
     display: flex;
     justify-content: flex-end;
 }
-.form-group{
+
+.form-group {
     display: flex;
     align-items: center;
 }
-.btn{
+
+.btn {
     margin: 10px;
     color: black;
     font-weight: 500;
 }
-.confirmation_field{
+
+.confirmation_field {
     position: fixed;
     top: 50px;
     background-color: white;
@@ -39,16 +45,19 @@ a:hover{
     border-radius: 5px;
     z-index: 99;
 }
-.buttons{
+
+.buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-.conf_span{
+
+.conf_span {
     padding: 3px;
     font-weight: 500;
 }
-.info_update_field{
+
+.info_update_field {
     position: fixed;
     top: 50px;
     background-color: white;
@@ -59,38 +68,40 @@ a:hover{
     display: flex;
     flex-direction: column;
 }
-.u_u_span{
+
+.u_u_span {
     margin-bottom: 20px;
     margin: 10px;
     font-weight: 500;
     text-align: center;
 }
-.u_u_form{
+
+.u_u_form {
     margin: 30px;
 }
-#div_id_username, #div_id_password{
+
+#div_id_username,
+#div_id_password {
     display: flex;
     flex-direction: column;
 }
-#hint_id_username{
+
+#hint_id_username {
     display: none;
 }
-.active a{
+
+.active a {
     color: white;
 }
 
-
-
-
-
-
-.content{
+.content {
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin: 10px;
 }
-.tables_header{
+
+.tables_header {
     background-color: rgb(136, 223, 223);
     text-align: center;
     border: black 1px solid;
@@ -98,90 +109,99 @@ a:hover{
     border-radius: 5px;
     cursor: pointer;
 }
-.tables_header h5{
+
+.tables_header h5 {
     margin: 10px;
 }
-.table{
+
+.table {
     border: rgb(0, 0, 0) 1px solid;
-    border-radius: 7px 7px 0   0 ;
+    border-radius: 7px 7px 0 0;
 }
-.table_content{
+
+.table_content {
     /* overflow: auto; */
     box-shadow: inset 0 0 4px 0px rgb(73, 71, 71);
     overflow: auto;
-    
     /* min-width: 400px; */
 }
-.table_header{
+
+.table_header {
     display: flex;
     justify-content: flex-end;
     background-color: rgb(182, 204, 243);
-    border-bottom:  rgb(0, 0, 0) 1px solid;
-    border-radius: 7px 7px 0   0 ;
+    border-bottom: rgb(0, 0, 0) 1px solid;
+    border-radius: 7px 7px 0 0;
     cursor: pointer;
-    
 }
-.table_header h5{
+
+.table_header h5 {
     margin: 10px;
 }
-.item_header, .item_description{
+
+.item_header,
+.item_description {
     border-bottom: 1px solid blue;
     padding: 5px;
     overflow: auto;
 }
-.item_header{
+
+.item_header {
     display: flex;
     justify-content: space-around;
     font-weight: 500;
 }
-.table th{
+
+.table th {
     border-top: 0;
     padding: 0;
     text-align: center;
-    
-
 }
-th{
+
+th {
     border: 1px solid black;
     border-bottom: 0;
     border-top: 0;
-    
 }
-.item_info_table th{
+
+.item_info_table th {
     width: 20%;
     overflow: auto;
 }
-.item_payment_table th{
+
+.item_payment_table th {
     width: 17%;
     overflow: auto;
 }
 
-.groups_list{
+.groups_list {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-bottom:20px ;
+    margin-bottom: 20px;
 }
-.groups_list a{
+
+.groups_list a {
     background-color: rgb(47, 255, 186);
     border-radius: 8px;
     padding: 7px;
 }
-.groups_list h5{
-  margin: 0;  
+
+.groups_list h5 {
+    margin: 0;
 }
 
-.table_groups{
+.table_groups {
     display: flex;
-    flex-direction: row ;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-
 }
-.table_group{
+
+.table_group {
     width: 45%;
-
 }
-.groups_item{
+
+.groups_item {
     max-height: 35px;
 }

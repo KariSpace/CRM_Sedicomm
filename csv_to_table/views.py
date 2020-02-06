@@ -104,8 +104,20 @@ def today_table(request):
    
     return render(request, template, context)
 
-
-
+@login_required
+def search(request):
+    template = "search.html"
+    query = request.GET.get('q')
+    search_people = Daily.objects.filter( 
+                            Q(name__icontains = query) | 
+                            Q(phone__icontains = query)|
+                            Q(email__icontains = query)
+                            ) 
+    context = {
+        "search_people":search_people,
+        }
+   
+    return render(request, template, context)
 
 #CSV_TO_FILE COMMIT 
 """@login_required
