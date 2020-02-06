@@ -227,12 +227,32 @@ def groups(request):
         # list of group tables
         # list_items = Group.objects.order_by('group')
 
-        values = set(People.objects.values_list('group', flat=True))
+       ''' values = set(People.objects.values_list('group', flat=True))
+        # values = Group.objects.all()
+       
+        li = []
+        print(values)
+       
+        for value in values:
+            print(value)
+            li.append(People.objects.filter(group = value))
+            print(li)
+    
+        for item in li:
+            print(item)
+            for field in item:
+                print(field.groups())
+                for i in field.groups():
+                    print(i)'''
+
+        values = set(Group.objects.all())
+        print(values)
         li = []
         for value in values:
-            value = value.strip('"')
+            print(value)
             li.append(People.objects.filter(group = value))
-    
+            print(li)
+
 
         # creating all data list
         context = {

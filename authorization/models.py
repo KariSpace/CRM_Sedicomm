@@ -1,5 +1,5 @@
 from django.db import models
-from jsonfield import JSONField
+# from jsonfield import JSONField
 
 class Group(models.Model):
     
@@ -109,3 +109,10 @@ class People(models.Model):
 
     def __str__(self):
         return self.name
+
+    def groups(self):
+        li = []
+        for a in self.group.all():
+            li.append(a.name)
+        return li
+    

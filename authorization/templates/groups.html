@@ -79,7 +79,9 @@
             <div class="groups_list">
                 {% if li %}
                     {% for list_items in li %}
-                        <a href="#{{ list_items.0.group }}"><h5>{{ list_items.0.group }}</h5></a>
+                        {% for group in list_items.0.groups %}
+                            <a href="#{{ list_items.0.group }}"><h5>{{ group }}</h5></a>
+                        {% endfor %}
                     {% endfor %}
                 {% endif %}  
             </div>
@@ -89,7 +91,7 @@
                 
                     <div class="table_group table show" id="{{ list_items.0.group }}" >
                         <div class="table_header " >
-                            <h5>{{ list_items.0.group }}</h5>
+                            <h5>{{ list_items.0.groups }}</h5>
                         </div>
                         <div class="table_content table_content_groups show" id='table_content'>
                         {% for item in list_items %}
