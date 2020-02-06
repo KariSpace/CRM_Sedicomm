@@ -40,7 +40,7 @@ def staff(request):
         n_form = UserUpdateForm(instance=request.user)
 
         # list of group tables
-        list_items = Daily.objects.order_by('callback_time', 'course', 'name')
+        list_items = Daily.objects.order_by('callback_time', 'name', 'course')
 
         # values = set(Daily.objects.values_list('course', flat=True))
         
@@ -88,6 +88,10 @@ class CreateNewDaily(LoginRequiredMixin, CreateView):
     template_name = 'group_create.html'
     success_url='/ok/'
     form_class = DailyCreateForm
+    
+
+    # ide = People.objects.get(email = 'guigiug@mail')
+    # print(ide.id)
 
     def form_valid(self, form):
         cleaned = form.save(commit=False)
@@ -113,7 +117,8 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
         comments = Daily.objects.get(id = cleaned.id).comments
         if(cleaned.comments != comments):
             cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))+'\n'
-        if(cleaned.group != None):
+        print(cleaned.group)
+        '''if(cleaned.group != None):
             print('mooved to groups')
             People.objects.update_or_create(
             name            = cleaned.name,
@@ -137,7 +142,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
             date_added        = str(datetime.now()),
         )
         else:
-            cleaned.group=""
+            cleaned.group=""'''
         return super().form_valid(form)
 
 
@@ -153,33 +158,36 @@ class ItemPaymentsUpdate(LoginRequiredMixin, UpdateView):
     form_class = ItemPaymentsUpdateForm
     success_url='/ok/'
 
+
     def form_valid(self, form):
         cleaned = form.save(commit=False)
-        if(cleaned.group != None):
-            print('mooved to groups')
-            People.objects.update_or_create(
-            name            = cleaned.name,
-            phone           = cleaned.phone,
-            email           = cleaned.email,
-            course          = cleaned.course,
-            country         = cleaned.country,
-            university      = cleaned.university,
-            work            = cleaned.work,
-            where_from      = cleaned.where_from,
-            currency        = cleaned.currency,
-            course_price    = cleaned.course_price,
-            comments        = cleaned.comments,
-            wishes          = cleaned.wishes,
-            group           = cleaned.group,
-            request_status        = cleaned.request_status,
-            payment_history        = cleaned.payment_history,
-            total_payment        = cleaned.total_payment,
-            payment_source        = cleaned.payment_source,
-            obligation        = cleaned.obligation,
-            date_added        = str(datetime.now()),
-        )
-        else:
-            cleaned.group=""
+        if form.cleaned_data['group']:
+                print('mooved to groups')
+                People.objects.update_or_create(
+                name            = cleaned.name,
+                phone           = cleaned.phone,
+                email           = cleaned.email,
+                course          = cleaned.course,
+                country         = cleaned.country,
+                university      = cleaned.university,
+                work            = cleaned.work,
+                where_from      = cleaned.where_from,
+                currency        = cleaned.currency,
+                course_price    = cleaned.course_price,
+                comments        = cleaned.comments,
+                wishes          = cleaned.wishes,
+                # group           = gr,
+                request_status        = cleaned.request_status,
+                payment_history        = cleaned.payment_history,
+                total_payment        = cleaned.total_payment,
+                payment_source        = cleaned.payment_source,
+                obligation        = cleaned.obligation,
+                date_added        = str(datetime.now()),
+                )
+                obj = People.objects.get(name = cleaned.name,phone= cleaned.phone,email= cleaned.email,course= cleaned.course,)
+                print(obj)
+                for gr in form.cleaned_data['group']:
+                    obj.group.add(gr)
         return super().form_valid(form)
 
 class CreateNewGroup(LoginRequiredMixin, CreateView):
@@ -242,6 +250,7 @@ class ItemGroupsUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'info_update.html'
     form_class = ItemGroupsUpdateForm
     success_url='/ok/'
+
 
     def form_valid(self, form):
         cleaned = form.save(commit=False)

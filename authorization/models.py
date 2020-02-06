@@ -1,7 +1,18 @@
 from django.db import models
 from jsonfield import JSONField
 
+class Group(models.Model):
+    
+    name            = models.CharField(max_length=100, blank=True)
+    created_date    = models.DateTimeField(blank=True, null=True)
+    time_start      = models.DateTimeField(blank=True, null=True)
+    time_end        = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+    
+
+    
 class Daily(models.Model):
     # from csv
     request_date    = models.DateTimeField(blank=True, null=True)
@@ -22,7 +33,7 @@ class Daily(models.Model):
     comments        = models.TextField(blank=True)
     wishes          = models.TextField(blank=True)
     callback_time   = models.DateTimeField(blank=True, null=True)
-    group           = models.CharField(max_length=100, blank=True)
+    group           = models.ManyToManyField(Group)
     request_status  = models.CharField(max_length=100, blank=True)
 
     # from payment form
@@ -31,10 +42,7 @@ class Daily(models.Model):
     payment_source  = models.CharField(max_length=100, blank=True)
     obligation      = models.IntegerField(blank=True, null=True)
     
-    class Meta:
-        indexes = [
-            models.Index(fields=['request_date',]),
-        ]
+        
 
     def __str__(self):
         return self.name
@@ -59,16 +67,7 @@ class Daily(models.Model):
 
 
 
-class Group(models.Model):
-    
-    name            = models.CharField(max_length=100, blank=True)
-    created_date    = models.DateTimeField(blank=True, null=True)
-    time_start      = models.DateTimeField(blank=True, null=True)
-    time_end        = models.DateTimeField(blank=True, null=True)
 
-    def __str__(self):
-        return self.name
-    
 
 class People(models.Model):
     # from csv
@@ -90,7 +89,8 @@ class People(models.Model):
     comments        = models.TextField(blank=True)
     wishes          = models.TextField(blank=True)
     callback_time   = models.DateTimeField(blank=True, null=True)
-    group           = JSONField(blank=True)
+    group           = models.ManyToManyField(Group)
+    # group           = JSONField(blank=True)
     request_status  = models.CharField(max_length=100, blank=True)
 
     # from payment form
@@ -101,10 +101,6 @@ class People(models.Model):
 
     date_added      = models.DateTimeField(blank=True, null=True)
     
-    class Meta:
-        indexes = [
-            models.Index(fields=['group',]),
-        ]
 
     def __str__(self):
         return self.name

@@ -20,29 +20,9 @@ class ItemInfoUpdateForm(forms.ModelForm):
         ('отказ', 'отказ'),
     ]
 
-    # values = set(Group.objects.values_list('name', flat=True))
-    # values_list = []
-
-    # for value in values:
-
-    #     li = []
-    #     li.append(value)
-    #     li.append(value)
-
-    #     values_list.append(li)
-
-    # print(values)
-    # print(values_list)
-
-    # GROUP_CHOICES = values_list
-
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
-    # group = forms.CharField(widget=forms.Select(choices=GROUP_CHOICES), required=False)
-    group = forms.ModelChoiceField(
-                    required=False,
-                    queryset = Group.objects.all(),
-                    widget=forms.Select())
+    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Daily
@@ -71,13 +51,14 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
     #     ('оплачено', 'оплачено'),
     # ]
 
-    group = forms.ModelChoiceField(
+    '''group = forms.ModelChoiceField(
                     required=False,
                     queryset = Group.objects.all(),
-                    widget=forms.Select())
+                    widget=forms.Select())'''
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
+    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Daily
@@ -94,13 +75,16 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
 
 class ItemGroupsUpdateForm(forms.ModelForm):
 
-    # group = forms.ModelChoiceField(
-    #                 required=False,
-    #                 queryset = Group.objects.all(),
-    #                 widget=forms.Select())
+    '''group = forms.ModelChoiceField(
+                    required=False,
+                    queryset = Group.objects.all(),
+                    widget=forms.Select())'''
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
+    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+
 
     class Meta:
         model = Daily
@@ -111,7 +95,7 @@ class ItemGroupsUpdateForm(forms.ModelForm):
                 'obligation',
                 'currency',
                 'course',
-                # 'group',
+                'group',
                 'payment_history',
                 'callback_time',]                   
 
