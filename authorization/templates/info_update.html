@@ -56,5 +56,19 @@
         field.addEventListener('mouseenter', function(event) {
         event.target.setAttribute('autocomplete', 'off')});
     </script>
+    <script>
+        
+        var item = document.getElementById('div_id_group')
+        
+        console.log(item)
+        console.log(item.children[1])
+        list = item.children[1]
+        header = item.children[0]
+        list.style.maxHeight = '100px'
+        list.style.float = "right"
+        list.style.overflow = "auto"
+        header.style.marginTop = "35px"
+        
+    </script>
 </body>
 </html>
