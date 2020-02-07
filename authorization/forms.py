@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Daily, Group, People
-from django.utils import timezone
+
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -34,15 +34,17 @@ class ItemInfoUpdateForm(forms.ModelForm):
                 'course',
                 'country',
                 'currency',
+                "total_payment",
                 'course_price',
                 'group',
+                'payment_history',
+                
                 'wishes',
                 'comments',
                 'request_status',
                 'callback_time',]
     
-    # def __init__(self):
-    #     self.comments = self.cleaned_data['comments']+'\n'+str(timezone.now())
+   
         
 class ItemPaymentsUpdateForm(forms.ModelForm):
 
@@ -61,8 +63,8 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
     group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
-        model = Daily
-        fields = [
+        model = People
+        '''fields = [
                 
                 'total_payment',
                 'course_price',
@@ -71,7 +73,8 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
                 'course',
                 'group',
                 'payment_history',
-                'callback_time',]    
+                'callback_time',]    '''
+        fields = '__all__'
 
 class ItemGroupsUpdateForm(forms.ModelForm):
 

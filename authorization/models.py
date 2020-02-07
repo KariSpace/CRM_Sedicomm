@@ -1,21 +1,43 @@
 from django.db import models
-# from jsonfield import JSONField
+from datetime import datetime
+from jsonfield import JSONField
 
-class Group(models.Model):
+
+
+class Course(models.Model):
     
-    name            = models.CharField(max_length=100, blank=True)
-    created_date    = models.DateTimeField(blank=True, null=True)
-    time_start      = models.DateTimeField(blank=True, null=True)
-    time_end        = models.DateTimeField(blank=True, null=True)
+    name     = models.CharField(max_length=100, blank=True)
+    price    = JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     def get_related(self):
+        return Group.objects.filter(course__pk=self.pk)
+
+    def get_price(self, currency):
+        price = self.price.get(currency)
+        if price:
+            return price
+        return 0
+
         
 
-        li = People.objects.filter(group = self)
 
+class Group(models.Model):
+    
+    name            = models.CharField(max_length=100, blank=True)
+    created_date    = models.DateTimeField(blank=True, null=True)
+    course          = models.ForeignKey(Course, on_delete=models.DO_NOTHING, null=True)
+    time_start      = models.DateTimeField(blank=True, null=True)
+    time_end        = models.DateTimeField(blank=True, null=True)
+
+
+    def __str__(self):
+        return self.name
+
+    def get_related(self):
+        li = People.objects.filter(group = self)
         return li
     
 
@@ -26,7 +48,7 @@ class Daily(models.Model):
     name            = models.CharField(max_length=100, blank=True)
     phone           = models.CharField(max_length=100, blank=True)
     email           = models.CharField(max_length=100, blank=True)
-    course          = models.CharField(max_length=100, blank=True)
+    course          = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     country         = models.CharField(max_length=100, blank=True)
     university      = models.CharField(max_length=100, blank=True)
     work            = models.CharField(max_length=100, blank=True)
@@ -60,7 +82,7 @@ class Daily(models.Model):
         return self.name
     
     def is_not_called(self):
-        if self.request_status != 'оплачено частично' and self.request_status != 'ожидаем оплату' and self.request_status != 'отказ' and self.request_status != 'оплачено':
+        if self.request_status != 'оплачено частично' and self.request_status != 'ожидаем оплату' and self.request_status != 'отказ' and self.request_status != 'оплачено' and self.request_status != 'перемещен в группы':
             return True
         else:
             return False
@@ -83,7 +105,7 @@ class Daily(models.Model):
 
 class People(models.Model):
     # from csv
-    request_date    = models.DateTimeField(blank=True, null=True)
+    add_date        = models.DateTimeField(blank=True, null=True)
     name            = models.CharField(max_length=100, blank=True)
     phone           = models.CharField(max_length=100, blank=True)
     email           = models.CharField(max_length=100, blank=True)
@@ -106,20 +128,39 @@ class People(models.Model):
     request_status  = models.CharField(max_length=100, blank=True)
 
     # from payment form
+    first_payment_date   = models.DateTimeField(blank=True, null=True)
+    full_payment_date  = models.DateTimeField(blank=True, null=True)
     payment_history = models.TextField(blank=True)
     total_payment   = models.IntegerField(blank=True, null=True)
-    payment_source  = models.CharField(max_length=100, blank=True)
     obligation      = models.IntegerField(blank=True, null=True)
 
-    date_added      = models.DateTimeField(blank=True, null=True)
-    
+    def save(self, **kwargs):
+        self.obligation = self.course_price - self.total_payment
+        self.add_date = datetime.now()
+        return super().save(**kwargs)
 
     def __str__(self):
         return self.name
 
-    def groups(self):
-        li = []
-        for a in self.group.all():
-            li.append(a.name)
-        return li
+    def is_called(self):
+        if self.request_status == 'оплачено частично' or self.request_status == 'ожидаем оплату' or self.request_status == 'оплачено':
+            return True
+        else:
+            return False
+
+    def call_status(self):
+        if self.request_status != 'перезвонить':
+            return False
+        else :
+            return True
+
+    # def groups(self):
+    #     li = []
+    #     for a in self.group.all():
+    #         li.append(a.name)
+    #     return li
+    
+
+def get_daily_payments():
+    return People.objects.filter(add_date = datetime.now())
     

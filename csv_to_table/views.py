@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import csv, io
-from authorization.models import Daily
+from authorization.models import Daily, Course
 from datetime import date
 
 from django.db.models import F, Sum
@@ -41,13 +41,13 @@ def csv_table(request):
             name            = col[0],
             phone           = col[1],
             email           = col[2],
-            course          = col[3],
+            course          = getCourse(col[3]),
             country         = col[4],
             university      = col[5],
             work            = col[6],
             where_from      = col[7],
             currency        = choseMoney(col[4]),
-            course_price    = choseCourse(choseMoney(col[4]), col[3]),
+            course_price    = getPrice(choseMoney(col[4]), getCourse(col[3]))
         )
     return render(request, template)
 
@@ -100,6 +100,11 @@ def today_table(request):
         #print(people_done)
         #print(people_partially)
         #print(people_waiting)
+
+        currency = choseMoney("Ukraine")
+        course = getCourse("Linux")
+        price = getPrice(currency, course)
+        print(price)
 
     context = {
         "n_form":n_form,
@@ -157,52 +162,17 @@ def choseMoney(country):
         currency = "USD"
     return(currency)
 
-def choseCourse(currency, course):
-    if currency == 'UAH':
-        if course == "CCNA1":
-            prise = 1500
-        elif course == "CCNA2":
-            prise = 1000
-        elif course == "Linux":
-            prise = 1400
-        elif course == "ITN":
-            prise = 3000
-        else:
-            prise = 0
-    if currency == 'RUB':
-        if course == "CCNA1":
-            prise = 1500
-        elif course == "CCNA2":
-            prise = 1000
-        elif course == "Linux":
-            prise = 1400
-        elif course == "ITN":
-            prise = 3000
-        else:
-            prise = 0
-    elif currency == 'USD':
-        if course == "CCNA1":
-            prise = 15
-        elif course == "CCNA2":
-            prise = 7
-        elif course == "Linux":
-            prise = 14
-        elif course == "ITN":
-            prise = 10
-        else:
-            prise = 0
-    elif currency == 'KZT':
-        if course == "CCNA1":
-            prise = 5000
-        elif course == "CCNA2":
-            prise = 4000
-        elif course == "Linux":
-            prise = 3000
-        elif course == "ITN":
-            prise = 10000
-        else:
-            prise = 0
+def getCourse(course):
+    c = Course.objects.filter(name = course)
+    if c:
+        for i in c:
+            return i
     else:
-        prise = 0
-    return(prise)
+        return None
+
+def getPrice(currency, course):
+    if course:
+        return(course.get_price(currency))
+    else:
+        return 0
 

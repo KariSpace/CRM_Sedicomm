@@ -1,7 +1,7 @@
 from . import views
 from django.contrib.auth import views as auth_views
 from django.urls import path
-from .views import ItemInfoUpdate, ItemPaymentsUpdate, CreateNewGroup, CreateNewDaily, ItemGroupsUpdate
+from .views import ItemInfoUpdate, GroupPaymentsUpdate, CreateNewGroup, CreateNewDaily, ItemGroupsUpdate
 
 urlpatterns = [
     path('', views.start, name='start'),
@@ -12,7 +12,7 @@ urlpatterns = [
     path('create_group/', CreateNewGroup.as_view(), name='create_group'),
     path('create_daily/', CreateNewDaily.as_view(), name='create_daily'),
     path('item/<int:pk>/item_info', ItemInfoUpdate.as_view(), name='item_info_update'),
-    path('item/<int:pk>/item_payments', ItemPaymentsUpdate.as_view(), name='item_payments_update'),
+    path('item/<int:pk>/group_payments', GroupPaymentsUpdate.as_view(), name='group_payments_update'),
     path('item/<int:pk>/item_groups', ItemGroupsUpdate.as_view(), name='item_groups_update'),
     path('password_change/', views.ChangePassword, name='password_change'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
