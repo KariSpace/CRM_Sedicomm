@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>STAFF</title>
+    <title>DAILY</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
 </head>
@@ -75,7 +75,7 @@
             </div>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
             Logout
-        </button>
+            </button>
             <div class="confirmation_field collapse" id="ConfirmationField">
                 <span class="conf_span">
                 Are you sure you want to log out?
@@ -112,12 +112,12 @@
                 <div class="table_header " data-toggle="collapse" data-target="#table_content" aria-expanded="false">
                     <!-- <h5>{{ list_items.0.course }}</h5> -->
                     <h5>{{ table_date }}</h5>
-                    <h5>New Users</h5>
+                    <h5>New Clients</h5>
                 </div>
                 <div class="table_content show" id='table_content'>
                     {% for item in list_items %} {% if item.is_not_called %}
                     <div class="item" id="{{item.email}}">
-                        <a href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=910,top=50,left=300'); popupWin.focus(); return false;">
+                        <a class="it-a" href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=1060,height=710,top=50,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                                 <!-- <div class="name">{{item.name}}</div>
                                         <div class="phone">{{item.phone}}</div>
@@ -146,6 +146,7 @@
                                 </table>
                             </div>
                         </a>
+                        
                     </div>
                     {% endif %} {% endfor %}
                 </div>
@@ -165,19 +166,25 @@
 
         <div class="payment_tables">
             <div class="tables_header" data-toggle="collapse" data-target="#payment_tables" aria-expanded="false">
-                <h5>Оплаты</h5>
+                <h5>Оплаты Добавленных Сегодня</h5>
             </div>
-            {% if list_items %} {% if payment_status %}
+            {% if list_payments %}
             <div class="table show" id="payment_tables">
                 <div class="table_header " data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
                     <h5>{{ table_date }}</h5>
-                    <h5>Payments</h5>
+                    <h5>New Clients Payments</h5>
                 </div>
                 <div class="table_content show" id='table_payments_content'>
-                    {% for item in list_items %} {% if item.is_called %}
+                    {% for item in list_payments %} {% if item.is_called %}
                     <div class="item" id="{{item.email}}">
-                        <a href="{% url 'item_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                            <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                        <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                            <div class="item_header" data-toggle="collapse" data-target="#item_description"
+                             {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
+                             {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
+                             {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %}
+                             {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %}
+                             {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}
+                             >
                                 <table class="item_payment_table" style="width:100%">
                                     <tr>
                                         <th>
@@ -186,9 +193,7 @@
                                         <th>
                                             <div class="phone">{{item.phone}}</div>
                                         </th>
-                                        <th>
-                                            <div class="country">{{item.course}}</div>
-                                        </th>
+                                        
                                         <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
                                         <th>
                                             <div class="country">{{item.request_status}}</div>
@@ -206,14 +211,23 @@
                                 </table>
                             </div>
                         </a>
+                        <span id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false" >x</span>
+                    <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
+                        <span class="conf_span">
+                            Delete {{item.name}}??
+                        </span>
+                        <div class="buttons">
+                            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
+                            <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                        </div>
                     </div>
-                    {% endif %} {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             {% else %}
             <h3 style="text-align: center;">Nothing</h3>
-            {% endif %} {% else %}
-            <h3 style="text-align: center;">Still no tables or something wrong</h3>
             {% endif %}
 
 

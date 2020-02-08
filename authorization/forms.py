@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Daily, Group, People
-from django.utils import timezone
+
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -22,7 +22,8 @@ class ItemInfoUpdateForm(forms.ModelForm):
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
-    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    # group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    need_confirm = forms.BooleanField(widget=forms.CheckboxInput, required=False)
 
     class Meta:
         model = Daily
@@ -34,15 +35,20 @@ class ItemInfoUpdateForm(forms.ModelForm):
                 'course',
                 'country',
                 'currency',
+                "total_payment",
+                
                 'course_price',
                 'group',
+                'payment_history',
+                
                 'wishes',
                 'comments',
+                
                 'request_status',
-                'callback_time',]
+                'callback_time',
+                'need_confirm',]
     
-    # def __init__(self):
-    #     self.comments = self.cleaned_data['comments']+'\n'+str(timezone.now())
+   
         
 class ItemPaymentsUpdateForm(forms.ModelForm):
 
@@ -58,20 +64,27 @@ class ItemPaymentsUpdateForm(forms.ModelForm):
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
-    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    # group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    need_confirm = forms.BooleanField(widget=forms.CheckboxInput, required=False)
 
     class Meta:
-        model = Daily
+        model = People
         fields = [
-                
+                'name',
+                'phone',
+                'email',
+                'course',
+                'group',
+                'currency',
+                'need_confirm',
                 'total_payment',
                 'course_price',
                 'obligation',
-                'currency',
-                'course',
-                'group',
                 'payment_history',
-                'callback_time',]    
+                'comments',
+                'callback_time',
+                ]    
+        # fields = '__all__'
 
 class ItemGroupsUpdateForm(forms.ModelForm):
 
@@ -82,7 +95,8 @@ class ItemGroupsUpdateForm(forms.ModelForm):
 
     callback_time = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'], required=False)
     # request_status = forms.CharField(widget=forms.Select(choices=STATUS_CHOICES))
-    group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    # group = forms.ModelMultipleChoiceField(required=False,queryset = Group.objects.all(), widget=forms.CheckboxSelectMultiple)
+    need_confirm = forms.BooleanField(widget=forms.CheckboxInput, required=False)
 
 
 
@@ -91,12 +105,15 @@ class ItemGroupsUpdateForm(forms.ModelForm):
         fields = [
                 
                 'total_payment',
+                'need_confirm',
                 'course_price',
                 'obligation',
                 'currency',
                 'course',
                 'group',
+                
                 'payment_history',
+                'comments',
                 'callback_time',]                   
 
 class GroupCreateForm(forms.ModelForm):
@@ -106,7 +123,7 @@ class GroupCreateForm(forms.ModelForm):
 
     class Meta:
         model = Group
-        fields = ['name', 'time_start', 'time_end']
+        fields = ['name', 'course', 'time_start', 'time_end']
 
 
 class DailyCreateForm(forms.ModelForm):

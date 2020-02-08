@@ -91,50 +91,77 @@
     {% endif %}
 
 
-    <div class="content ">
-        <div class="new_tables">
-            <div class="groups_list">
-                {% if li %}
-                    {% for list_items in li %}
-                            <a href="#{{ list_items }}"><h5>{{ list_items }}</h5></a>
-                    {% endfor %}
-                {% endif %}  
+    <div class="payment_tables">
+        {% if list_payments %}
+        <div class="table show" id="payment_tables">
+            <div class="table_header " data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
+                <h5>{{ table_date }}</h5>
+                <h5>Clients Payments</h5>
             </div>
-            {% if li %}
-                <div class="table_groups">
-                {% for list_items in li %}
-                    <div class="table_group table show" id="{{ list_items }}" >
-                        <div class="table_header " >
-                            <h5>{{ list_items }}</h5>
+            <div class="table_content show" id='table_payments_content'>
+                {% for item in list_payments %} {% if item.is_called %}
+                <div class="item" id="{{item.email}}">
+                    <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description"
+                         {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
+                         {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
+                         {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %}
+                         {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %}
+                         {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
+                            <table class="item_payment_table" style="width:100%">
+                                <tr>
+                                    <th>
+                                        <div class="name">{{item.name}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="phone">{{item.phone}}</div>
+                                    </th>
+                                    
+                                    <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
+                                    <th>
+                                        <div class="request_status">{{item.request_status}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="total_payment">{{item.total_payment}} {{item.currency}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.obligation}} {{item.currency}}</div>
+                                    </th>
+                                    {% if item.is_need_confirm %} 
+                                    <th>
+                                        <div class="is_need_confirm" style="font-size: 0.6rem;">Нужно подтверждение</div>
+                                    </th>
+                                    {% endif %}
+                                    <!-- <th>{% if item.callback_time %}
+                                            <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                        {% endif %}</th> -->
+                                </tr>
+                                
+                            </table>
+                            
                         </div>
-                        <div class="table_content table_content_groups show" id='table_content'>
-                        {% for item in list_items.get_related %}
-                            <div class="item groups_item">
-                                <a href="{% url 'item_groups_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                                    <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
-                                        <table class="item_info_table" style="width:100%">
-                                            <tr>
-                                            <th><div class="name">{{item.name}}</div></th>
-                                            <th><div class="phone">{{item.phone}}</div></th> 
-                                            <th><div class="country">{{item.country}}</div></th>
-                                            <!-- <th><div class="country">{{item.course}}</div></th> -->
-                                            <!-- <th>{% if item.callback_time %}
-                                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                            {% endif %}</th> -->
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}   
+                    </a>
+                    <span id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false" >x</span>
+                    <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
+                        <span class="conf_span">
+                            Delete {{item.name}}??
+                        </span>
+                        <div class="buttons">
+                            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
+                            <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
                         </div>
-                    </div>  
-                    {% endfor %}
-                </div>  
-            {% else %}
-                <h3 style="text-align: center;">Still no tables or something wrong</h3>
-            {% endif %}
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
+        {% else %}
+        <h3 style="text-align: center;">Nothing</h3>
+        {% endif %}
+
+
     </div>
     <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

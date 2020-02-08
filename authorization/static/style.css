@@ -128,7 +128,8 @@ a:hover {
 
 .table_header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
+    align-items: center;
     background-color: rgb(182, 204, 243);
     border-bottom: rgb(0, 0, 0) 1px solid;
     border-radius: 7px 7px 0 0;
@@ -138,13 +139,23 @@ a:hover {
 .table_header h5 {
     margin: 10px;
 }
+.item{
+    display: flex;
+}
+.it-a{
+    width: 100%;
+}
+.gr-a{
+    width: 99%;
 
-.item_header,
-.item_description {
+}
+.item_header{
     border-bottom: 1px solid blue;
     padding: 5px;
     overflow: auto;
+
 }
+
 
 .item_header {
     display: flex;
@@ -204,4 +215,30 @@ th {
 
 .groups_item {
     max-height: 35px;
+}
+
+
+#del_btn{
+    width: 1%;
+    background-color: rgba(255, 0, 0, 0.767);
+    /* font-size: 0.5rem; */
+    text-align: center;
+    border-bottom: 1px solid blue;
+
+}
+.ConfirmationFieldDel{
+    position: fixed;
+    top: 60px;
+    right: 0px;
+    background-color: white;
+    border: darkblue 1px solid;
+    border-radius: 5px;
+    z-index: 110;
+}
+
+.gr-del-btn{
+    margin: 0; padding: 5px; font-size: 0.7rem; height: 30px;
+}
+.gr-p{
+    font-size: 0.8rem;
 }

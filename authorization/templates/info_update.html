@@ -28,7 +28,7 @@
                     <button  class="btn btn-outline-info" type="button">
                         <a style="text-decoration: none;color: black;"
                          href="{% url 'create_group' %}" target="_self" 
-                         onClick="popupWin = window.open(this.href, 'Window2', 'location,width=350,height=420,top=400,left=500'); popupWin.focus(); return false;">
+                         onClick="popupWin = window.open(this.href, 'Window2', 'location,width=350,height=500,top=400,left=500'); popupWin.focus(); return false;">
                             Create Group
                         </a>
                     </button>
@@ -39,7 +39,7 @@
             </fieldset>
         </form>
     </div>
-    <script>window.onblur= function() {window.onfocus= function () {location.reload(true)}};</script>
+    
     <script src="{% static 'moment.min.js' %}"></script>
     <script>
         $(function () {
@@ -56,7 +56,7 @@
         field.addEventListener('mouseenter', function(event) {
         event.target.setAttribute('autocomplete', 'off')});
     </script>
-    <script>
+    <!-- <script>
         
         var item = document.getElementById('div_id_group')
         
@@ -69,6 +69,6 @@
         list.style.overflow = "auto"
         header.style.marginTop = "35px"
         
-    </script>
+    </script> -->
 </body>
 </html>

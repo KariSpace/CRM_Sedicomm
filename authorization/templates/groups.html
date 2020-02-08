@@ -95,23 +95,38 @@
         <div class="new_tables">
             <div class="groups_list">
                 {% if li %}
-                    {% for list_items in li %}
+                    {% for list_items in li %}{% if list_items.is_active %}
                             <a href="#{{ list_items }}"><h5>{{ list_items }}</h5></a>
-                    {% endfor %}
+                    {% endif %}{% endfor %}
                 {% endif %}  
             </div>
             {% if li %}
                 <div class="table_groups">
-                {% for list_items in li %}
+                {% for list_items in li %}{% if list_items.is_active %}
                     <div class="table_group table show" id="{{ list_items }}" >
                         <div class="table_header " >
+                            <button class="btn btn-outline-danger gr-del-btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{list_items.id}}" aria-expanded="false" >Delete</button>
+                            <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{list_items.id}}">
+                                <span class="conf_span">
+                                    Delete {{list_items.name}}??
+                                </span>
+                                <div class="buttons">
+                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{list_items.id}}" aria-expanded="false">No</button>
+                                    <a href="{% url 'group_delete' list_items.id %}" class="btn btn-outline-danger">Yes</a>
+                                </div>
+                            </div>
                             <h5>{{ list_items }}</h5>
                         </div>
                         <div class="table_content table_content_groups show" id='table_content'>
-                        {% for item in list_items.get_related %}
+                        {% for item in list_items.get_related %}{% if item.is_not_deleted %}
                             <div class="item groups_item">
-                                <a href="{% url 'item_groups_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                                    <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
+                                <a class="gr-a gr-p" style="width: 98%;" href="{% url 'item_groups_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                                    <div class="item_header" data-toggle="collapse" data-target="#item_description"
+                                    {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
+                                    {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
+                                    {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %}
+                                    {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %}
+                                    {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
                                         <table class="item_info_table" style="width:100%">
                                             <tr>
                                             <th><div class="name">{{item.name}}</div></th>
@@ -125,10 +140,22 @@
                                         </table>
                                     </div>
                                 </a>
+                                <span style="width: 2%;" id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false" >x</span>
+                                <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
+                                <span class="conf_span">
+                                    Delete {{item.name}}??
+                                </span>
+                                <div class="buttons">
+                                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
+                                    <a href="{% url 'groups_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                                </div>
                             </div>
+                            </div>
+                            {% endif %}
                         {% endfor %}   
                         </div>
                     </div>  
+                    {% endif %}
                     {% endfor %}
                 </div>  
             {% else %}
