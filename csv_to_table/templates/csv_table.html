@@ -10,12 +10,69 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
     <style>
+        .strong {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form_upl {
+            text-align: center;
+        }
+        
+        .submit-btn {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(0, 23, 226);
+            border-radius: 5px;
+            padding: 7px 10px;
+            color: rgb(3, 21, 187);
+        }
+        
+        .submit-btn:hover {
+            background-color: rgb(87, 118, 255);
+            border: 1px solid rgb(255, 255, 255);
+            color: #fff;
+        }
+        
         div.upload_block {
-            width: 300px;
+            width: 350px;
             margin: 30vh auto 0px;
             border: 1px solid blue;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 20px;
+        }
+        
+        .fl_upld {
+            width: 305px;
+            text-align: center;
+        }
+        
+        #fl_inp {
+            display: none;
+        }
+        
+        .fl_upld label {
+            cursor: pointer;
+            background: rgb(87, 118, 255);
+            border-radius: 3px;
+            padding: 10px 25px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            width: 250px;
+            border-radius: 8px;
+            border: 1px solid rgb(255, 255, 255);
+        }
+        
+        .fl_upld label:hover {
+            background: #ffffff;
+            border: 1px solid rgb(0, 23, 226);
+            color: rgb(61, 81, 255);
+        }
+        
+        #fl_nm {
+            /* color: #f00; */
         }
     </style>
 </head>
@@ -43,7 +100,7 @@
                     Upload
                 </a>
             </button> -->
-            
+
             <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'groups_payments' %}">
                     Payments
@@ -96,21 +153,34 @@
     </div>
     <div class="upload_block">
         {% if messages %} {% for message in messages %}
-        <div>
+        <div class="strong">
             <strong>{{message|safe}}</strong>
         </div>
         {% endfor %} {% endif %}
-        <form method="post" enctype="multipart/form-data">
+        <form class="form_upl" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label> Upload a file </label>
-            <input type="file" name='csv_f' required="True">
-            </br>
-            <button type="submit"> Upload</button>
+
+            <div class="fl_upld">
+                <label><input id="fl_inp" type="file" name="csv_f" required="True"><div id="fl_nm">.csv файл не выбран</div></label>
+                <!-- <div id="fl_nm">Файл не выбран</div> -->
+            </div>
+
+            <button class="submit-btn" type="submit"> Upload</button>
         </form>
     </div>
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
+
+    <script>
+        $(document).ready(function() {
+            $("#fl_inp").change(function() {
+                var filename = $(this).val().replace(/.*\\/, "");
+                $("#fl_nm").html(filename);
+            });
+        });
+    </script>
 </body>
 
 </html>

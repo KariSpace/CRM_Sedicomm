@@ -31,7 +31,7 @@ def csv_table(request):
         messages.error(request, "This is not a CSV, try to upload .csv")
         return render(request,template)
     else:
-        messages.success(request, "Data was uploaded")
+        messages.success(request, " ")
 
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
