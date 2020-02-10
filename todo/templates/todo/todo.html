@@ -1,0 +1,233 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    <title>ToDo</title>
+
+
+
+
+    <style>
+        #content {
+            background: rgb(255, 255, 255);
+            margin: 20vh auto 0px;
+            border: 1px solid blue;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        #content>h2 {
+            font-size: 18px;
+            text-align: center;
+            padding-top: 0;
+        }
+        
+        .t10 {
+            margin-top: 10px;
+        }
+        
+        .t20 {
+            margin-top: 20px;
+        }
+        
+        .todo-completed {
+            text-decoration: line-through;
+            background: rgba(149, 165, 166, .3);
+        }
+        
+        footer {
+            margin-top: 20px;
+            color: white;
+        }
+        
+        .list-group-item {
+            color: black;
+        }
+        
+        #add-btn {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            border-radius: 5px;
+            padding: 7px 10px;
+            background-color: rgb(87, 118, 255);
+            border: 1px solid rgb(255, 255, 255);
+            color: #fff;
+        }
+        
+        .submit-btn {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(0, 23, 226);
+            border-radius: 5px;
+            padding: 7px 10px;
+            color: rgb(3, 21, 187);
+        }
+        
+        .submit-btn:hover {
+            background-color: rgb(87, 118, 255);
+            border: 1px solid rgb(255, 255, 255);
+            color: #fff;
+        }
+        
+        .form-control {
+            height: 40px;
+        }
+        
+        .text-center {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .listHeader {
+            margin: 15px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="text col-8">
+            <button class="btn btn-outline-primary " type="button">
+                <a href="{% url 'todo' %}">
+                    Todo
+                </a>
+            </button>
+            <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'staff' %}">
+                    Daylis
+                </a>
+            </button>
+            <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'groups' %}">
+                    Groups
+                </a>
+            </button>
+            <!-- <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'csv_table' %}">
+                    Upload
+                </a>
+            </button> -->
+
+            <button class="btn btn-outline-info " type="button">
+                <a href="{% url 'groups_payments' %}">
+                    Payments
+                </a>
+            </button>
+            <button class="btn btn-outline-info active" type="button">
+                <a href="{% url 'csv_table' %}">
+                    Upload CSV
+                </a>
+            </button>
+        </div>
+        <div class="settings col-4">
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
+            {{user.username}}
+        </button>
+            <div class="info_update_field collapse" id="InfoUpdateField">
+                <span class="u_u_span">
+                You can change username and password here
+            </span>
+                <form method="POST" class="u_u_form">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ n_form|crispy }}
+                    </fieldset>
+                    <fieldset class="form-group d-flex justify-content-center">
+                        <div class="buttons">
+                            <button class="btn btn-outline-danger" type="submit">Cnange Name</a></button>
+                        </div>
+                    </fieldset>
+                </form>
+                <button class="btn btn-outline-info">
+                <a href="{% url 'password_change' %}">Change Password</a>
+            </button>
+            </div>
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
+            Logout
+        </button>
+            <div class="confirmation_field collapse" id="ConfirmationField">
+                <span class="conf_span">
+                Are you sure you want to log out?
+            </span>
+                <div class="buttons">
+                    <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationField" aria-expanded="false">
+                    No
+                </button>
+                    <button class="btn btn-outline-danger"><a href="{% url 'logout' %}?next=/">Yes</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid" id="wrapper">
+
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4" id="content">
+                <h2 class="listHeader">Список Дел</h2>
+                <form action="{% url 'add' %}" method="POST" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="input-group">
+                            {{ form.text }}
+                            <span class="input-group-btn">
+								  <button type="submit" class="btn btn-default " id="add-btn">Добавить</button>
+							  </span>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="text-center">
+                    <div class="text-center">
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <a href="{% url 'deleteall' %}"><button type="button" class="btn btn-warning submit-btn">
+                                    Удалить всё
+                                </button></a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url 'deletecomplete' %}"><button type="button" class="btn btn-warning submit-btn">
+                                                            <i class="glyphicon glyphicon-trash"></i> Удалить сделаные 
+                                                        </button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list-group t20">
+                    {% for todo in todo_list %} {% if todo.complete %}
+                    <li class="list-group-item todo-completed">{{ todo.text }}</li>
+                    {% else %}
+                    <a href="{% url 'complete' todo.id %}">
+                        <li class="list-group-item">{{ todo.text }}</li>
+                    </a>
+                    {% endif %} {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#fl_inp").change(function() {
+                var filename = $(this).val().replace(/.*\\/, "");
+                $("#fl_nm").html(filename);
+            });
+        });
+    </script>
+</body>
+
+</html>

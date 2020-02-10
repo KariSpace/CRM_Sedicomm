@@ -15,8 +15,8 @@
     <div class="header">
         <div class="text col-8">
             <button class="btn btn-outline-primary " type="button">
-                <a href="{% url 'today_table' %}">
-                    Today
+                <a href="{% url 'todo' %}">
+                    Todo
                 </a>
             </button>
             <button class="btn btn-outline-info active" type="button">
@@ -34,7 +34,7 @@
                     Upload
                 </a>
             </button> -->
-            
+
             <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'groups_payments' %}">
                     Payments
@@ -146,7 +146,7 @@
                                 </table>
                             </div>
                         </a>
-                        
+
                     </div>
                     {% endif %} {% endfor %}
                 </div>
@@ -178,13 +178,12 @@
                     {% for item in list_payments %} {% if item.is_called %}
                     <div class="item" id="{{item.email}}">
                         <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                            <div class="item_header" data-toggle="collapse" data-target="#item_description"
-                             {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
-                             {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
-                             {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %}
-                             {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %}
-                             {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}
-                             >
+                            <div class="item_header" data-toggle="collapse" data-target="#item_description" 
+                            {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %} 
+                            {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
+                             {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} 
+                             {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} 
+                             {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
                                 <table class="item_payment_table" style="width:100%">
                                     <tr>
                                         <th>
@@ -193,7 +192,7 @@
                                         <th>
                                             <div class="phone">{{item.phone}}</div>
                                         </th>
-                                        
+
                                         <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
                                         <th>
                                             <div class="country">{{item.request_status}}</div>
@@ -204,26 +203,23 @@
                                         <th>
                                             <div class="country">{{item.obligation}} {{item.currency}}</div>
                                         </th>
-                                        <!-- <th>{% if item.callback_time %}
-                                                <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                            {% endif %}</th> -->
+
                                     </tr>
                                 </table>
                             </div>
                         </a>
-                        <span id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false" >x</span>
-                    <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
-                        <span class="conf_span">
+                        <span id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">x</span>
+                        <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
+                            <span class="conf_span">
                             Delete {{item.name}}??
                         </span>
-                        <div class="buttons">
-                            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
-                            <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                            <div class="buttons">
+                                <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
+                                <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
+                    {% endif %} {% endfor %}
                 </div>
             </div>
             {% else %}
@@ -242,20 +238,24 @@
     </script>
     <script>
         var items = document.getElementsByClassName('item')
-        // console.log(items.length)
-        for (i=0;i<=items.length;i++){
-            // console.log(i)
-            // console.log(items[i])
-            if(i!=0){
-                // console.log("i!=0")
-                if(items[i].id==items[i-1].id ){
-                    // console.log("items[i].id==items[i-1].id")
-                    items[i].style.background = "rgba(63, 255, 45, 0.500)"
-                }    
-            }
-            if(items[i].id==items[i+1].id){
-                // console.log("items[i].id==items[i+1].id")
-                items[i].style.background = "rgba(63, 255, 45, 0.500)"
+        for (i = 0; i <= items.length - 1; i++) {
+            var r_color = Math.floor(Math.random() * 256)
+            var r_color2 = Math.floor(Math.random() * 256)
+            var r_color3 = Math.floor(Math.random() * 256)
+            if (items[i].id == items[i + 1].id) {
+                if (!items[i + 1].classList.contains("call_status")) {
+                    items[i].style.background = "rgba(" + r_color3 + ", " + r_color + "," + r_color2 + ", 0.500)"
+                } else {
+                    items[i + 1].style.background = "rgba(255, 157, 0, 0.554);"
+                }
+                while (items[i].id == items[i + 1].id) {
+                    if (!items[i + 1].classList.contains("call_status")) {
+                        items[i + 1].style.background = "rgba(" + r_color3 + ", " + r_color + "," + r_color2 + ", 0.500)"
+                    } else {
+                        items[i + 1].style.background = "rgba(255, 157, 0, 0.554);"
+                    }
+                    i++
+                }
             }
         }
     </script>

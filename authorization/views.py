@@ -356,4 +356,3 @@ def ChangePassword(request):
         "u_form":u_form,
         }
         return render(request,"pass_change.html",context)
-
