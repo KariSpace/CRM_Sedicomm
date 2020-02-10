@@ -15,8 +15,8 @@
     <div class="header">
         <div class="text col-8">
             <button class="btn btn-outline-primary " type="button">
-                <a href="{% url 'today_table' %}">
-                    Today
+                <a href="{% url 'todo' %}">
+                    Todo
                 </a>
             </button>
             <button class="btn btn-outline-info active" type="button">
@@ -183,8 +183,7 @@
                              {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);" {% endif %}
                              {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %}
                              {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %}
-                             {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}
-                             >
+                             {% if item.is_not_payed %} style="background-color: rgba(255, 0, 0, 0.554);" {% endif %} >
                                 <table class="item_payment_table" style="width:100%">
                                     <tr>
                                         <th>

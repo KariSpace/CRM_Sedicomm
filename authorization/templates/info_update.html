@@ -1,31 +1,31 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% if title %}
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% if title %}
     <title>{{ title }}</title>
     {% else %}
     <title>SedicommCRM</title>
     {% endif %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    {% load staticfiles %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'style_update.css' %}" type="text/css">
 </head>
-<body class="d-flex " style="">
+
+<body class="d-flex ">
     <div class="content ">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 {{ form|crispy }}
                 <div class="form-group">
-                    <button  class="btn btn-outline-info" type="button">
+                    <button class="btn btn-outline-info" type="button">
                         <a style="text-decoration: none;color: black;"
                          href="{% url 'create_group' %}" target="_self" 
                          onClick="popupWin = window.open(this.href, 'Window2', 'location,width=350,height=500,top=400,left=500'); popupWin.focus(); return false;">
@@ -34,27 +34,30 @@
                     </button>
                 </div>
             </fieldset>
-            <fieldset class="form-group d-flex justify-content-center" >
+            <fieldset class="form-group d-flex justify-content-center">
                 <button class="btn btn-outline-info m-auto" type="submit">Submit</button>
-            </fieldset>
+
+
         </form>
     </div>
-    
+
     <script src="{% static 'moment.min.js' %}"></script>
     <script>
-        $(function () {
-          $("#id_callback_time").datetimepicker({
-            format: 'd/m/Y H:i',
-          });
+        $(function() {
+            $("#id_callback_time").datetimepicker({
+                format: 'd/m/Y H:i',
+            });
         });
     </script>
     <script>
         var field = document.getElementById('id_callback_time')
-        if(field.value != ""){
+        if (field.value != "") {
             formated = moment(field.value).format('DD/MM/YYYY hh:mm');
-            field.value = formated;}
+            field.value = formated;
+        }
         field.addEventListener('mouseenter', function(event) {
-        event.target.setAttribute('autocomplete', 'off')});
+            event.target.setAttribute('autocomplete', 'off')
+        });
     </script>
     <!-- <script>
         
@@ -71,4 +74,5 @@
         
     </script> -->
 </body>
+
 </html>

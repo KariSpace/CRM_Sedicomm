@@ -1,22 +1,63 @@
-{% load crispy_forms_tags %}
+{% load static %} {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>STAFF</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    <title>ToDo</title>
+
+
+
+
     <style>
-        .strong {
-            text-align: center;
-            margin-bottom: 20px;
+        #content {
+            background: rgb(255, 255, 255);
+            margin: 20vh auto 0px;
+            border: 1px solid blue;
+            border-radius: 10px;
+            padding: 20px;
         }
         
-        .form_upl {
+        #content>h2 {
+            font-size: 18px;
             text-align: center;
+            padding-top: 0;
+        }
+        
+        .t10 {
+            margin-top: 10px;
+        }
+        
+        .t20 {
+            margin-top: 20px;
+        }
+        
+        .todo-completed {
+            text-decoration: line-through;
+            background: rgba(149, 165, 166, .3);
+        }
+        
+        footer {
+            margin-top: 20px;
+            color: white;
+        }
+        
+        .list-group-item {
+            color: black;
+        }
+        
+        #add-btn {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            border-radius: 5px;
+            padding: 7px 10px;
+            background-color: rgb(87, 118, 255);
+            border: 1px solid rgb(255, 255, 255);
+            color: #fff;
         }
         
         .submit-btn {
@@ -35,45 +76,18 @@
             color: #fff;
         }
         
-        div.upload_block {
-            width: 350px;
-            margin: 30vh auto 0px;
-            border: 1px solid blue;
-            border-radius: 15px;
-            padding: 20px;
+        .form-control {
+            height: 40px;
         }
         
-        .fl_upld {
-            margin-top: 15px;
-            width: 305px;
+        .text-center {
             text-align: center;
+            margin-bottom: 20px;
         }
         
-        #fl_inp {
-            display: none;
-        }
-        
-        .fl_upld label {
-            cursor: pointer;
-            background: rgb(87, 118, 255);
-            border-radius: 3px;
-            padding: 10px 25px;
-            color: #fff;
-            font-weight: bold;
-            text-align: center;
-            width: 250px;
-            border-radius: 8px;
-            border: 1px solid rgb(255, 255, 255);
-        }
-        
-        .fl_upld label:hover {
-            background: #ffffff;
-            border: 1px solid rgb(0, 23, 226);
-            color: rgb(61, 81, 255);
-        }
-        
-        #fl_nm {
-            /* color: #f00; */
+        .listHeader {
+            margin: 15px;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -128,7 +142,7 @@
                     </fieldset>
                     <fieldset class="form-group d-flex justify-content-center">
                         <div class="buttons">
-                            <button class="btn btn-outline-danger" type="submit">Change Name</a></button>
+                            <button class="btn btn-outline-danger" type="submit">Cnange Name</a></button>
                         </div>
                     </fieldset>
                 </form>
@@ -152,22 +166,54 @@
             </div>
         </div>
     </div>
-    <div class="upload_block">
-        {% if messages %} {% for message in messages %}
-        <div class="strong">
-            <strong>{{message|safe}}</strong>
-        </div>
-        {% endfor %} {% endif %}
-        <form class="form_upl" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
 
-            <div class="fl_upld">
-                <label><input id="fl_inp" type="file" name="csv_f" required="True"><div id="fl_nm">.csv файл не выбран</div></label>
-                <!-- <div id="fl_nm">Файл не выбран</div> -->
+
+    <div class="container-fluid" id="wrapper">
+
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4" id="content">
+                <h2 class="listHeader">Список Дел</h2>
+                <form action="{% url 'add' %}" method="POST" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="input-group">
+                            {{ form.text }}
+                            <span class="input-group-btn">
+								  <button type="submit" class="btn btn-default " id="add-btn">Добавить</button>
+							  </span>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="text-center">
+                    <div class="text-center">
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <a href="{% url 'deleteall' %}"><button type="button" class="btn btn-warning submit-btn">
+                                    Удалить всё
+                                </button></a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url 'deletecomplete' %}"><button type="button" class="btn btn-warning submit-btn">
+                                                            <i class="glyphicon glyphicon-trash"></i> Удалить сделаные 
+                                                        </button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list-group t20">
+                    {% for todo in todo_list %} {% if todo.complete %}
+                    <li class="list-group-item todo-completed">{{ todo.text }}</li>
+                    {% else %}
+                    <a href="{% url 'complete' todo.id %}">
+                        <li class="list-group-item">{{ todo.text }}</li>
+                    </a>
+                    {% endif %} {% endfor %}
+                </ul>
             </div>
+        </div>
 
-            <button class="submit-btn" type="submit"> Upload</button>
-        </form>
     </div>
 
 
