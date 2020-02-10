@@ -242,20 +242,24 @@
     </script>
     <script>
         var items = document.getElementsByClassName('item')
-        // console.log(items.length)
-        for (i=0;i<=items.length;i++){
-            // console.log(i)
-            // console.log(items[i])
-            if(i!=0){
-                // console.log("i!=0")
-                if(items[i].id==items[i-1].id ){
-                    // console.log("items[i].id==items[i-1].id")
-                    items[i].style.background = "rgba(63, 255, 45, 0.500)"
-                }    
-            }
+        for (i=0;i<=items.length-1;i++){
+            var r_color = Math.floor(Math.random()*256)
+            var r_color2 = Math.floor(Math.random()*256)
+            var r_color3 = Math.floor(Math.random()*256)
             if(items[i].id==items[i+1].id){
-                // console.log("items[i].id==items[i+1].id")
-                items[i].style.background = "rgba(63, 255, 45, 0.500)"
+                if(!items[i+1].classList.contains("call_status")){
+                    items[i].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
+                }else{
+                    items[i+1].style.background = "rgba(255, 157, 0, 0.554);"
+                }
+                while(items[i].id==items[i+1].id){
+                    if(!items[i+1].classList.contains("call_status")){
+                        items[i+1].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
+                    }else{
+                        items[i+1].style.background = "rgba(255, 157, 0, 0.554);"
+                    }
+                    i++
+                }
             }
         }
     </script>
