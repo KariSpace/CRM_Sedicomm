@@ -116,7 +116,7 @@
                 </div>
                 <div class="table_content show" id='table_content'>
                     {% for item in list_items %} {% if item.is_not_called %}
-                    <div class="item" id="{{item.email}}">
+                    <div class="item {% if item.call_status %} call_status {% endif %}" id="{{item.email}}">
                         <a class="it-a" href="{% url 'item_info_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=1060,height=710,top=50,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}>
                                 <!-- <div class="name">{{item.name}}</div>
@@ -131,7 +131,7 @@
                                             <div class="name">{{item.name}}</div>
                                         </th>
                                         <th>
-                                            <div class="phone">{{item.phone}}</div>
+                                            <div class="phone">{{item.email}}</div>
                                         </th>
                                         <th>
                                             <div class="country">{{item.country}}</div>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="table_content show" id='table_payments_content'>
                     {% for item in list_payments %} {% if item.is_called %}
-                    <div class="item" id="{{item.email}}">
+                    <div class="item {% if item.call_status %} call_status {% endif %}" id="{{item.email}}">
                         <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description"
                              {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
@@ -241,26 +241,59 @@
         };
     </script>
     <script>
+        var colors = [
+            "rgba(173, 252, 3, 0.554)",
+            "rgba(0, 26, 255, 0.554)",
+            "rgba(255, 0, 119, 0.554)",
+            "rgba(175, 0, 250, 0.554)",
+            "rgba(250, 0, 0, 0.554)",
+            "rgba(250, 246, 0, 0.554)",
+            "rgba(0, 250, 213, 0.554)",
+            "rgba(67, 0, 250, 0.554)",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            // "rgba(, 0.554);",
+            ]
+        var such_color = 0;
         var items = document.getElementsByClassName('item')
         for (i=0;i<=items.length-1;i++){
-            var r_color = Math.floor(Math.random()*256)
-            var r_color2 = Math.floor(Math.random()*256)
-            var r_color3 = Math.floor(Math.random()*256)
+            console.log("i="+i)
+            // var r_color = Math.floor(Math.random()*256)
+            // var r_color2 = Math.floor(Math.random()*256)
+            // var r_color3 = Math.floor(Math.random()*256)
             if(items[i].id==items[i+1].id){
-                if(!items[i+1].classList.contains("call_status")){
-                    items[i].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
+                console.log(items[i].classList.contains("call_status"))
+                if(items[i].classList.contains("call_status")){
+                    items[i].style.background = "rgba(255, 157, 0, 0.554);"
                 }else{
-                    items[i+1].style.background = "rgba(255, 157, 0, 0.554);"
+                    // items[i].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
+                    items[i].style.background = colors[such_color]
+                    console.log(colors[such_color])
                 }
                 while(items[i].id==items[i+1].id){
-                    if(!items[i+1].classList.contains("call_status")){
-                        items[i+1].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
-                    }else{
+                    console.log(items[i].classList.contains("call_status"))
+                    if(items[i+1].classList.contains("call_status")){
+                        
                         items[i+1].style.background = "rgba(255, 157, 0, 0.554);"
+                    }else{
+                        // items[i+1].style.background = "rgba("+ r_color3+", "+ r_color+","+ r_color2+", 0.500)"
+                        items[i+1].style.background = colors[such_color]
+                        console.log(colors[such_color])
                     }
                     i++
                 }
+                if(such_color<colors.length){
+                    such_color++
+                }else{
+                    such_color=0
+                }
+                console.log("such color"+such_color)
             }
+            
         }
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

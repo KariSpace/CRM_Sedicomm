@@ -1,8 +1,12 @@
 9999
-Юрий;11223344;guigiug54@mail;Linux;Ukraine;knu;doctor;
+Юрий;11223344;yurii@mail;Linux;Ukraine;knu;doctor;
 Пес;5555555;sabaka@mail;Linux;Russia;knu;doctor;fyguhijo
 Кот;44444444;kot@m3ail;CCNA1;Russia;knu;doctor;fyguhijo
-Пес;5555555;sabaka@@mail;CCNA1;Russia;knu;doctor;fyguhijo
+Кот;44444444;kot@m3ail;CCNA2;Russia;knu;doctor;fyguhijo
+Пес;5555555;sabaka@mail;CCNA12;Russia;knu;doctor;fyguhijo
 Хомяк;096349586;homa@mail;CCNA2;Ukraine;knu;doctor;fyguhijo
-Пес;5555555;sabaka@@mail;CCNA2;Russia;knu;doctor;fyguhijo
+Пес;5555555;sabaka@mail;CCNA2;Russia;knu;doctor;fyguhijo
 Пес;5555555;sabaka@mail;CCNA1;Russia;knu;doctor;fyguhijo
+Doc;11223344;doc@mail;Linux;Ukraine;knu;doctor;
+Doc;11223344;doc@mail;Linux1;Ukraine;knu;doctor;
+Doc;11223344;doc@mail;Linux2;Ukraine;knu;doctor;
