@@ -19,7 +19,7 @@ class Course(models.Model):
         price = self.price.get(currency)
         if price:
             return price
-        return 0
+        return self.price.get("USD")
 
         
 
