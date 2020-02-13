@@ -139,9 +139,19 @@
                                         <th>
                                             <div class="country">{{item.course}}</div>
                                         </th>
-                                        <th>{% if item.callback_time %}
+                                        {% if item.is_allready_in %}
+                                        <th>
+                                            <div class="country">
+                                                {% for i in item.is_allready_in %}
+                                                    {{i}}, 
+                                                {% endfor %}
+                                            </div>
+                                        </th>
+                                        {% endif %}
+                                        {% if item.callback_time %}
+                                        <th>
                                             <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
-                                            {% endif %}</th>
+                                        </th>{% endif %}
                                     </tr>
                                 </table>
                             </div>

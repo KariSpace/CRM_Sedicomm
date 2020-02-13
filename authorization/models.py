@@ -114,6 +114,17 @@ class Daily(models.Model):
             return True
         else:
             return False
+    
+    def is_allready_in(self):
+        obj = People.objects.filter(email = self.email)
+        l = []
+        if obj:
+            for i in obj:
+                l.append(i.group)
+            return l
+        else: 
+            return False
+
 
 
 
