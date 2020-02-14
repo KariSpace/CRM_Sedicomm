@@ -68,6 +68,7 @@ class Daily(models.Model):
     university      = models.CharField(max_length=100, blank=True)
     work            = models.CharField(max_length=100, blank=True)
     where_from      = models.CharField(max_length=100, blank=True)
+    ip              = models.CharField(max_length=100, blank=True)
 
     # from cvs auto
     currency        = models.CharField(max_length=100, blank=True)
@@ -141,6 +142,7 @@ class People(models.Model):
     university      = models.CharField(max_length=100, blank=True)
     work            = models.CharField(max_length=100, blank=True)
     where_from      = models.CharField(max_length=100, blank=True)
+    ip              = models.CharField(max_length=100, blank=True)
 
     # from cvs auto
     currency        = models.CharField(max_length=100, blank=True)

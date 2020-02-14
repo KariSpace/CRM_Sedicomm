@@ -63,7 +63,15 @@
         //         $('#submit_btn').removeAttr("disabled");
         //     }
         // });
-
+        $(function() {
+            if($('#id_group').val() != "" || $('#id_request_status').val() == "перезвонить"){
+                console.log("Checked")
+                $('#submit_btn').prop('disabled', false)
+            }else{
+                console.log("Dell")
+                $('#submit_btn').prop('disabled', true)
+            }
+        });
         $('#id_group').click(function(){
             console.log($(this).val())
             if($(this).val() != "" || $('#id_request_status').val() == "перезвонить"){
