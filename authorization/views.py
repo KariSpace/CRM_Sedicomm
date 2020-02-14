@@ -208,18 +208,18 @@ def pay_filter(request, pk):
     if submitbutton:
         print("submit")
         # #MONEY
-        list_payments = list_payments.filter(Q(first_payment_date__gte =start_date) |  Q(first_payment_date__lte= end_date ))
+        list_payments = list_payments.filter(Q(add_date__lte = start_date) |  Q(add_date__lte= end_date) )
 
 
     if pk == 1:  #today
         now = datetime.now()
-        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+        list_payments = list_payments.filter(Q(add_date__gte = now))
     elif pk == 2:  #7 days
         now = datetime.now() - timedelta(minutes=60*24*7)
-        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+        list_payments = list_payments.filter(Q(add_date__gte = now))
     elif pk == 3:  # 30 days
         now = datetime.now() - timedelta(minutes=60*24*30)
-        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+        list_payments = list_payments.filter(Q(add_date__gte = now))
     elif pk == 5:
         formcheck = 2
     elif pk == 6:
