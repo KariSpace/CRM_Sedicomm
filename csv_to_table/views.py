@@ -164,7 +164,15 @@ def getCourse(course):
         for i in c:
             return i
     else:
-        return None
+        c = Course.objects.create(
+            name = course,
+            price = {
+                "UAH":0,
+                "RUB":0,
+                "USD":0,
+            }
+        )
+        return c
 
 def getPrice(currency, course):
     if course:
