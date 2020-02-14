@@ -232,6 +232,11 @@
             $("#id_end_date").datetimepicker({
                 format: 'd/m/Y',
             });
+
+            field.addEventListener('mouseenter', function(event) {
+                event.target.setAttribute('autocomplete', 'off')
+            });
+
         });
     </script>
 </body>
