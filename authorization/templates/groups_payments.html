@@ -223,22 +223,26 @@
         };
     </script>
 
-
-    <script>
-        $(function() {
-            $("#id_start_date").datetimepicker({
-                format: 'd/m/Y',
-            });
-            $("#id_end_date").datetimepicker({
-                format: 'd/m/Y',
-            });
-
-            field.addEventListener('mouseenter', function(event) {
-                event.target.setAttribute('autocomplete', 'off')
-            });
-
+<script>
+    $(function() {
+        $("#id_start_date").datetimepicker({
+            format: 'd/m/Y',
         });
-    </script>
+        $("#id_end_date").datetimepicker({
+            format: 'd/m/Y',
+        });
+    });
+</script>
+<script>
+    var field1 = document.getElementById('id_start_date')
+    var field2 = document.getElementById('id_end_date')
+    field1.addEventListener('mouseenter', function(event) {
+        event.target.setAttribute('autocomplete', 'off')
+    });
+    field2.addEventListener('mouseenter', function(event) {
+        event.target.setAttribute('autocomplete', 'off')
+    });
+</script>
 </body>
 
 </html>

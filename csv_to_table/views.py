@@ -36,6 +36,7 @@ def csv_table(request):
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
     next(io_string)
+
     for col in csv.reader(io_string, delimiter=';', quotechar='|'):
         _, created = Daily.objects.update_or_create(
             name            = col[0],
