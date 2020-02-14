@@ -58,8 +58,17 @@
             background-color: rgb(87, 118, 255);
             border: 1px solid rgb(255, 255, 255);
             color: #fff;
+            transition: .5s background-color, .5s color;
         }
         
+        
+        #add-btn:hover {
+            background: #ffffff;
+            border: 1px solid rgb(0, 23, 226);
+            color: rgb(61, 81, 255);
+            transition: .5s background-color, .5s color;
+        }
+
         .submit-btn {
             margin-top: 10px;
             margin-bottom: 10px;
@@ -68,12 +77,14 @@
             border-radius: 5px;
             padding: 7px 10px;
             color: rgb(3, 21, 187);
+            transition: .5s background-color, .5s color;
         }
         
         .submit-btn:hover {
             background-color: rgb(87, 118, 255);
             border: 1px solid rgb(255, 255, 255);
             color: #fff;
+            transition: .5s background-color, .5s color;
         }
         
         .form-control {
@@ -89,13 +100,43 @@
             margin: 15px;
             text-transform: uppercase;
         }
+
+      
+        p {
+            text-align: center;
+        }
+        
+        table {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        th {
+            border-top: 1px solid rgb(0, 0, 0);
+            width: 15%;
+        }
+        
+        .main_line {
+            text-transform: uppercase;
+            text-align: center;
+            background-color: #2d9df8;
+        }
+        
+        .important {
+            background: #cdd9ff;
+        }
+        
+        .center {
+            text-align: center;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="header">
         <div class="text col-8">
-            <button class="btn btn-outline-primary " type="button">
+            <button class="btn btn-outline-primary active " type="button">
                 <a href="{% url 'todo' %}">
                     Todo
                 </a>
@@ -121,7 +162,7 @@
                     Payments
                 </a>
             </button>
-            <button class="btn btn-outline-info active" type="button">
+            <button class="btn btn-outline-info" type="button">
                 <a href="{% url 'csv_table' %}">
                     Upload CSV
                 </a>
@@ -170,6 +211,8 @@
 
     <div class="container-fluid" id="wrapper">
 
+   
+
         <div class="row">
             <div class="col-lg-4 col-lg-offset-4" id="content">
                 <h2 class="listHeader">Список Дел</h2>
@@ -213,6 +256,52 @@
                 </ul>
             </div>
         </div>
+        <p></p>
+        {% if today_wishes %}
+        <table border="1px" width="1000px" cellpadding="5">
+            <tr class="main_line">
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Group</th>
+                <th>Course</th>
+                <th>wishes</th>
+                <th>comments</th>
+                <th>payment_history</th>
+            </tr>
+            {% for people in today_wishes %}
+            <tr>
+                <th>{{people.name}}</th>
+                <th>{{people.phone}}</th>
+                <th>{{people.group}}</th>
+                <th>{{people.course}}</th>
+                <th class="important">{{people.wishes}}</th>
+                <th>{{people.today_comments}}</th>
+                <th>{{people.payment_history}}</th>
+            </tr>
+            {% endfor %} {% for people in today_comments %}
+            <tr>
+                <th>{{people.name}}</th>
+                <th>{{people.phone}}</th>
+                <th>{{people.group}}</th>
+                <th>{{people.course}}</th>
+                <th>{{people.wishes}}</th>
+                <th class="important">{{people.today_comments}}</th>
+                <th>{{people.payment_history}}</th>
+            </tr>
+            {% endfor %} {% for people in today_pay %}
+            <tr>
+                <th>{{people.name}}</th>
+                <th>{{people.phone}}</th>
+                <th>{{people.group}}</th>
+                <th>{{people.course}}</th>
+                <th>{{people.wishes}}</th>
+                <th>{{people.today_comments}}</th>
+                <th class="important">{{people.payment_history}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p> No wishes or comments</p>{% endif %}
 
     </div>
 

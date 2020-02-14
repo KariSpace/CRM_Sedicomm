@@ -71,7 +71,7 @@ class Daily(models.Model):
 
     # from cvs auto
     currency        = models.CharField(max_length=100, blank=True)
-    course_price    = models.IntegerField(blank=True, null=True)
+    course_price    = models.IntegerField(blank=True,  default=0)
 
     # from call form
     comments        = models.TextField(blank=True)
@@ -85,7 +85,7 @@ class Daily(models.Model):
     payment_history = models.TextField(blank=True)
     total_payment   = models.IntegerField(blank=True, default=0)
     payment_source  = models.CharField(max_length=100, blank=True)
-    obligation      = models.IntegerField(blank=True, null=True)
+    obligation      = models.IntegerField(blank=True, null=True, default=0)
     
         
 

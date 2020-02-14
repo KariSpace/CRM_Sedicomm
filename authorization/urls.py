@@ -8,6 +8,9 @@ urlpatterns = [
     path('staff/', views.staff, name='staff'),
     path('groups/', views.groups, name='groups'),
     path('groups_payments/', views.groups_payments, name='groups_payments'),
+    path('pay_filter/<int:pk>', views.pay_filter, name='pay_filter'),
+
+   
 
 
     path('create_group/', CreateNewGroup.as_view(), name='create_group'),
@@ -27,5 +30,6 @@ urlpatterns = [
     path('password_change/', views.ChangePassword, name='password_change'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
 
 ]

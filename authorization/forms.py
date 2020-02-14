@@ -137,3 +137,6 @@ class DailyCreateForm(forms.ModelForm):
 
 
 
+class DateForm(forms.Form):
+     start_date= forms.DateTimeField(input_formats=['%d/%m/%Y'], required=False, widget=forms.TextInput(attrs={"class":"myfield"}))
+     end_date= forms.DateTimeField(input_formats=['%d/%m/%Y'], required=False, widget=forms.TextInput(attrs={"class":"myfield"}))

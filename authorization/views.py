@@ -6,11 +6,19 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import UpdateView, CreateView, DeleteView
 
-from datetime import datetime, date
+from django.db.models import F, Sum
+from django.db.models import Q
+from django.db.models import Count
+
+from datetime import datetime, date, timedelta
+
+from django.utils import timezone
 
 from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm, ItemGroupsUpdateForm, GroupCreateForm, DailyCreateForm
 
 from .models import Daily, Group, People, get_daily_payments
+
+from .forms import DateForm
 
 @login_required
 def staff(request):
@@ -47,6 +55,7 @@ def staff(request):
         #     if item.is_called():
         #         payment_status = True
         
+
         # creating all data list
         context = {
         "n_form":n_form,
@@ -55,6 +64,7 @@ def staff(request):
         "table_status":table_status,
         "list_payments":list_payments,
         # "payment_status":payment_status,
+
         }
         # dispaly page
         return render(request,"staff.html",context)
@@ -94,12 +104,12 @@ def groups(request):
 def groups_payments(request):
 
     if request.method == 'POST':
-        n_form = UserUpdateForm(request.POST, instance=request.user)
-        if n_form.is_valid():
-            n_form.save()
-            messages.success(request, f'Data has been updated!')
-            return redirect('staff')
-        else:
+         n_form = UserUpdateForm(request.POST, instance=request.user)
+         if n_form.is_valid():
+             n_form.save()
+             messages.success(request, f'Data has been updated!')
+             return redirect('staff')
+         else:
             messages.warning(request, f'Something wrong, maybe this name is allready taken')
             return redirect('staff')
     else:
@@ -108,18 +118,172 @@ def groups_payments(request):
 
         list_payments = People.objects.order_by('request_status','group', 'obligation', )
         
+        
+        # #########################################################################################################
+        money_all = list_payments.filter(Q(request_status='оплачено') | 
+                                            Q(request_status='оплачено частично') | 
+                                            Q(request_status='ожидаем оплату')).aggregate(money_all=Sum(F('course_price')))
+
+        money_all_num = money_all['money_all']
+        print(money_all_num, "все деньги")
+
+        money_paid = list_payments.filter(Q(request_status='оплачено') | 
+                                                Q(request_status='оплачено частично') | 
+                                                Q(request_status='ожидаем оплату')).aggregate(money_paid=Sum(F('total_payment')))
+
+        money_paid_num = money_paid['money_paid']
+
+        print(money_paid_num, "Заплатили")
+
+        if money_all_num == None:
+            money_all_num = 0
+
+        if  money_paid_num == None:
+                money_paid_num = 0
+
+        money_will_num =  money_all_num - money_paid_num
+        print(money_will_num ,"Заплатят")
+
+
+        people_done = list_payments.filter(Q(request_status='оплачено')).count()
+        people_partially = list_payments.filter(Q(request_status='оплачено частично')).count()
+
+        people_waiting = list_payments.filter(Q(request_status='ожидаем оплату')).count()
+
+        people_all_num =  people_done + people_partially + people_waiting
+
+        print(people_done)
+        print(people_partially)
+        print(people_waiting)
+
+        
 
         # creating all data list
         context = {
         "n_form":n_form,
         "list_payments":list_payments,
+
+        ##################################################
+
+
+        "money_all_num" : money_all_num,
+        "money_paid_num" : money_paid_num,
+        "money_will_num":money_will_num,
+
+        "people_done" : people_done,
+        "people_partially" : people_partially,
+        "people_waiting" : people_waiting,
+        "people_all_num" : people_all_num,
+
+      
+
+       
         }
         # dispaly page
         return render(request,"groups_payments.html",context)
 
 
+def pay_filter(request, pk):
+    list_payments = People.objects.order_by('request_status','group', 'obligation', )
+    formcheck = 1
+
+    submitbutton= request.POST.get("submit")
+
+    start_date = date.today()
+    end_date = date.today()
+
+    form = DateForm(request.POST or None)
+
+    if form.is_valid():
+            start_date = form.cleaned_data.get("start_date")
+            end_date = form.cleaned_data.get("end_date")
 
 
+    if start_date == None:
+        start_date = datetime.now() - timedelta(minutes=60*24*120)
+
+    if  end_date == None:
+            end_date = datetime.now()
+    
+    if submitbutton:
+        print("submit")
+        # #MONEY
+        list_payments = list_payments.filter(Q(first_payment_date__gte =start_date) |  Q(first_payment_date__lte= end_date ))
+
+
+    if pk == 1:  #today
+        now = datetime.now()
+        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+    elif pk == 2:  #7 days
+        now = datetime.now() - timedelta(minutes=60*24*7)
+        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+    elif pk == 3:  # 30 days
+        now = datetime.now() - timedelta(minutes=60*24*30)
+        list_payments = list_payments.filter(Q(first_payment_date__gte = now))
+    elif pk == 5:
+        formcheck = 2
+    elif pk == 6:
+        formcheck = 1
+
+
+
+    # #MONEY
+    money_all = list_payments.filter(Q(request_status='оплачено') | 
+                                            Q(request_status='оплачено частично') | 
+                                            Q(request_status='ожидаем оплату')).aggregate(money_all=Sum(F('course_price')))
+
+    money_all_num = money_all['money_all']
+    print(money_all_num, "все деньги")
+
+    money_paid = list_payments.filter(Q(request_status='оплачено') | 
+                                            Q(request_status='оплачено частично') | 
+                                            Q(request_status='ожидаем оплату')).aggregate(money_paid=Sum(F('total_payment')))
+
+    money_paid_num = money_paid['money_paid']
+
+    print(money_paid_num, "Заплатили")
+
+    if money_all_num == None:
+        money_all_num = 0
+
+    if  money_paid_num == None:
+            money_paid_num = 0
+
+    money_will_num =  money_all_num - money_paid_num
+    print(money_will_num ,"Заплатят")
+
+
+    people_done = list_payments.filter(Q(request_status='оплачено')).count()
+    people_partially = list_payments.filter(Q(request_status='оплачено частично')).count()
+
+    people_waiting = list_payments.filter(Q(request_status='ожидаем оплату')).count()
+
+    people_all_num =  people_done + people_partially + people_waiting
+
+    print(people_done)
+    print(people_partially)
+    print(people_waiting)
+    
+    context = {
+        "list_payments":list_payments,
+
+        'formcheck': formcheck,
+
+        "money_all_num" : money_all_num,
+        "money_paid_num" : money_paid_num,
+        "money_will_num" : money_will_num,
+
+        "people_done" : people_done,
+        "people_partially" : people_partially,
+        "people_waiting" : people_waiting,
+        "people_all_num" : people_all_num,
+
+        'form': form,
+        'start_date': start_date, 
+        'end_date':end_date, 
+    }
+
+    return render(request,"groups_payments.html",context)
 
 
 

@@ -91,6 +91,54 @@
     </div>
     {% endif %}
 
+    <div class="perid_container">
+
+        <a href="{% url 'pay_filter' pk=1 %}" class="a"><button class="button">Сегодня</button></a>
+        <a href="{% url 'pay_filter' pk=2 %}" class="a"><button class="button">Неделя</button></a>
+        <a href="{% url 'pay_filter' pk=3 %}" class="a"><button class="button">Месяц</button></a>
+        <a href="{% url 'pay_filter' pk=4 %}" class="a"><button class="button">Все</button></a>
+        {% if formcheck == 2 %}
+        <a href="{% url 'pay_filter' pk=6 %}" class="a"><button class="button">Cпрятать выбор</button></a>
+        {% else %}
+        <a href="{% url 'pay_filter' pk=5 %}" class="a"><button class="button">Выбать диапазон</button></a>
+        {% endif %}
+        
+    </div>
+
+    {% if formcheck == 2 %}
+    <div id="perid_container" class="perid_container body_hide">
+        
+        <form action="" method="POST" class="perid_container">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" name="submit" class = "submit-btn" value="submit"/>
+        </form>
+        
+    </div>
+    {% endif %}
+
+
+    <table class="count_table"  cellpadding="5">
+        <tr class="main_line">
+            <th>Всего</th>
+            <th>Оплатили</th>
+            <th>Частично оплатили</th>
+            <th>Не оплачено</th>
+            <th>Заработок</th>
+            <th>Оплачено</th>
+            <th>Должны заплатить</th>
+        </tr>
+
+        <tr>
+            <th class="center">{{people_all_num}}</th>
+            <th class="center">{{people_done}}</th>
+            <th class="center">{{people_partially}}</th>
+            <th class="center">{{people_waiting}}</th>
+            <th class="center">{{money_all_num}}</th>
+            <th class="center">{{money_paid_num }}</th>
+            <th class="center">{{money_will_num}}</th>
+
+    </table>
 
     <div class="payment_tables">
         {% if list_payments %}
@@ -170,6 +218,18 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+          $("#id_date").datetimepicker({
+            format: 'd/m/Y H:i',
+          });
+        });
+
+        setTimeout(function(){
+	$('#perid_container').addClass('body_visible');
+        }, 200);
+      </script>
 </body>
 
 </html>

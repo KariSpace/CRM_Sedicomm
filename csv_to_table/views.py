@@ -73,38 +73,41 @@ def today_table(request):
         today_comments = Daily.objects.filter( Q(comments__contains = search_text))
         today_pay  = Daily.objects.filter( Q(payment_history__contains = search_text))
         
-        #print(today_wishes)
-        #print(today_comments)
-        #print(today_pay)
+        print(today_wishes)
+        print(today_comments)
+        print(today_pay)
 
-        #MONEY
-        money_all = Daily.objects.all().aggregate(money_all=Sum(F('course_price')))
-        money_all_num = money_all['money_all']
-        #print(money_all_num)
 
-        money_paid = Daily.objects.all().aggregate(money_paid=Sum(F('total_payment')))
-        money_paid_num = money_paid['money_paid']
-        #print(money_paid_num)
 
-        money_will_pay = Daily.objects.all().aggregate(money_will_pay=Sum(F('obligation')))
-        money_will_pay_num = money_will_pay['money_will_pay']
-        money_will_num = money_all_num - money_paid_num
-        #print(money_will_pay_num)
-        #print(money_will_num)
 
-        people_done = Daily.objects.filter(request_status='оплачено').count()
-        people_partially = Daily.objects.filter(request_status='оплачено частично').count()
-        people_waiting = Daily.objects.filter(request_status='ожидаем оплату').count()
-        people_all_num = people_done + people_partially + people_waiting
+        # #MONEY
+        # money_all = Daily.objects.all().aggregate(money_all=Sum(F('course_price')))
+        # money_all_num = money_all['money_all']
+        # print(money_all_num)
 
-        #print(people_done)
-        #print(people_partially)
-        #print(people_waiting)
+        # money_paid = Daily.objects.all().aggregate(money_paid=Sum(F('total_payment')))
+        # money_paid_num = money_paid['money_paid']
+        # print(money_paid_num)
 
-        currency = choseMoney("Ukraine")
-        course = getCourse("Linux")
-        price = getPrice(currency, course)
-        print(price)
+        # money_will_pay = Daily.objects.all().aggregate(money_will_pay=Sum(F('obligation')))
+        # money_will_pay_num = money_will_pay['money_will_pay']
+        # money_will_num = money_all_num - money_paid_num
+        # print(money_will_pay_num)
+        # print(money_will_num)
+
+        # people_done = Daily.objects.filter(request_status='оплачено').count()
+        # people_partially = Daily.objects.filter(request_status='оплачено частично').count()
+        # people_waiting = Daily.objects.filter(request_status='ожидаем оплату').count()
+        # people_all_num = people_done + people_partially + people_waiting
+
+        # print(people_done)
+        # print(people_partially)
+        # print(people_waiting)
+
+        # currency = choseMoney("Ukraine")
+        # course = getCourse("Linux")
+        # price = getPrice(currency, course)
+        # print(price)
 
     context = {
         "n_form":n_form,
@@ -113,14 +116,14 @@ def today_table(request):
         "today_comments": today_comments,
         "today_pay" : today_pay,
 
-        "money_all_num" : money_all_num,
-        "money_paid_num" : money_paid_num,
-        "money_will_num":money_will_num,
+        # "money_all_num" : money_all_num,
+        # "money_paid_num" : money_paid_num,
+        # "money_will_num":money_will_num,
 
-        "people_done" : people_done,
-        "people_partially" : people_partially,
-        "people_waiting" : people_waiting,
-        "people_all_num" : people_all_num,
+        # "people_done" : people_done,
+        # "people_partially" : people_partially,
+        # "people_waiting" : people_waiting,
+        # "people_all_num" : people_all_num,
         }
    
     return render(request, template, context)
@@ -141,13 +144,6 @@ def search(request):
     return render(request, template, context)
 
 #CSV_TO_FILE COMMIT 
-"""@login_required
-def today_table(request):
-    template = "today_table.html"
-    today_people = Daily.objects.filter(wishes__contains = str(date.today()))
-    #today_people = People.objects.filter(date=date.today())
-    return render(request, template)
-""" 
 
 def choseMoney(country):
     if country == "Ukraine":
