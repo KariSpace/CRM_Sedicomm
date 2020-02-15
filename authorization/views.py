@@ -200,7 +200,7 @@ def pay_filter(request, pk):
 
 
     if start_date == None:
-        start_date = datetime.now() - timedelta(minutes=60*24*120)
+        start_date = datetime.now() - timedelta(minutes=60*24*12000)
 
     if  end_date == None:
             end_date = datetime.now()
@@ -208,11 +208,11 @@ def pay_filter(request, pk):
     if submitbutton:
         print("submit")
         # #MONEY
-        list_payments = list_payments.filter(Q(add_date__gte = start_date) |  Q(add_date__lte= end_date) )
+        list_payments = list_payments.filter(Q(add_date__gte = start_date) &  Q(add_date__lte= end_date) )
 
 
     if pk == 1:  #today
-        now = datetime.today() - timedelta(minutes=60*24)
+        now = datetime.today() - timedelta(minutes=60)
         print(now)
         list_payments = list_payments.filter(Q(add_date__gte = now))
         print(list_payments)
