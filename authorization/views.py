@@ -196,7 +196,7 @@ def pay_filter(request, pk):
 
     if form.is_valid():
             start_date = form.cleaned_data.get("start_date")
-            end_date = form.cleaned_data.get("end_date")
+            end_date = form.cleaned_data.get("end_date") + timedelta(minutes=60*24)
 
 
     if start_date == None:
@@ -208,7 +208,7 @@ def pay_filter(request, pk):
     if submitbutton:
         print("submit")
         # #MONEY
-        list_payments = list_payments.filter(Q(add_date__gte = start_date) &  Q(add_date__lte= end_date) )
+        list_payments = list_payments.filter(Q(add_date__gte = start_date) & Q(add_date__lte= end_date) )
 
 
     if pk == 1:  #today
