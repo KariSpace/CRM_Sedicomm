@@ -202,6 +202,9 @@ class People(models.Model):
     def dell(self):
         self.request_status = "удален"
         self.save()
+    
+    def get_date(self):
+        return self.add_date.strftime('%d/%m/%Y')
         
     
 

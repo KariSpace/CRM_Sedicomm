@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import csv, io
-from authorization.models import Daily, Course
+from authorization.models import Daily, Course, People
 from datetime import date
 
 from django.db.models import F, Sum
@@ -134,13 +134,14 @@ def today_table(request):
 def search(request):
     template = "search.html"
     query = request.GET.get('q')
-    search_people = Daily.objects.filter( 
+    search_people = People.objects.filter( 
                             Q(name__icontains = query) | 
                             Q(phone__icontains = query)|
                             Q(email__icontains = query)
                             ) 
     context = {
         "search_people":search_people,
+        "s_text":query,
         }
    
     return render(request, template, context)

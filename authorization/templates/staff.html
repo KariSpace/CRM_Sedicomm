@@ -213,6 +213,14 @@
                                         <th>
                                             <div class="country">{{item.obligation}} {{item.currency}}</div>
                                         </th>
+                                        <th>
+                                            <div class="obligation">{{item.get_date}}</div>
+                                        </th>
+                                        {% if item.is_need_confirm %}
+                                        <th>
+                                            <div class="is_need_confirm" style="font-size: 0.6rem;">Нужно подтверждение</div>
+                                        </th>
+                                        {% endif %}
                                         <!-- <th>{% if item.callback_time %}
                                                 <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
                                             {% endif %}</th> -->
