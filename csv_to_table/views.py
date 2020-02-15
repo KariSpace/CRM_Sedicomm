@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import csv, io
-from authorization.models import Daily, Course
+from authorization.models import Daily, Course, People
 from datetime import date
 
 from django.db.models import F, Sum
@@ -38,18 +38,19 @@ def csv_table(request):
     next(io_string)
 
     for col in csv.reader(io_string, delimiter=';', quotechar='|'):
-        _, created = Daily.objects.update_or_create(
-            name            = col[0],
-            phone           = col[1],
-            email           = col[2],
-            course          = getCourse(col[3]),
-            country         = col[4],
-            university      = col[5],
-            work            = col[6],
-            where_from      = col[7],
-            currency        = choseMoney(col[4]),
-            course_price    = getPrice(choseMoney(col[4]), getCourse(col[3]))
-        )
+        if col:
+            _, created = Daily.objects.update_or_create(
+                name            = col[0],
+                phone           = col[1],
+                email           = col[2],
+                course          = getCourse(col[3]),
+                country         = col[4],
+                university      = col[5],
+                work            = col[6],
+                where_from      = col[7],
+                currency        = choseMoney(col[4]),
+                course_price    = getPrice(choseMoney(col[4]), getCourse(col[3]))
+            )
     return render(request, template)
 
 @login_required
@@ -133,13 +134,14 @@ def today_table(request):
 def search(request):
     template = "search.html"
     query = request.GET.get('q')
-    search_people = Daily.objects.filter( 
+    search_people = People.objects.filter( 
                             Q(name__icontains = query) | 
                             Q(phone__icontains = query)|
                             Q(email__icontains = query)
                             ) 
     context = {
         "search_people":search_people,
+        "s_text":query,
         }
    
     return render(request, template, context)

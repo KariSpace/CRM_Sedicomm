@@ -7,39 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>STAFF</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> {% load staticfiles %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+    {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
     <style>
-        .table_search {
-            display: block;
-            margin: 30px auto;
-            border: 1px solid black;
-        }
-        
-        th {
-            border: 0;
-            border: 1px solid rgb(0, 0, 0);
-            width: 15%;
-            font-weight: normal;
-        }
-        
-        .main_line {
-            text-align: center;
-            background-color: rgb(0, 153, 255);
-            padding: 10px;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .important {
-            background: rgb(193, 230, 255);
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        
-        .center {
-            text-align: center;
-        }
+
     </style>
 </head>
 
@@ -51,23 +23,40 @@
                     Todo
                 </a>
             </button>
-            <button class="btn btn-outline-info" type="button">
+            <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'staff' %}">
                     Daylis
                 </a>
             </button>
-            <button class="btn btn-outline-info active" type="button">
+            <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'groups' %}">
                     Groups
                 </a>
             </button>
-            <button class="btn btn-outline-info " type="button">
+            <!-- <button class="btn btn-outline-info " type="button">
                 <a href="{% url 'csv_table' %}">
                     Upload
                 </a>
+            </button> -->
+
+            <button class="btn btn-outline-info" type="button">
+                <a href="{% url 'groups_payments' %}">
+                    Payments
+                </a>
+            </button>
             </button>
         </div>
         <div class="settings col-4">
+            <form action="{% url 'search' %}" method="get">
+                <input class="search" name="q" type="text" placeholder="Search..." style="
+                margin: 12px;
+                /* height: 37px; */
+                border-radius: 5px;
+                border: 1px solid #5344c2;
+                padding: 4px;
+            ">
+            
+            </form>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
         </button>
@@ -107,38 +96,79 @@
         </div>
     </div>
 
-    {% for people in search_people %}
-    <table class="table_search" width="900px">
-        <tr>
-            <th class="main_line" colspan="4">{{people.name}}</th>
-        </tr>
-        <tr>
-            <th class="important">Номер телефона:</th>
-            <th>{{people.phone}}</th>
-            <th class="important">Email:</th>
-            <th>{{people.email}}</th>
-        </tr>
-        <tr>
-            <th class="important">Страна</th>
-            <th>{{people.country}}</th>
-            <th class="important">Валюта</th>
-            <th>{{people.currency}}</th>
-        </tr>
-        <tr>
-            <th class="important">Курс</th>
-            <th>{{people.course}}</th>
-            <th class="important">Группа</th>
-            <th>{{people.group}}</th>
-        </tr>
-        <tr>
-            <th class="important">Wishes</th>
-            <th>{{people.wishes}}</th>
-            <th class="important">Comments</th>
-            <th>{{people.comments}}</th>
-        </tr>
-    </table>
+    <div class="payment_tables">
+        {% if search_people %}
+        <div class="table show table_pay" id="payment_tables">
+            <div class="table_header " data-toggle="collapse" data-target="#table_payments_content" aria-expanded="false">
+                <h5>Search Results for: {{ s_text }}</h5>
+            </div>
+            <div class="table_content show" id='table_payments_content'>
+                {% for item in search_people %}
+                <div class="item" id="{{item.email}}">
+                    <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %} {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);"
+                            {% endif %} {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} {% if item.is_not_payed %}
+                            style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
+                            <table class="item_payment_table" style="width:100%">
+                                <tr>
+                                    <th>
+                                        <div style="font-size: 0.8rem;" class="name">{{item.name}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="phone">{{item.phone}}</div>
+                                    </th>
 
-    {% endfor %}
+                                    <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
+                                    <th>
+                                        <div style="font-size: 0.8rem;" class="request_status">{{item.request_status}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="total_payment">{{item.total_payment}} {{item.currency}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.obligation}} {{item.currency}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.group}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.get_date}}</div>
+                                    </th>
+                                    {% if item.is_need_confirm %}
+                                    <th>
+                                        <div class="is_need_confirm" style="font-size: 0.6rem;">Нужно подтверждение</div>
+                                    </th>
+                                    {% endif %}
+                                    <!-- <th>{% if item.callback_time %}
+                                            <div class="callback_time">{{ item.callback_time|date:"d/m H:i" }}</div>
+                                        {% endif %}</th> -->
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </a>
+                    <span id="del_btn" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">x</span>
+                    <div class="ConfirmationFieldDel collapse" id="ConfirmationFieldDel{{item.id}}">
+                        <span class="conf_span">
+                            Delete {{item.name}}??
+                        </span>
+                        <div class="buttons">
+                            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
+                            <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                        </div>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <h3 style="text-align: center;">Nothing</h3>
+        {% endif %}
+
+
+    </div>
 
 </body>
 

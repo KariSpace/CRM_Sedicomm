@@ -50,6 +50,16 @@
             </button>
         </div>
         <div class="settings col-4">
+            <form action="{% url 'search' %}" method="get">
+                <input class="search" name="q" type="text" placeholder="Search..." style="
+                margin: 12px;
+                /* height: 37px; */
+                border-radius: 5px;
+                border: 1px solid #5344c2;
+                padding: 4px;
+            ">
+            
+            </form>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
         </button>
@@ -164,7 +174,7 @@
                             <table class="item_payment_table" style="width:100%">
                                 <tr>
                                     <th>
-                                        <div class="name">{{item.name}}</div>
+                                        <div style="font-size: 0.8rem;" class="name">{{item.name}}</div>
                                     </th>
                                     <th>
                                         <div class="phone">{{item.phone}}</div>
@@ -172,13 +182,19 @@
 
                                     <!-- <th><div class="country">{{item.course_price}} {{item.currency}}</div></th> -->
                                     <th>
-                                        <div class="request_status">{{item.request_status}}</div>
+                                        <div style="font-size: 0.8rem;" class="request_status">{{item.request_status}}</div>
                                     </th>
                                     <th>
                                         <div class="total_payment">{{item.total_payment}} {{item.currency}}</div>
                                     </th>
                                     <th>
                                         <div class="obligation">{{item.obligation}} {{item.currency}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.group}}</div>
+                                    </th>
+                                    <th>
+                                        <div class="obligation">{{item.get_date}}</div>
                                     </th>
                                     {% if item.is_need_confirm %}
                                     <th>
@@ -222,27 +238,27 @@
             }
         };
     </script>
+    <script>
+        $(function() {
+            $("#id_start_date").datetimepicker({
+                format: 'd/m/Y',
+            });
+            $("#id_end_date").datetimepicker({
+                format: 'd/m/Y',
+            });
+        });
+    </script>    
+    <script>
+        var field1 = document.getElementById('id_start_date')
+        var field2 = document.getElementById('id_end_date')
+        field1.addEventListener('mouseenter', function(event) {
+            event.target.setAttribute('autocomplete', 'off')
+        });
+        field2.addEventListener('mouseenter', function(event) {
+            event.target.setAttribute('autocomplete', 'off')
+        })
 
-<script>
-    $(function() {
-        $("#id_start_date").datetimepicker({
-            format: 'd/m/Y',
-        });
-        $("#id_end_date").datetimepicker({
-            format: 'd/m/Y',
-        });
-    });
-</script>
-<script>
-    var field1 = document.getElementById('id_start_date')
-    var field2 = document.getElementById('id_end_date')
-    field1.addEventListener('mouseenter', function(event) {
-        event.target.setAttribute('autocomplete', 'off')
-    });
-    field2.addEventListener('mouseenter', function(event) {
-        event.target.setAttribute('autocomplete', 'off')
-    });
-</script>
+    </script>
 </body>
 
 </html>

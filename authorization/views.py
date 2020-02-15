@@ -320,6 +320,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
                 course          = form.cleaned_data['course'],
                 country         = cleaned.country,
                 university      = cleaned.university,
+                ip              = cleaned.ip,
                 work            = cleaned.work,
                 where_from      = cleaned.where_from,
                 currency        = cleaned.currency,
