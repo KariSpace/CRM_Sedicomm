@@ -27,6 +27,7 @@ def csv_table(request):
     
     csv_file = request.FILES['csv_f']
 
+
     if not csv_file.name.endswith('.csv'):
         messages.error(request, "This is not a CSV, try to upload .csv")
         return render(request,template)
@@ -35,22 +36,92 @@ def csv_table(request):
 
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
-    next(io_string)
 
+
+    course_name = str(csv_file.name)[3:-4]
+
+    type1 = "['Submitted', 'Your-Fname', 'Your-Sname', 'Tel-Contact', 'Email-Your', 'checkbox-Nationality', 'text-Speciality', 'text-Work', 'Client-From', 'Your-Message', 'agreement', 'Submitted From']"
+    type2 = "['Submitted', 'your-name', 'sName', 'TelNumber', 'email-your', 'Courses', 'checkbox-Nationality', 'text-Speciality', 'client-from', 'your-message', 'agreement', 'Submitted Login', 'Submitted From']"
+    type3 = "['Submitted', 'Your-Fname', 'Your-Sname', 'Tel-Contact', 'Email-Your', 'Your-Message', 'agreement', 'submit', 'Submitted From']"
+
+
+
+
+    i=0
     for col in csv.reader(io_string, delimiter=';', quotechar='|'):
-        if col:
-            _, created = Daily.objects.update_or_create(
-                name            = col[0],
-                phone           = col[1],
-                email           = col[2],
-                course          = getCourse(col[3]),
-                country         = col[4],
-                university      = col[5],
-                work            = col[6],
-                where_from      = col[7],
-                currency        = choseMoney(col[4]),
-                course_price    = getPrice(choseMoney(col[4]), getCourse(col[3]))
-            )
+        if i == 0:
+            if col:
+              first_col = str(col)
+              print(first_col)
+              i += 1
+        else:
+            if first_col == type1:
+                if col:
+                    print("111111111111111g")
+                    _, created = Daily.objects.update_or_create(
+                        name            = str(col[1] +  " "+ col[2]),
+                        phone           = col[3],
+                        email           = col[4],
+                        country         = col[5],
+                        university      = col[6],
+                        work            = col[7],
+                        where_from      = col[8],
+                        wishes          = col[9],
+                        ip              = col[11],
+                        course          = getCourse(course_name),
+                        currency        = choseMoney(col[5]),
+                        course_price    = getPrice(choseMoney(col[5]), getCourse(course_name))
+                    )
+
+            elif first_col == type2:
+                 if col:
+                    print("2222222222222222")
+                    _, created = Daily.objects.update_or_create(
+                        name            = str(col[1] +  " "+ col[2]),
+                        phone           = col[3],
+                        email           = col[4],
+                        course          = getCourse(col[5]),
+                        country         = col[6],
+                        university      = col[7],
+                        where_from      = col[8],
+                        wishes          = col[9],
+                        ip              = col[12],
+                        currency        = choseMoney(col[6]),
+                        course_price    = getPrice(choseMoney(col[6]), getCourse(course_name))
+                    )
+            elif first_col == type3:
+                 if col:
+                    print("3333333333333333333333")
+                    _, created = Daily.objects.update_or_create(
+                        name            = str(col[1] +  " "+ col[2]),
+                        phone           = col[3],
+                        email           = col[4],
+                        wishes          = col[5],
+                        ip              = col[8],
+                        course          = getCourse(course_name),
+                    )
+
+    # next(io_string)
+
+
+    
+    # for col in csv.reader(io_string, delimiter=';', quotechar='|'):
+    #     if col:
+    #         print("esiogjiojrg")
+    #         _, created = Daily.objects.update_or_create(
+    #             name            = str(col[1] + col[2]),
+    #             phone           = col[3],
+    #             email           = col[4],
+    #             country         = col[5],
+    #             university      = col[6],
+    #             work            = col[7],
+    #             where_from      = col[8],
+    #             comments        = col[9],
+    #             ip              = col[11],
+    #             course          = getCourse(course_name),
+    #             currency        = choseMoney(col[5]),
+    #             course_price    = getPrice(choseMoney(col[5]), getCourse(course_name))
+    #         )
     return render(request, template)
 
 @login_required
@@ -149,12 +220,12 @@ def search(request):
 #CSV_TO_FILE COMMIT 
 
 def choseMoney(country):
-    if country == "Ukraine":
+    if country == "Украины / Ukraine":
         currency = "UAH"
-    elif country == "Russia":
+    elif country == "России / Russia":
         currency = "RUB"
-    elif country == "Belarussia":
-        currency = "BYN"
+    elif country == "Другое / Other Киргизия":
+        currency = "KGS"
     elif country == "Kazakhstan":
         currency = "KZT"
     else:
