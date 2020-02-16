@@ -168,9 +168,12 @@
                 {% for item in list_payments %} {% if item.is_called %}
                 <div class="item" id="{{item.email}}">
                     <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                        <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %} {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);"
-                            {% endif %} {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} {% if item.is_not_payed %}
-                            style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description"
+                        {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
+                        {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);"{% endif %} 
+                        {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} 
+                        {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} 
+                        {% if item.is_not_payed %}style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
                             <table class="item_payment_table" style="width:100%">
                                 <tr>
                                     <th>

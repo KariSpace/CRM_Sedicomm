@@ -64,7 +64,7 @@
         //     }
         // });
         $(function() {
-            if($('#id_group').val() != "" || $('#id_request_status').val() == "перезвонить"){
+            if($('#id_group').val() != "" || $('#id_request_status').val() == "перезвонить" || $('#id_request_status').val() == "отказ"){
                 console.log("Checked")
                 $('#submit_btn').prop('disabled', false)
             }else{
@@ -74,7 +74,7 @@
         });
         $('#id_group').click(function(){
             console.log($(this).val())
-            if($(this).val() != "" || $('#id_request_status').val() == "перезвонить"){
+            if($(this).val() != "" || $('#id_request_status').val() == "перезвонить" || $('#id_request_status').val() == "отказ"){
                 console.log("Checked")
                 $('#submit_btn').prop('disabled', false)
             }else{
@@ -84,7 +84,7 @@
         });
         $('#id_request_status').click(function(){
             console.log($(this).val())
-            if($('#id_group').val() != "" || $(this).val() == "перезвонить"){
+            if($('#id_group').val() != "" || $(this).val() == "перезвонить" || $('#id_request_status').val() == "отказ"){
                 console.log("Checked")
                 $('#submit_btn').prop('disabled', false)
             }else{

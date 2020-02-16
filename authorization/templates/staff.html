@@ -186,7 +186,7 @@
                 </div>
                 <div class="table_content show" id='table_payments_content'>
                     {% for item in list_payments %} {% if item.is_called %}
-                    <div class="item {% if item.call_status %} call_status {% endif %}" id="{{item.email}}">
+                    <div class="item {% if item.call_status %} call_status {% endif %} item_payments" id="{{item.email}}">
                         <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
                             <div class="item_header" data-toggle="collapse" data-target="#item_description"
                              {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
@@ -212,9 +212,6 @@
                                         </th>
                                         <th>
                                             <div class="country">{{item.obligation}} {{item.currency}}</div>
-                                        </th>
-                                        <th>
-                                            <div class="obligation">{{item.get_date}}</div>
                                         </th>
                                         {% if item.is_need_confirm %}
                                         <th>
@@ -277,7 +274,8 @@
             ]
         var such_color = 0;
         var items = document.getElementsByClassName('item')
-        for (i=0;i<=items.length-1;i++){
+        var payments =  document.getElementsByClassName('item_payments')
+        for (i=0;i<=items.length-1-payments.length;i++){
             console.log("i="+i)
             // var r_color = Math.floor(Math.random()*256)
             // var r_color2 = Math.floor(Math.random()*256)
