@@ -43,6 +43,7 @@ def csv_table(request):
     type1 = "['Submitted', 'Your-Fname', 'Your-Sname', 'Tel-Contact', 'Email-Your', 'checkbox-Nationality', 'text-Speciality', 'text-Work', 'Client-From', 'Your-Message', 'agreement', 'Submitted From']"
     type2 = "['Submitted', 'your-name', 'sName', 'TelNumber', 'email-your', 'Courses', 'checkbox-Nationality', 'text-Speciality', 'client-from', 'your-message', 'agreement', 'Submitted Login', 'Submitted From']"
     type3 = "['Submitted', 'Your-Fname', 'Your-Sname', 'Tel-Contact', 'Email-Your', 'Your-Message', 'agreement', 'submit', 'Submitted From']"
+    type4 = "['Submitted', 'Your-Fname', 'Your-Sname', 'Tel-Contact', 'Email-Your', 'menu-paket-NE', 'Your-Message', 'agreement', 'Submitted From']"
 
 
 
@@ -89,6 +90,7 @@ def csv_table(request):
                         currency        = choseMoney(col[6]),
                         course_price    = getPrice(choseMoney(col[6]), getCourse(course_name))
                     )
+
             elif first_col == type3:
                  if col:
                     print("3333333333333333333333")
@@ -99,6 +101,20 @@ def csv_table(request):
                         wishes          = col[5],
                         ip              = col[8],
                         course          = getCourse(course_name),
+                    )
+            if first_col == type4:
+                if col:
+                    print("4444444444444444444444444")
+                    _, created = Daily.objects.update_or_create(
+                        name            = str(col[1] +  " "+ col[2]),
+                        phone           = col[3],
+                        email           = col[4],
+                        course          = getCourse(course_name + " " + col[5]),
+                        wishes          = col[6],
+                        ip              = col[8],
+                        course_price    = packetCheck(col[5]),
+                        currency        = packetMoney(col[5]),
+
                     )
 
     # next(io_string)
@@ -254,3 +270,10 @@ def getPrice(currency, course):
     else:
         return 0
 
+def packetCheck(packet):
+    if packet == "Пакет Решала-практик за $49":
+        return 49
+
+def packetMoney(packet):
+    if packet == "Пакет Решала-практик за $49":
+        return "USD"
