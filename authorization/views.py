@@ -16,7 +16,7 @@ from django.utils import timezone
 
 from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm, ItemGroupsUpdateForm, GroupCreateForm, DailyCreateForm
 
-from .models import Daily, Group, People, get_daily_payments
+from .models import Daily, Group, People, get_daily_payments, Course
 
 from .forms import DateForm
 
@@ -186,6 +186,8 @@ def groups_payments(request):
 def pay_filter(request, pk):
     list_payments = People.objects.all().order_by('request_status','group', 'obligation', )
     formcheck = 1
+    groups_all = Group.objects.all()
+    course_all = Course.objects.all()
 
     # submitbutton= request.POST.get("submit")
 
@@ -247,17 +249,17 @@ def pay_filter(request, pk):
 
 
         payed_query = request.GET.get('payed')
-        if payed_query != ' ' and payed_query is not None:
+        if payed_query  == 'on':
              list_payments = list_payments.filter(Q(request_status='оплачено'))
 
 
         partly_query = request.GET.get('partly')
-        if partly_query != ' ' and partly_query is not None:
-             list_payments = list_payments.filter(Q(request_status='оплачено частично'))
+        if partly_query  == 'on':
+             list_payments = list_payments.filter(Q(request_status='оплачено частично') )
 
 
         nonpayed_query = request.GET.get('nonpayed')
-        if nonpayed_query != ' ' and nonpayed_query is not None:
+        if nonpayed_query == 'on':
              list_payments = list_payments.filter(Q(request_status='ожидаем оплату'))
 
 
@@ -305,6 +307,8 @@ def pay_filter(request, pk):
     
     context = {
         "list_payments":list_payments,
+        'groups_all': groups_all,
+        'course_all': course_all,
 
         'formcheck': formcheck,
 

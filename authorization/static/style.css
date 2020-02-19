@@ -340,3 +340,7 @@ th {
     width: 60%;
     margin: 40px auto;
 }
+
+.text-center {
+    text-align: center;
+}

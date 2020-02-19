@@ -138,9 +138,9 @@
                     <label for="input">Курс</label>
                     <select id="input" type="text" class="form-control" name="course">
                     <option selected>Choose...</option>
-                    {% if list_payments %}
-                    {% for course in list_payments %} 
-                    <option>{{course.course}}</option>
+                    {% if course_all %}
+                    {% for course in course_all %} 
+                    <option>{{course.name}}</option>
                     {% endfor %} 
                     {% endif %} 
                   </select>
@@ -149,9 +149,9 @@
                     <label for="input">Группа</label>
                     <select id="input" type="text" class="form-control" name="group">
                     <option selected>Choose...</option>
-                    {% if list_payments %}
-                    {% for group in list_payments %} 
-                    <option>{{group.group}}</option>
+                    {% if groups_all %}
+                    {% for group in groups_all %} 
+                    <option>{{group.name}}</option>
                     {% endfor %} 
                     {% endif %} 
                   </select>
@@ -159,23 +159,22 @@
 
             </div>
             <div class="form-group ">
-                <div class="form-check">
+                <div class="form-check col-md-4 text-center">
                     <input class="form-check-input" type="checkbox" id="payments_status" name="payed">
                     <label class="form-check-label" for="payments_status">
                     Оплачено
                   </label>
                 </div>
-            </div>
-            <div class="form-group ">
-                <div class="form-check">
+
+
+                <div class="form-check  col-md-4 text-center">
                     <input class="form-check-input" type="checkbox" id="payments_status1" name="partly">
                     <label class="form-check-label" for="payments_status1">
                     Частично
                   </label>
                 </div>
-            </div>
-            <div class="form-group ">
-                <div class="form-check">
+
+                <div class="form-check col-md-4 text-center">
                     <input class="form-check-input" type="checkbox" id="payments_status2" name="nonpayed">
                     <label class="form-check-label" for="payments_status2">
                     Не оплачено
