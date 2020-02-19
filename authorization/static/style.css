@@ -253,26 +253,27 @@ th {
 }
 
 
-
 /* _____________________________________*/
 
-.count_table{
+.count_table {
     border: 1px solid black;
     margin: 20px auto;
     width: 95%;
     text-align: center;
     padding: 15px;
 }
-.main_line{
+
+.main_line {
     background-color: rgb(182, 204, 243);
     border-bottom: 1px solid black;
 }
-.perid_container{
+
+.perid_container {
     display: flex;
     justify-content: space-around;
 }
 
-.button{
+.button {
     margin-top: 20px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -282,7 +283,8 @@ th {
     color: #fff;
     transition: .5s background-color, .5s color;
 }
-.button:hover{
+
+.button:hover {
     margin-top: 20px;
     margin-bottom: 10px;
     background-color: rgb(255, 255, 255);
@@ -317,16 +319,24 @@ th {
     height: 0;
     transition: .5s height, 7s opacity ease-in-out;
 }
+
 .body_visible {
     opacity: 1;
     height: 80px;
     padding: 20px;
     transition: .5s height, .7s opacity ease-in-out;
 }
-.myfield{
-    border:1px solid rgb(0, 35, 236); 
-    border-radius:5px;
-    height:40px;
-    width:200px;
+
+.myfield {
+    border: 1px solid rgb(0, 35, 236);
+    border-radius: 5px;
+    height: 40px;
+    width: 200px;
     margin: 10px 10px 10px 0;
+}
+
+.filtering-form {
+    display: block;
+    width: 60%;
+    margin: 40px auto;
 }

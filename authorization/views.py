@@ -184,31 +184,31 @@ def groups_payments(request):
 
 
 def pay_filter(request, pk):
-    list_payments = People.objects.order_by('request_status','group', 'obligation', )
+    list_payments = People.objects.all().order_by('request_status','group', 'obligation', )
     formcheck = 1
 
-    submitbutton= request.POST.get("submit")
+    # submitbutton= request.POST.get("submit")
 
-    start_date = date.today()
-    end_date = 0
+    # start_date = date.today()
+    # end_date = 0
 
-    form = DateForm(request.POST or None)
+    # form = DateForm(request.POST or None)
 
-    if form.is_valid():
-            start_date = form.cleaned_data.get("start_date")
-            end_date = form.cleaned_data.get("end_date") + timedelta(minutes=60*24)
+    # if form.is_valid():
+    #         start_date = form.cleaned_data.get("start_date")
+    #         end_date = form.cleaned_data.get("end_date") + timedelta(minutes=60*24)
 
 
-    if start_date == None:
-        start_date = datetime.now() - timedelta(minutes=60*24*12000)
+    # if start_date == None:
+    #     start_date = datetime.now() - timedelta(minutes=60*24*12000)
 
-    if  end_date == None:
-            end_date = datetime.now()
+    # if  end_date == None:
+    #         end_date = datetime.now()
     
-    if submitbutton:
-        print("submit")
-        # #MONEY
-        list_payments = list_payments.filter(Q(add_date__gte = start_date) & Q(add_date__lte= end_date) )
+    # if submitbutton:
+    #     print("submit")
+    #     # #MONEY
+    #     list_payments = list_payments.filter(Q(add_date__gte = start_date) & Q(add_date__lte= end_date) )
 
 
     if pk == 1:  #today
@@ -224,6 +224,43 @@ def pay_filter(request, pk):
         list_payments = list_payments.filter(Q(add_date__gte = now))
     elif pk == 5:
         formcheck = 2
+
+        start_date_query = request.GET.get('start_date')
+        if start_date_query != '' and start_date_query is not None:
+             list_payments = list_payments.filter(Q(add_date__gte = start_date_query))
+
+
+        end_date_query = request.GET.get('end_date')
+        print(type(end_date_query))
+        if end_date_query != '' and end_date_query is not None:
+            list_payments = list_payments.filter(Q(add_date__lte= end_date_query))
+
+
+        course_query = request.GET.get('course')
+        if course_query != 'Choose...' and course_query is not None:
+             list_payments = list_payments.filter(Q(course__name = course_query))
+
+
+        group_query = request.GET.get('group')
+        if group_query != 'Choose...' and group_query is not None:
+            list_payments = list_payments.filter(Q(group__name = group_query))
+
+
+        payed_query = request.GET.get('payed')
+        if payed_query != ' ' and payed_query is not None:
+             list_payments = list_payments.filter(Q(request_status='оплачено'))
+
+
+        partly_query = request.GET.get('partly')
+        if partly_query != ' ' and partly_query is not None:
+             list_payments = list_payments.filter(Q(request_status='оплачено частично'))
+
+
+        nonpayed_query = request.GET.get('nonpayed')
+        if nonpayed_query != ' ' and nonpayed_query is not None:
+             list_payments = list_payments.filter(Q(request_status='ожидаем оплату'))
+
+
     elif pk == 6:
         formcheck = 1
 
@@ -280,9 +317,7 @@ def pay_filter(request, pk):
         "people_waiting" : people_waiting,
         "people_all_num" : people_all_num,
 
-        'form': form,
-        'start_date': start_date, 
-        'end_date':end_date, 
+       
     }
 
     return render(request,"groups_payments.html",context)

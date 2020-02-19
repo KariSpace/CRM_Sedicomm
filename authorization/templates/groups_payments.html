@@ -11,10 +11,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
-     {% load staticfiles %}
+    {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
 </head>
 
@@ -58,7 +58,7 @@
                 border: 1px solid #5344c2;
                 padding: 4px;
             ">
-            
+
             </form>
             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#InfoUpdateField" aria-expanded="false">
             {{user.username}}
@@ -113,29 +113,84 @@
         <a href="{% url 'pay_filter' pk=1 %}" class="a"><button class="button">Сегодня</button></a>
         <a href="{% url 'pay_filter' pk=2 %}" class="a"><button class="button">Неделя</button></a>
         <a href="{% url 'pay_filter' pk=3 %}" class="a"><button class="button">Месяц</button></a>
-        <a href="{% url 'pay_filter' pk=4 %}" class="a"><button class="button">Все</button></a>
-        {% if formcheck == 2 %}
-        <a href="{% url 'pay_filter' pk=6 %}" class="a"><button class="button">Cпрятать выбор</button></a>
-        {% else %}
-        <a href="{% url 'pay_filter' pk=5 %}" class="a"><button class="button">Выбать диапазон</button></a>
-        {% endif %}
-        
+        <a href="{% url 'pay_filter' pk=4 %}" class="a"><button class="button">Все</button></a> {% if formcheck == 2 %}
+        <a href="{% url 'pay_filter' pk=6 %}" class="a"><button class="button">Cпрятать Фильтры</button></a> {% else %}
+        <a href="{% url 'pay_filter' pk=5 %}" class="a"><button class="button">Фильтры</button></a> {% endif %}
+
     </div>
 
     {% if formcheck == 2 %}
-    <div id="perid_container" class="perid_container ">
-        
-        <form action="" method="POST" class="perid_container">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" name="submit" class = "submit-btn" value="submit"/>
+    <div>
+
+        <form action="" method="GET" class="filtering-form">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="">Начальная дата</label>
+                    <input type="date" class="form-control" id="inputEmail4" name="start_date">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">Конечная дата</label>
+                    <input type="date" class="form-control" id="inputPassword4" name="end_date">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="input">Курс</label>
+                    <select id="input" type="text" class="form-control" name="course">
+                    <option selected>Choose...</option>
+                    {% if list_payments %}
+                    {% for course in list_payments %} 
+                    <option>{{course.course}}</option>
+                    {% endfor %} 
+                    {% endif %} 
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="input">Группа</label>
+                    <select id="input" type="text" class="form-control" name="group">
+                    <option selected>Choose...</option>
+                    {% if list_payments %}
+                    {% for group in list_payments %} 
+                    <option>{{group.group}}</option>
+                    {% endfor %} 
+                    {% endif %} 
+                  </select>
+                </div>
+
+            </div>
+            <div class="form-group ">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="payments_status" name="payed">
+                    <label class="form-check-label" for="payments_status">
+                    Оплачено
+                  </label>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="payments_status1" name="partly">
+                    <label class="form-check-label" for="payments_status1">
+                    Частично
+                  </label>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="payments_status2" name="nonpayed">
+                    <label class="form-check-label" for="payments_status2">
+                    Не оплачено
+                  </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Фильтр</button>
         </form>
-        
+
     </div>
+
     {% endif %}
 
 
-    <table class="count_table"  cellpadding="5">
+    <table class="count_table" cellpadding="5">
         <tr class="main_line">
             <th>Всего</th>
             <th>Оплатили</th>
@@ -168,12 +223,9 @@
                 {% for item in list_payments %} {% if item.is_called %}
                 <div class="item" id="{{item.email}}">
                     <a class="gr-a" href="{% url 'group_payments_update' item.id %}" target="_blank" onClick="popupWin = window.open(this.href, 'Window', 'location,width=720,height=800,top=200,left=300'); popupWin.focus(); return false;">
-                        <div class="item_header" data-toggle="collapse" data-target="#item_description"
-                        {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %}
-                        {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);"{% endif %} 
-                        {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} 
-                        {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} 
-                        {% if item.is_not_payed %}style="background-color: rgba(255, 0, 0, 0.554);" {% endif %}>
+                        <div class="item_header" data-toggle="collapse" data-target="#item_description" {% if item.call_status %} style="background-color: rgba(255, 157, 0, 0.554);" {% endif %} {% if item.is_need_confirm %} style="background-color: rgba(195, 0, 255, 0.685);"
+                            {% endif %} {% if item.is_full_payed %} style="background-color: rgba(0, 255, 34, 0.554);" {% endif %} {% if item.is_particaly_payed %} style="background-color: rgba(229, 255, 0, 0.554);" {% endif %} {% if item.is_not_payed %}style="background-color: rgba(255, 0, 0, 0.554);"
+                            {% endif %}>
                             <table class="item_payment_table" style="width:100%">
                                 <tr>
                                     <th>
@@ -250,7 +302,7 @@
                 format: 'd/m/Y',
             });
         });
-    </script>    
+    </script>
     <script>
         var field1 = document.getElementById('id_start_date')
         var field2 = document.getElementById('id_end_date')
@@ -260,7 +312,6 @@
         field2.addEventListener('mouseenter', function(event) {
             event.target.setAttribute('autocomplete', 'off')
         })
-
     </script>
 </body>
 
