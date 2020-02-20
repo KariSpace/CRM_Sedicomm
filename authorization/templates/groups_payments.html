@@ -124,29 +124,21 @@
 
         <form action="" method="GET" class="filtering-form">
             <div class="form-row form-group mb-0">
-                <div class=" text-center form-group col-md-6 mb-0">
-                    <label for="" class=" mb-0">Start</label>
-
+                <div class="d-block ">
+                    <div class=" text-center form-group col-md-12">
+                        <label for="" class=" mb-0">Start</label>
+                        <input type="date" class="form-control form-group col-md-12" id="inputEmail4" name="start_date">
+                    </div>
+                    <div class=" text-center form-group col-md-12">
+                        <label for="" class=" mb-0">End</label>
+                        <input type="date" class="form-control form-group col-md-12" id="inputPassword4" name="end_date">
+                    </div>
                 </div>
-                <div class=" text-center form-group col-md-6 mb-0">
-                    <label for="" class=" mb-0">End</label>
-
-                </div>
-            </div>
-            <div class="form-row form-group mb-0">
-                <div class=" text-center form-group col-md-6">
-
-                    <input type="date" class="form-control form-group col-md-6" id="inputEmail4" name="start_date">
-                </div>
-                <div class=" text-center form-group col-md-6">
-
-                    <input type="date" class="form-control form-group col-md-6" id="inputPassword4" name="end_date">
-                </div>
-            </div>
-            <div class="form-row ">
-                <div class="form-group text-center col-md-6">
-                    <!-- <label for="input">Курс</label> -->
-                    <select id="input" type="text" class="form-control col-md-6" name="course">
+                <div class="d-block ">
+                    <div class="form-group text-center col-md-12">
+                        <div class="form-group text-center col-md-12">
+                            <!-- <label for="input">Курс</label> -->
+                            <select id="input" type="text" class="form-control col-md-6" name="course">
                     <option selected>Курс</option>
                     {% if course_all %}
                     {% for course in course_all %} 
@@ -154,10 +146,14 @@
                     {% endfor %} 
                     {% endif %} 
                   </select>
-                </div>
-                <div class="form-group text-center col-md-6">
-                    <!-- <label for="input">Группа</label> -->
-                    <select id="input" type="text" class="form-control col-md-6" name="group">
+                        </div>
+                    </div>
+                    <div class="form-group text-center col-md-12">
+
+
+                        <div class="form-group text-center col-md-12">
+                            <!-- <label for="input">Группа</label> -->
+                            <select id="input" type="text" class="form-control col-md-6" name="group">
                     <option selected>Группа</option>
                     {% if groups_all %}
                     {% for group in groups_all %} 
@@ -165,33 +161,33 @@
                     {% endfor %} 
                     {% endif %} 
                   </select>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-            <div class="form-row form-group">
+                <div class="d-block ">
 
 
-                <div class="form-group col-md-10 text-center">
-                    <div class="form-check col-md-4 text-center">
-                        <input class="form-check-input" type="checkbox" id="payments_status" name="payed">
-                        <label class="form-check-label" for="payments_status">
-                    Оплачено
-                  </label>
-                    </div>
+                    <div class=" col-md-12 ">
+                        <div class="form-check  fl-row">
+                            <input class="form-check-input" type="checkbox" id="payments_status" name="payed">
+                            <label class="form-check-label" for="payments_status">
+                                Оплачено
+                            </label>
+                        </div>
 
 
-                    <div class="form-check  col-md-4 text-center">
-                        <input class="form-check-input" type="checkbox" id="payments_status1" name="partly">
-                        <label class="form-check-label" for="payments_status1">
-                    Частично
-                  </label>
-                    </div>
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" id="payments_status1" name="partly">
+                            <label class="form-check-label" for="payments_status1">
+                                Частично
+                            </label>
+                        </div>
 
-                    <div class="form-check col-md-4 text-center">
-                        <input class="form-check-input" type="checkbox" id="payments_status2" name="nonpayed">
-                        <label class="form-check-label" for="payments_status2">
-                    Не оплачено
-                  </label>
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" id="payments_status2" name="nonpayed">
+                            <label class="form-check-label" for="payments_status2">
+                                Не оплачено                 </label>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -337,7 +337,6 @@ th {
 
 .filtering-form {
     display: block;
-    width: 40%;
     margin: 40px auto;
 }
 
@@ -355,4 +354,19 @@ label {
 
 .mb-0 {
     margin-bottom: 0;
+}
+
+.d-block {
+    display: block;
+    height: 140px;
+}
+
+.fl-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-check {
+    margin-bottom: 16px;
 }
