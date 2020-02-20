@@ -48,6 +48,15 @@
         });
     </script>
     <script>
+        var fields = document.getElementsByClassName('select')
+
+        for(i = 0; i < fields.length; i++){
+
+            fields[i].style.maxWidth = "110px"
+        }
+
+    </script>
+    <script>
         var field = document.getElementById('id_callback_time')
         if (field.value != "") {
             formated = moment(field.value).format('DD/MM/YYYY hh:mm');

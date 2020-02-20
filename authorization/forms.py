@@ -28,7 +28,7 @@ class ItemInfoUpdateForm(forms.ModelForm):
     class Meta:
         model = Daily
         fields = [
-                'request_date',
+                # 'request_date',
                 'name',
                 'phone',
                 'email',

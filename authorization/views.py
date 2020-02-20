@@ -125,7 +125,7 @@ def groups_payments(request):
                                             Q(request_status='ожидаем оплату')).aggregate(money_all=Sum(F('course_price')))
 
         money_all_num = money_all['money_all']
-        print(money_all_num, "все деньги")
+        # print(money_all_num, "все деньги")
 
         money_paid = list_payments.filter(Q(request_status='оплачено') | 
                                                 Q(request_status='оплачено частично') | 
@@ -133,7 +133,7 @@ def groups_payments(request):
 
         money_paid_num = money_paid['money_paid']
 
-        print(money_paid_num, "Заплатили")
+        # print(money_paid_num, "Заплатили")
 
         if money_all_num == None:
             money_all_num = 0
@@ -142,7 +142,7 @@ def groups_payments(request):
                 money_paid_num = 0
 
         money_will_num =  money_all_num - money_paid_num
-        print(money_will_num ,"Заплатят")
+        # print(money_will_num ,"Заплатят")
 
 
         people_done = list_payments.filter(Q(request_status='оплачено')).count()
@@ -152,9 +152,9 @@ def groups_payments(request):
 
         people_all_num =  people_done + people_partially + people_waiting
 
-        print(people_done)
-        print(people_partially)
-        print(people_waiting)
+        # print(people_done)
+        # print(people_partially)
+        # print(people_waiting)
 
         
 
@@ -215,9 +215,9 @@ def pay_filter(request, pk):
 
     if pk == 1:  #today
         now = datetime.today() - timedelta(minutes=60)
-        print(now)
+        # print(now)
         list_payments = list_payments.filter(Q(add_date__gte = now))
-        print(list_payments)
+        # print(list_payments)
     elif pk == 2:  #7 days
         now = datetime.today() - timedelta(minutes=60*24*7)
         list_payments = list_payments.filter(Q(add_date__gte = now))
@@ -233,8 +233,8 @@ def pay_filter(request, pk):
 
 
         end_date_query = request.GET.get('end_date')
-        print(type(end_date_query))
         if end_date_query != '' and end_date_query is not None:
+            end_date_query = (datetime.strptime(end_date_query, '%Y-%m-%d')+timedelta(days=1)).strftime('%Y-%m-%d')
             list_payments = list_payments.filter(Q(add_date__lte= end_date_query))
 
 
@@ -274,7 +274,7 @@ def pay_filter(request, pk):
                                             Q(request_status='ожидаем оплату')).aggregate(money_all=Sum(F('course_price')))
 
     money_all_num = money_all['money_all']
-    print(money_all_num, "все деньги")
+    # print(money_all_num, "все деньги")
 
     money_paid = list_payments.filter(Q(request_status='оплачено') | 
                                             Q(request_status='оплачено частично') | 
@@ -282,7 +282,7 @@ def pay_filter(request, pk):
 
     money_paid_num = money_paid['money_paid']
 
-    print(money_paid_num, "Заплатили")
+    # print(money_paid_num, "Заплатили")
 
     if money_all_num == None:
         money_all_num = 0
@@ -291,7 +291,7 @@ def pay_filter(request, pk):
             money_paid_num = 0
 
     money_will_num =  money_all_num - money_paid_num
-    print(money_will_num ,"Заплатят")
+    # print(money_will_num ,"Заплатят")
 
 
     people_done = list_payments.filter(Q(request_status='оплачено')).count()
@@ -301,9 +301,9 @@ def pay_filter(request, pk):
 
     people_all_num =  people_done + people_partially + people_waiting
 
-    print(people_done)
-    print(people_partially)
-    print(people_waiting)
+    # print(people_done)
+    # print(people_partially)
+    # print(people_waiting)
     
     context = {
         "list_payments":list_payments,
@@ -342,7 +342,7 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
         if(cleaned.comments != comments):
             cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))+'\n'
         if form.cleaned_data['group']:
-                print('mooved to groups')
+                # print('mooved to groups')
 
                 if (cleaned.request_status == "оплачено частично"):
                     first_payment_date = datetime.now()
