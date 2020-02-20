@@ -239,12 +239,12 @@ def pay_filter(request, pk):
 
 
         course_query = request.GET.get('course')
-        if course_query != 'Choose...' and course_query is not None:
+        if course_query != 'Курс' and course_query is not None:
              list_payments = list_payments.filter(Q(course__name = course_query))
 
 
         group_query = request.GET.get('group')
-        if group_query != 'Choose...' and group_query is not None:
+        if group_query != 'Группа' and group_query is not None:
             list_payments = list_payments.filter(Q(group__name = group_query))
 
 

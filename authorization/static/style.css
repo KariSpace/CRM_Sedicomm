@@ -337,10 +337,22 @@ th {
 
 .filtering-form {
     display: block;
-    width: 60%;
+    width: 40%;
     margin: 40px auto;
 }
 
 .text-center {
     text-align: center;
+}
+
+.form-group {
+    justify-content: center;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.mb-0 {
+    margin-bottom: 0;
 }
