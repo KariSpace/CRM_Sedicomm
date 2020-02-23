@@ -1,0 +1,11 @@
+
+23/02/2020 14:59 --> admin : 
+'Пользователь Viktor Baran/ek@gmail.com добавлен в группу ITE-1'
+23/02/2020 15:00 --> admin : 
+'Пользователь Kostyantin Sar/haza@gmail.com добавлен в группу ITE-1'
+23/02/2020 15:04 --> admin : 
+'Пользователь Hennadii Hal/g@gmail.com добавлен в группу ITE-1 заплатил : 0'
+23/02/2020 15:05 --> admin : 
+'Пользователь Hennadii Hal/g@gmail.com добавлен в группу ITE-1 заплатил : 0UAH'
+23/02/2020 15:05 --> admin : 
+'Пользователь Vitalii Bart/gro@u добавлен в группу ITE-1 заплатил : 0 USD'

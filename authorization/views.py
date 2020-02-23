@@ -18,10 +18,29 @@ from .forms import UserUpdateForm, ItemInfoUpdateForm, ItemPaymentsUpdateForm, I
 
 from .models import Daily, Group, People, get_daily_payments, Course
 
-from .forms import DateForm
+# from .forms import DateForm
+
+# session_key = ""
+
+# def get_username():
+
+#     global session_key
+
+#     session = Session.objects.get(session_key=session_key)
+#     session_data = session.get_decoded()
+#     uid = session_data.get('_auth_user_id')
+#     user = User.objects.get(id=uid)
+#     return user.username
+
+def log(user, message):
+    with open ("LOGS/"+str(date.today())+".txt", "a+", encoding='utf-8') as f:
+        f.write("\n"+datetime.now().strftime('%d/%m/%Y %H:%M')+" --> "+ user + " : "+"\n'"+message+"'")
+
 
 @login_required
 def staff(request):
+
+    # print(get_username())
 
     if request.method == 'POST':
         n_form = UserUpdateForm(request.POST, instance=request.user)
@@ -342,8 +361,6 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
         if(cleaned.comments != comments):
             cleaned.comments=form.cleaned_data['comments']+'\n'+str(datetime.now().strftime('%d/%m/%Y %H:%M'))+'\n'
         if form.cleaned_data['group']:
-                # print('mooved to groups')
-
                 if (cleaned.request_status == "оплачено частично"):
                     first_payment_date = datetime.now()
                     full_payment_date = None
@@ -351,7 +368,6 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
                     first_payment_date = full_payment_date = datetime.now()
                 else:
                     first_payment_date = full_payment_date = None
-
                 People.objects.update_or_create(
                 name            = cleaned.name,
                 phone           = cleaned.phone,
@@ -370,7 +386,6 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
                 request_status        = cleaned.request_status,
                 payment_history        = cleaned.payment_history,
                 total_payment        = cleaned.total_payment,
-                # payment_source        = cleaned.payment_source,
                 obligation        = cleaned.obligation,
                 add_date      = datetime.now(),
                 first_payment_date = first_payment_date,
@@ -378,16 +393,12 @@ class ItemInfoUpdate(LoginRequiredMixin, UpdateView):
                 need_confirm = form.cleaned_data['need_confirm']
                 )
                 cleaned.request_status = "перемещен в группы"
-                # for i in for_del:
-                #     i.request_status = "перемещен в группы"
-                #     i.save()
                 objects = People.objects.filter(name = cleaned.name,phone= cleaned.phone,email= cleaned.email,)
                 for obj in objects:
                     obj.comments = obj.comments + cleaned.comments
                     obj.wishes = obj.wishes + cleaned.wishes
                     obj.save()
-                # for gr in form.cleaned_data['group']:
-                # obj.group.add(form.cleaned_data['group'])
+                log(self.request.user.username, "Пользователь "+ cleaned.name +"/"+ cleaned.email+" добавлен в группу "+ str(form.cleaned_data['group'])+" заплатил : "+str(cleaned.total_payment) + " " + cleaned.currency)
         return super().form_valid(form)
 
 
@@ -537,6 +548,8 @@ class DeleteGroup(LoginRequiredMixin, DeleteView):
 
 @login_required
 def start(request):
+    # global session_key
+    # session_key = request.session.session_key
     return redirect('staff')
 
 
