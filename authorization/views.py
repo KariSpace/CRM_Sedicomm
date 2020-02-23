@@ -412,20 +412,9 @@ class GroupPaymentsUpdate(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         cleaned = form.save(commit=False)
-        comments = People.objects.get(id = cleaned.id).comments
-        old_total_payment = People.objects.get(id = cleaned.id).total_payment
-        # toHex = lambda x:"".join([hex(ord(c))[2:].zfill(2) for c in x])
-        # print()
-        # print('"'+cleaned.comments+'"')
-        # print()
-        # print('"'+comments+'"')
-        # print()
-        # print(toHex(cleaned.comments))
-        # print()
-        # print(toHex(comments))
-        # print()
-        # print(cleaned.comments == comments)
-        # print()
+        person = People.objects.get(id = cleaned.id)
+        comments = person.comments
+        old_total_payment = person.total_payment
         if(cleaned.comments != comments):
             cleaned.comments=form.cleaned_data['comments']+'->'+datetime.now().strftime('%d/%m/%Y %H:%M')
 
@@ -442,7 +431,35 @@ class GroupPaymentsUpdate(LoginRequiredMixin, UpdateView):
             obj.comments = cleaned.comments
             obj.wishes = cleaned.wishes
             obj.save()
-
+        
+        fs = {
+            "name" : [cleaned.name,person.name],
+            "phone" : [cleaned.phone,person.phone],
+            "email" : [cleaned.email,person.email],
+            "course" : [cleaned.course,person.course],
+            "country" : [cleaned.country,person.country],
+            "university" : [cleaned.university,person.university],
+            "work" : [cleaned.work,person.work],
+            "where_from" : [cleaned.where_from,person.where_from],
+            "currency" : [cleaned.currency,person.currency],
+            "course_price" : [cleaned.course_price,person.course_price],
+            "comments" : [cleaned.comments,person.comments],
+            "wishes" : [cleaned.wishes,person.wishes],
+            "group" : [cleaned.group,person.group],
+            "request_status" : [cleaned.request_status,person.request_status],
+            "payment_history" : [cleaned.payment_history,person.payment_history],
+            "total_payment" : [cleaned.total_payment,person.total_payment],
+            "obligation" : [cleaned.obligation,person.obligation],
+            "first_payment_date" : [cleaned.first_payment_date,person.first_payment_date],
+            "full_payment_date" : [cleaned.full_payment_date,person.full_payment_date],
+            "need_confirm" : [cleaned.need_confirm,person.need_confirm]
+        }
+        changed = {}
+        for f in fs:
+            if(fs[f][0]!=fs[f][1]):
+                changed.update({f:fs[f][0]})
+        if changed:
+            log(self.request.user.username, "Пользователь "+ cleaned.name +"/"+ cleaned.email+" изменены поля: "+str(changed))
         return super().form_valid(form)
 
 
@@ -472,7 +489,36 @@ class ItemGroupsUpdate(LoginRequiredMixin, UpdateView):
         for obj in objects:
             obj.comments = cleaned.comments
             obj.wishes = cleaned.wishes
-            obj.save()        
+            obj.save()    
+
+        fs = {
+            "name" : [cleaned.name,person.name],
+            "phone" : [cleaned.phone,person.phone],
+            "email" : [cleaned.email,person.email],
+            "course" : [cleaned.course,person.course],
+            "country" : [cleaned.country,person.country],
+            "university" : [cleaned.university,person.university],
+            "work" : [cleaned.work,person.work],
+            "where_from" : [cleaned.where_from,person.where_from],
+            "currency" : [cleaned.currency,person.currency],
+            "course_price" : [cleaned.course_price,person.course_price],
+            "comments" : [cleaned.comments,person.comments],
+            "wishes" : [cleaned.wishes,person.wishes],
+            "group" : [cleaned.group,person.group],
+            "request_status" : [cleaned.request_status,person.request_status],
+            "payment_history" : [cleaned.payment_history,person.payment_history],
+            "total_payment" : [cleaned.total_payment,person.total_payment],
+            "obligation" : [cleaned.obligation,person.obligation],
+            "first_payment_date" : [cleaned.first_payment_date,person.first_payment_date],
+            "full_payment_date" : [cleaned.full_payment_date,person.full_payment_date],
+            "need_confirm" : [cleaned.need_confirm,person.need_confirm]
+        }
+        changed = {}
+        for f in fs:
+            if(fs[f][0]!=fs[f][1]):
+                changed.update({f:fs[f][0]})
+        if changed:
+            log(self.request.user.username, "Пользователь "+ cleaned.name +"/"+ cleaned.email+" изменены поля: "+str(changed))    
         return super().form_valid(form)
 
 
@@ -482,14 +528,11 @@ class CreateNewDaily(LoginRequiredMixin, CreateView):
     template_name = 'group_create.html'
     success_url='/ok/'
     form_class = DailyCreateForm
-    
-
-    # ide = People.objects.get(email = 'guigiug@mail')
-    # print(ide.id)
 
     def form_valid(self, form):
         cleaned = form.save(commit=False)
         cleaned.request_date=str(datetime.now())
+        log(self.request.user.username, "Пользователь "+ cleaned.name +"/"+ cleaned.email+" создан ") 
         return super().form_valid(form)
 
 
@@ -505,6 +548,7 @@ class CreateNewGroup(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         cleaned = form.save(commit=False)
         cleaned.created_date=str(datetime.now())
+        log(self.request.user.username, "Группа "+ cleaned.name +" созданна ") 
         return super().form_valid(form)
 
 
@@ -518,6 +562,7 @@ class DeletePeople(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         client = self.kwargs['pk']
         client = People.objects.get(id = client)
+        log(request.user.username, "Пользователь "+ client.name +"/"+ client.email+" удален ") 
         client.dell()
         return HttpResponseRedirect('/groups_payments/')
 
@@ -530,6 +575,7 @@ class DeleteGroups(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         client = self.kwargs['pk']
         client = People.objects.get(id = client)
+        log(request.user.username, "Пользователь "+ client.name +"/"+ client.email+" удален ") 
         client.dell()
         return HttpResponseRedirect('/groups/')
 
@@ -542,6 +588,7 @@ class DeleteGroup(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         client = self.kwargs['pk']
         client = Group.objects.get(id = client)
+        log(request.user.username, "Группа "+ client.name +" удалена ") 
         client.dell()
         return HttpResponseRedirect('/groups/')
 
@@ -550,6 +597,7 @@ class DeleteGroup(LoginRequiredMixin, DeleteView):
 def start(request):
     # global session_key
     # session_key = request.session.session_key
+    log(request.user.username, "Пользователь вошел ") 
     return redirect('staff')
 
 
