@@ -1,0 +1,13 @@
+
+24/02/2020 18:56 --> admin : 
+'Пользователь Kamil Muminov/k@yandex.ru добавлен в группу ITE-1 заплатил : 0 RUB'
+24/02/2020 18:56 --> admin : 
+'Пользователь Kamil Muminov/k@yandex.ru добавлен в группу ITE-1 заплатил : 0 RUB'
+24/02/2020 18:57 --> admin : 
+'Пользователь Kamil Muminov/k@yandex.ru удален '
+24/02/2020 18:57 --> admin : 
+'Пользователь Kostyantin Sar/haza@gmail.com удален '
+24/02/2020 18:57 --> admin : 
+'Пользователь Hennadii Hal/g@gmail.com удален '
+24/02/2020 19:01 --> admin : 
+'Пользователь Kamil Muminov/k@yandex.ru удален '
