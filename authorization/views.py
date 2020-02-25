@@ -108,7 +108,7 @@ def groups(request):
 
         li = set(Group.objects.all())
 
-
+        
 
         # creating all data list
         context = {
@@ -552,6 +552,18 @@ class CreateNewGroup(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class DeleteDaily(LoginRequiredMixin, DeleteView):
+    model = People
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        client = self.kwargs['pk']
+        client = People.objects.get(id = client)
+        log(request.user.username, "Пользователь "+ client.name +"/"+ client.email+" удален ") 
+        client.dell()
+        return HttpResponseRedirect('/staff/')
 
 class DeletePeople(LoginRequiredMixin, DeleteView):
     model = People
@@ -598,7 +610,7 @@ def start(request):
     # global session_key
     # session_key = request.session.session_key
     log(request.user.username, "Пользователь вошел ") 
-    return redirect('staff')
+    return redirect('todo')
 
 
 @login_required

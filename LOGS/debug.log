@@ -97,3 +97,334 @@ Traceback (most recent call last):
   File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 397, in form_valid
     print(l)
 NameError: name 'l' is not defined
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 56, in get_time_start
+    time = datetime(self.time_start)
+TypeError: an integer is required (got type datetime.datetime)
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 56, in get_time_start
+    time = datetime(self.time_start)
+TypeError: an integer is required (got type datetime.datetime)
+Not Found: /favicon.ico
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 56, in get_time_start
+    time = datetime(self.time_start)
+TypeError: an integer is required (got type datetime.datetime)
+Not Found: /favicon.ico
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 56, in get_time_start
+    time = datetime(self.time_start)
+TypeError: an integer is required (got type datetime.datetime)
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 56, in get_time_start
+    time = datetime(self.time_start)
+TypeError: an integer is required (got type datetime.datetime)
+Not Found: /favicon.ico
+Internal Server Error: /groups/
+Traceback (most recent call last):
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\contrib\auth\decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\views.py", line 119, in groups
+    return render(request,"groups.html",context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 904, in render_annotated
+    return self.render(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 987, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 671, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 796, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\storm\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\template\base.py", line 858, in _resolve_lookup
+    current = current()
+  File "C:\Users\storm\Documents\crm\CRM_Sedicomm\authorization\models.py", line 60, in get_time_end
+    time = datetime(self.time_end)
+TypeError: an integer is required (got type datetime.datetime)
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico

@@ -52,6 +52,18 @@ class Group(models.Model):
             person.request_status = "удален"
             person.save()
 
+    def get_time_start(self):
+        if self.time_start:
+            time = self.time_start.date().strftime('%d/%m/%Y')
+            return time
+        else: return "no time"
+
+    def get_time_end(self):
+        if self.time_end:
+            time = self.time_end.date().strftime('%d/%m/%Y')
+            return time
+        else: return "no time"
+
 
 
     

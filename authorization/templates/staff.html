@@ -134,6 +134,9 @@
                                             <div class="phone">{{item.email}}</div>
                                         </th>
                                         <th>
+                                            <div class="phone">{{item.phone}}</div>
+                                        </th>
+                                        <th>
                                             <div class="country">{{item.country}}</div>
                                         </th>
                                         <th>
@@ -232,7 +235,7 @@
                         </span>
                         <div class="buttons">
                             <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#ConfirmationFieldDel{{item.id}}" aria-expanded="false">No</button>
-                            <a href="{% url 'group_payments_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
+                            <a href="{% url 'daily_delete' item.id %}" class="btn btn-outline-danger">Yes</a>
                         </div>
                     </div>
                     </div>
