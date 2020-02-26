@@ -203,7 +203,7 @@ def groups_payments(request):
 
 
 def pay_filter(request, pk):
-    list_payments = People.objects.all().order_by('request_status','group', 'obligation', )
+    list_payments = People.objects.all().order_by('request_status','group', 'obligation')
     formcheck = 1
     groups_all = Group.objects.all()
     course_all = Course.objects.all()
@@ -280,6 +280,20 @@ def pay_filter(request, pk):
         nonpayed_query = request.GET.get('nonpayed')
         if nonpayed_query == 'on':
              list_payments = list_payments.filter(Q(request_status='ожидаем оплату'))
+
+
+        ########################################################################################
+
+        course_order_query = request.GET.get('course_order')
+        if course_order_query  == 'on':
+             list_payments = list_payments.order_by('course')
+
+
+        date_order_query = request.GET.get('date_order')
+        if date_order_query  == 'on':
+             list_payments = list_payments.order_by('add_date')
+
+
 
 
     elif pk == 6:

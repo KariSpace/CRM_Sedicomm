@@ -428,3 +428,47 @@ Not Found: /favicon.ico
 Not Found: /favicon.ico
 Not Found: /favicon.ico
 Not Found: /favicon.ico
+Not Found: /favicon.ico
+Internal Server Error: /pay_filter/5
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Asus\Desktop\crm\CRM_Sedicomm\CRM_Sedicomm\authorization\views.py", line 288, in pay_filter
+    if course_order_query  == 'on':
+NameError: name 'course_order_query' is not defined
+Internal Server Error: /pay_filter/5
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Asus\Desktop\crm\CRM_Sedicomm\CRM_Sedicomm\authorization\views.py", line 288, in pay_filter
+    if course_order_query  == 'on':
+NameError: name 'course_order_query' is not defined
+Internal Server Error: /pay_filter/5
+Traceback (most recent call last):
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Asus\Desktop\crm\CRM_Sedicomm\CRM_Sedicomm\authorization\views.py", line 294, in pay_filter
+    list_payments = list_payments.filter('add_date')
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\db\models\query.py", line 892, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\db\models\query.py", line 910, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\db\models\sql\query.py", line 1290, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\db\models\sql\query.py", line 1315, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python38-32\lib\site-packages\django\db\models\sql\query.py", line 1187, in build_filter
+    arg, value = filter_expr
+ValueError: too many values to unpack (expected 2)

@@ -1,0 +1,7 @@
+
+26/02/2020 08:27 --> Karina : 
+'Пользователь вошел '
+26/02/2020 08:31 --> Karina : 
+'Пользователь Viktor Baran/ek@gmail.com изменены поля: {'obligation': 400}'
+26/02/2020 08:32 --> Karina : 
+'Пользователь Viktor Baran/ek@gmail.com изменены поля: {'course_price': 1000}'
