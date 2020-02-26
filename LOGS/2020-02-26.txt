@@ -5,3 +5,5 @@
 'Пользователь Viktor Baran/ek@gmail.com изменены поля: {'obligation': 400}'
 26/02/2020 08:32 --> Karina : 
 'Пользователь Viktor Baran/ek@gmail.com изменены поля: {'course_price': 1000}'
+26/02/2020 11:38 --> Karina : 
+'Пользователь вошел '

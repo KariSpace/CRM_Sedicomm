@@ -135,10 +135,10 @@
                     </div>
                 </div>
                 <div class="d-block ">
-                    <div class="form-group text-center col-md-12">
-                        <div class="form-group text-center col-md-12">
+                    <div class="form-group text-center ">
+                        <div class="form-group text-center">
                             <!-- <label for="input">Курс</label> -->
-                            <select id="input" type="text" class="form-control col-md-6" name="course">
+                            <select id="input" type="text" class="form-control sel-width " name="course">
                     <option selected>Курс</option>
                     {% if course_all %}
                     {% for course in course_all %} 
@@ -148,12 +148,12 @@
                   </select>
                         </div>
                     </div>
-                    <div class="form-group text-center col-md-12">
+                    <div class="form-group text-center ">
 
 
-                        <div class="form-group text-center col-md-12">
+                        <div class="form-group text-center">
                             <!-- <label for="input">Группа</label> -->
-                            <select id="input" type="text" class="form-control col-md-6" name="group">
+                            <select id="input" type="text" class="form-control sel-width" name="group">
                     <option selected>Группа</option>
                     {% if groups_all %}
                     {% for group in groups_all %} 
@@ -190,18 +190,28 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row form-group ">
+                <div class="d-block ">
 
-                <div class="form-check ">
-                    <input class="form-check-input" type="checkbox" id="payments_status2" name="course_order">
-                    <label class="form-check-label" for="course_order">
-                        Курс     </label>
-                </div>
-                <div class="form-check ">
-                    <input class="form-check-input" type="checkbox" id="payments_status2" name="date_order">
-                    <label class="form-check-label" for="date_order">
-                        Дата            </label>
+
+                    <div class=" col-md-12 ">
+                        <div class="form-check  fl-row sorting ">
+                            <div class="sorting"> Sorting </div>
+                        </div>
+
+
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" id="payments_status1" name="partly">
+                            <label class="form-check-label" for="payments_status1">
+                                Курс 
+                            </label>
+                        </div>
+
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" id="payments_status2" name="nonpayed">
+                            <label class="form-check-label" for="payments_status2">
+                                Дата                 </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-row form-group">

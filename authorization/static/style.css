@@ -345,7 +345,7 @@ th {
 }
 
 .form-group {
-    justify-content: center;
+    justify-content: space-around;
 }
 
 label {
@@ -369,4 +369,12 @@ label {
 
 .form-check {
     margin-bottom: 16px;
+}
+
+.sel-width {
+    width: 200px;
+}
+
+.sorting {
+    padding: 0;
 }
